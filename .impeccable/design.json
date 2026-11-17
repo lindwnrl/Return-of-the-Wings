@@ -1,0 +1,364 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-11-16T17:15:59Z",
+  "title": "Design System: The Return of the Wings",
+  "extensions": {
+    "colorMeta": {
+      "deep-forest": {
+        "role": "primary",
+        "displayName": "Deep Forest",
+        "canonical": "#183d2b",
+        "tonalRamp": [
+          "#0d2117",
+          "#132f20",
+          "#183d2b",
+          "#245038",
+          "#33684a",
+          "#4c8163",
+          "#78a089",
+          "#b3c9bc"
+        ]
+      },
+      "leaf-green": {
+        "role": "primary",
+        "displayName": "Leaf Green",
+        "canonical": "#477a50",
+        "tonalRamp": [
+          "#17301f",
+          "#22452d",
+          "#2f5a3b",
+          "#3c6a44",
+          "#477a50",
+          "#669a6d",
+          "#93bb97",
+          "#c6dcc6"
+        ]
+      },
+      "leaf-ink": {
+        "role": "primary",
+        "displayName": "Leaf Ink",
+        "canonical": "#3c6a44",
+        "tonalRamp": [
+          "#152c1c",
+          "#1f4129",
+          "#2a5435",
+          "#3c6a44",
+          "#4c8053",
+          "#6b9e72",
+          "#9bc09e",
+          "#cbdecb"
+        ]
+      },
+      "natural-cream": {
+        "role": "neutral",
+        "displayName": "Natural Cream",
+        "canonical": "#f3f0df",
+        "tonalRamp": [
+          "#57543f",
+          "#7d7a62",
+          "#a5a289",
+          "#c8c5ac",
+          "#e0ddc9",
+          "#f3f0df",
+          "#f8f6ea",
+          "#fdfcf6"
+        ]
+      },
+      "soft-sage": {
+        "role": "secondary",
+        "displayName": "Soft Sage",
+        "canonical": "#b8d99a",
+        "tonalRamp": [
+          "#2b3a21",
+          "#455b34",
+          "#5f7d48",
+          "#7fa363",
+          "#b8d99a",
+          "#cbe3b4",
+          "#ddefcb",
+          "#eff8e4"
+        ]
+      },
+      "butterfly-amber": {
+        "role": "tertiary",
+        "displayName": "Butterfly Amber",
+        "canonical": "#e9a94d",
+        "tonalRamp": [
+          "#3d2709",
+          "#5f3d10",
+          "#855719",
+          "#b47a26",
+          "#e9a94d",
+          "#f0bd76",
+          "#f5d3a1",
+          "#fbeacc"
+        ]
+      },
+      "ink-soft": {
+        "role": "neutral",
+        "displayName": "Ink Soft",
+        "canonical": "#3a5142",
+        "tonalRamp": [
+          "#14201a",
+          "#1f2f26",
+          "#2a4033",
+          "#3a5142",
+          "#4e6b56",
+          "#6f8b76",
+          "#9cb2a0",
+          "#cfdcd2"
+        ]
+      },
+      "ink-faint": {
+        "role": "neutral",
+        "displayName": "Ink Faint",
+        "canonical": "#5a6c5d",
+        "tonalRamp": [
+          "#1c241e",
+          "#2b362c",
+          "#3b493c",
+          "#5a6c5d",
+          "#748573",
+          "#93a491",
+          "#b8c4b5",
+          "#dde3da"
+        ]
+      },
+      "field-cream": {
+        "role": "neutral",
+        "displayName": "Field Cream",
+        "canonical": "#ede9d3",
+        "tonalRamp": [
+          "#514f3c",
+          "#75725a",
+          "#9a977c",
+          "#c0bda3",
+          "#d8d4b9",
+          "#ede9d3",
+          "#f5f2e3",
+          "#fbf9f0"
+        ]
+      },
+      "footer-paper": {
+        "role": "neutral",
+        "displayName": "Footer Paper",
+        "canonical": "#ece8d5",
+        "tonalRamp": [
+          "#504e3e",
+          "#74715c",
+          "#98957e",
+          "#bebba5",
+          "#d6d2bb",
+          "#ece8d5",
+          "#f4f1e4",
+          "#faf8f0"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display",
+        "purpose": "The hero statement only; final word italic in Leaf Ink."
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "Every case heading; closing phrase italicises."
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "Quiz questions, threat names, binomials, label titles."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Paragraphs at 68ch max; ledes at 46ch in Ink Soft."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Nav, chips, plate numbers, metadata keys, tags."
+      }
+    },
+    "shadows": [
+      {
+        "name": "pin-lift",
+        "value": "0 0 0 1px rgb(243 240 223 / 0.85), 0 2px 6px rgb(24 61 43 / 0.35)",
+        "purpose": "Keeps amber annotation pins legible over a photograph. The only shadow in the system."
+      }
+    ],
+    "motion": [
+      {
+        "name": "ease-vitrine",
+        "value": "cubic-bezier(0.16, 1, 0.3, 1)",
+        "purpose": "Every case illumination, specimen settle, tick draw, and reveal."
+      },
+      {
+        "name": "illuminate",
+        "value": "900ms",
+        "purpose": "Frame border, tick scale, and reveal opacity on case entry."
+      },
+      {
+        "name": "settle",
+        "value": "1600ms",
+        "purpose": "Specimen scale from 1.045 to 1 on case entry."
+      },
+      {
+        "name": "stagger",
+        "value": "70ms",
+        "purpose": "Delay step between reveal children, up to four steps."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "sm",
+        "value": "30em"
+      },
+      {
+        "name": "md",
+        "value": "40em"
+      },
+      {
+        "name": "lg",
+        "value": "48em"
+      },
+      {
+        "name": "split",
+        "value": "56em"
+      },
+      {
+        "name": "nav",
+        "value": "62em"
+      },
+      {
+        "name": "rail",
+        "value": "75em"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "The campaign's only filled action; Leaf Ink fill with cream text.",
+      "html": "<button class=\"ds-btn\">Mulai dari telur <svg class=\"ds-btn-i\" viewBox=\"0 0 16 16\" aria-hidden=\"true\"><path d=\"M3 8h9M8 4l4 4-4 4\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\"/></svg></button>",
+      "css": ".ds-btn{display:inline-flex;align-items:center;justify-content:center;gap:.6rem;min-height:3rem;padding:.85rem 1.5rem;background:var(--leaf-ink,#3c6a44);color:var(--cream,#f3f0df);border:1px solid var(--leaf-ink,#3c6a44);border-radius:2px;font-family:'DM Sans',system-ui,sans-serif;font-size:.9375rem;font-weight:500;cursor:pointer;transition:background .25s,border-color .25s,transform .25s cubic-bezier(.16,1,.3,1)}.ds-btn:hover{background:var(--forest,#183d2b);border-color:var(--forest,#183d2b)}.ds-btn:active{transform:translateY(1px)}.ds-btn:focus-visible{outline:2px solid var(--forest,#183d2b);outline-offset:3px}.ds-btn-i{width:1rem;height:1rem}"
+    },
+    {
+      "name": "Ghost Button",
+      "kind": "button",
+      "refersTo": "button-ghost",
+      "description": "Secondary action inside a case; hairline outline that darkens on hover.",
+      "html": "<button class=\"ds-btn-ghost\">Periksa jawaban</button>",
+      "css": ".ds-btn-ghost{display:inline-flex;align-items:center;justify-content:center;min-height:2.5rem;padding:.6rem 1rem;background:transparent;color:var(--forest,#183d2b);border:1px solid rgb(24 61 43 / .34);border-radius:2px;font-family:'DM Sans',system-ui,sans-serif;font-size:.8125rem;font-weight:500;cursor:pointer;transition:border-color .25s}.ds-btn-ghost:hover{border-color:var(--forest,#183d2b)}.ds-btn-ghost:focus-visible{outline:2px solid var(--forest,#183d2b);outline-offset:3px}"
+    },
+    {
+      "name": "Layer Chip",
+      "kind": "chip",
+      "refersTo": "chip-selected",
+      "description": "Toggles one layer of the garden plan; selected fills deep forest.",
+      "html": "<div class=\"ds-chips\"><button class=\"ds-chip\" aria-pressed=\"true\"><svg viewBox=\"0 0 16 16\" aria-hidden=\"true\"><path d=\"M3 13c0-6 4-10 10-10 0 6-4 10-10 10Z\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\"/></svg>Inang larva</button><button class=\"ds-chip\" aria-pressed=\"false\"><svg viewBox=\"0 0 16 16\" aria-hidden=\"true\"><circle cx=\"8\" cy=\"8\" r=\"5\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\"/></svg>Bunga nektar</button></div>",
+      "css": ".ds-chips{display:flex;flex-wrap:wrap;gap:.5rem}.ds-chip{display:inline-flex;align-items:center;gap:.5rem;min-height:2.625rem;padding:.5rem .85rem;background:transparent;border:1px solid rgb(24 61 43 / .34);border-radius:2px;color:var(--ink-soft,#3a5142);font-family:'DM Sans',system-ui,sans-serif;font-size:.8125rem;cursor:pointer;transition:border-color .2s,background .2s,color .2s}.ds-chip svg{width:.9rem;height:.9rem}.ds-chip:hover{border-color:var(--forest,#183d2b);color:var(--forest,#183d2b)}.ds-chip[aria-pressed=\"true\"]{background:var(--forest,#183d2b);border-color:var(--forest,#183d2b);color:var(--cream,#f3f0df)}.ds-chip:focus-visible{outline:2px solid var(--forest,#183d2b);outline-offset:3px}"
+    },
+    {
+      "name": "Case Frame",
+      "kind": "card",
+      "refersTo": "case-frame",
+      "description": "The page's only container: hairline frame, corner ticks, engraved plate number.",
+      "html": "<section class=\"ds-case\"><span class=\"ds-tick ds-tl\"></span><span class=\"ds-tick ds-tr\"></span><span class=\"ds-tick ds-bl\"></span><span class=\"ds-tick ds-br\"></span><p class=\"ds-no\">Vitrin 03 · Mengenal kupu-kupu</p><h2 class=\"ds-h\">Tubuh kecil dengan <em>pekerjaan besar.</em></h2></section>",
+      "css": ".ds-case{position:relative;border:1px solid rgb(24 61 43 / .2);padding:clamp(1.5rem,3.4vw,3.5rem);background:var(--cream,#f3f0df);color:var(--forest,#183d2b);font-family:'DM Sans',system-ui,sans-serif}.ds-tick{position:absolute;width:.9rem;height:.9rem;border-color:var(--forest,#183d2b);border-style:solid;border-width:0}.ds-tl{top:-1px;left:-1px;border-top-width:1px;border-left-width:1px}.ds-tr{top:-1px;right:-1px;border-top-width:1px;border-right-width:1px}.ds-bl{bottom:-1px;left:-1px;border-bottom-width:1px;border-left-width:1px}.ds-br{bottom:-1px;right:-1px;border-bottom-width:1px;border-right-width:1px}.ds-no{position:absolute;top:0;left:clamp(2.25rem,3.4vw,3.5rem);transform:translateY(-50%);display:flex;align-items:center;gap:.7rem;margin:0;padding:0 .7rem;background:var(--cream,#f3f0df);font-size:.6875rem;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-faint,#5a6c5d)}.ds-no::before{content:'';width:.55rem;height:.55rem;border:1px solid var(--amber,#e9a94d);border-radius:50%;background:var(--cream,#f3f0df)}.ds-h{margin:.5rem 0 0;font-family:'DM Serif Display',Georgia,serif;font-weight:400;font-size:clamp(2rem,4.2vw,3.375rem);line-height:1.02;letter-spacing:-.015em}.ds-h em{font-style:italic;color:var(--leaf-ink,#3c6a44)}"
+    },
+    {
+      "name": "Museum Label",
+      "kind": "custom",
+      "description": "Metadata under a specimen: top rule, serif title, dotted-leader rows.",
+      "html": "<div class=\"ds-label\"><p class=\"ds-label-t\"><i>Papilio blumei</i></p><p class=\"ds-label-s\">Kupu-kupu Sulawesi</p><dl><div><dt>Famili</dt><dd>Papilionidae</dd></div><div><dt>Inang larva</dt><dd>Rutaceae</dd></div></dl></div>",
+      "css": ".ds-label{border-top:1px solid rgb(24 61 43 / .2);padding-top:.875rem;font-family:'DM Sans',system-ui,sans-serif;color:var(--forest,#183d2b)}.ds-label-t{margin:0;font-family:'DM Serif Display',Georgia,serif;font-size:1.25rem;line-height:1.1}.ds-label-t i{font-style:italic;color:var(--leaf-ink,#3c6a44)}.ds-label-s{margin:.25rem 0 0;font-size:.75rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-faint,#5a6c5d)}.ds-label dl{margin:.875rem 0 0;display:grid;gap:.3rem}.ds-label dl>div{display:flex;align-items:baseline;gap:.5rem;font-size:.8125rem}.ds-label dt{min-width:7.5rem;font-size:.6875rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-faint,#5a6c5d)}.ds-label dd{margin:0;font-weight:500}.ds-label dd::before{content:'';display:inline-block;width:1.25rem;border-bottom:1px dotted rgb(24 61 43 / .34);margin-right:.5rem;transform:translateY(-.28em)}"
+    },
+    {
+      "name": "Quiz Option",
+      "kind": "input",
+      "description": "A whole row is the radio target; feedback carries a word, never colour alone.",
+      "html": "<label class=\"ds-opt\"><input type=\"radio\" name=\"q\" checked><span>Makanan bagi ulat, dan tempat betina meletakkan telur</span></label>",
+      "css": ".ds-opt{display:flex;align-items:flex-start;gap:.7rem;max-width:62ch;padding:.7rem .85rem;border:1px solid rgb(24 61 43 / .12);border-radius:2px;background:#eef3e2;border-color:var(--leaf-ink,#3c6a44);font-family:'DM Sans',system-ui,sans-serif;font-size:.9375rem;line-height:1.5;color:var(--forest,#183d2b);cursor:pointer;transition:border-color .2s,background .2s}.ds-opt:hover{border-color:rgb(24 61 43 / .34);background:#f8f6ea}.ds-opt input{margin:.3rem 0 0;accent-color:var(--leaf-ink,#3c6a44);width:1rem;height:1rem;flex:0 0 auto}.ds-opt input:focus-visible{outline:2px solid var(--forest,#183d2b);outline-offset:3px}"
+    },
+    {
+      "name": "Action Task",
+      "kind": "input",
+      "description": "Drawn checkbox with a self-drawing checkmark; the whole row is the label.",
+      "html": "<label class=\"ds-task\"><input type=\"checkbox\" checked><span class=\"ds-box\"><svg viewBox=\"0 0 16 16\"><path d=\"M3.5 8.5l3 3 6-7\" fill=\"none\" stroke=\"#f3f0df\" stroke-width=\"2.2\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/></svg></span><span><span class=\"ds-task-t\">Tanam satu tanaman inang setempat</span><span class=\"ds-task-w\">Satu pot di balkon sudah cukup untuk satu betina bertelur.</span></span></label>",
+      "css": ".ds-task{display:grid;grid-template-columns:auto minmax(0,1fr);gap:.9rem;align-items:start;padding:1.1rem 0;border-bottom:1px solid rgb(24 61 43 / .12);cursor:pointer;font-family:'DM Sans',system-ui,sans-serif;color:var(--forest,#183d2b)}.ds-task:hover{background:#f8f6ea}.ds-task input{position:absolute;opacity:0;width:1px;height:1px}.ds-box{width:1.35rem;height:1.35rem;margin-top:.1rem;display:grid;place-items:center;border:1px solid var(--leaf-ink,#3c6a44);border-radius:1px;background:var(--leaf-ink,#3c6a44)}.ds-box svg{width:.85rem;height:.85rem}.ds-task input:not(:checked)+.ds-box{background:transparent;border-color:rgb(24 61 43 / .34)}.ds-task input:not(:checked)+.ds-box svg{opacity:0}.ds-task input:focus-visible+.ds-box{outline:2px solid var(--forest,#183d2b);outline-offset:3px}.ds-task-t{display:block;font-weight:500;font-size:1rem;line-height:1.45}.ds-task-w{display:block;margin-top:.3rem;font-size:.8125rem;line-height:1.55;color:var(--ink-soft,#3a5142)}"
+    },
+    {
+      "name": "Cabinet Rail",
+      "kind": "nav",
+      "description": "The desktop index: numbers only, with a tick that widens for the active case.",
+      "html": "<nav class=\"ds-rail\"><a href=\"#\" aria-current=\"true\">01</a><a href=\"#\">02</a><a href=\"#\">03</a></nav>",
+      "css": ".ds-rail{display:flex;flex-direction:column;justify-content:center;align-items:flex-end;gap:1.35rem;width:4.5rem;padding-right:1.15rem;border-right:1px solid rgb(24 61 43 / .12);background:var(--cream,#f3f0df);font-family:'DM Sans',system-ui,sans-serif}.ds-rail a{position:relative;display:flex;align-items:center;justify-content:flex-end;gap:.5rem;text-decoration:none;color:var(--ink-faint,#5a6c5d);font-size:.6875rem;letter-spacing:.12em;transition:color .25s}.ds-rail a::before{content:'';width:.4rem;height:1px;background:rgb(24 61 43 / .34);transition:width .35s cubic-bezier(.16,1,.3,1),background .35s}.ds-rail a:hover{color:var(--ink-soft,#3a5142)}.ds-rail a[aria-current=\"true\"]{color:var(--forest,#183d2b)}.ds-rail a[aria-current=\"true\"]::before{width:1rem;background:var(--forest,#183d2b)}.ds-rail a:focus-visible{outline:2px solid var(--forest,#183d2b);outline-offset:3px}"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Lit Vitrine",
+    "overview": "The page is a specimen cabinet, not a campaign brochure. Every section is a case: a hairline frame with corner ticks, a plate number engraved into the frame line, one specimen — a real photograph — and a museum label whose metadata rides dotted leaders. Illumination is the system's only ornament: a case lights as it enters the viewport, its ticks draw out, and its specimen settles from a slight over-scale. The material is paper and ink, not glass and gloss. Ground is Natural Cream; type is Deep Forest; colour comes from the specimen itself. The cabinet darkens exactly once, for the Threats case, and that single ground change is what marks the turn in the story.",
+    "keyCharacteristics": [
+      "Hairline frames (1px) with 0.9rem corner ticks, never rounded panels.",
+      "Plate numbers engraved into the frame edge, with an amber ring, never a kicker above a heading.",
+      "One specimen per case at real photographic fidelity.",
+      "Museum labels: dotted-leader metadata rows, binomials in italic serif.",
+      "Colour as signal, not decoration: amber marks a focused or selected state only.",
+      "One ground change for the whole page: cream to deep forest at Vitrin 05."
+    ],
+    "rules": [
+      {
+        "name": "The Amber Scarcity Rule",
+        "body": "Amber is a state, never a surface. It may colour an underline, a pin, a ring, or a 1px rule; it may never fill a block larger than an icon or set body text.",
+        "section": "colors"
+      },
+      {
+        "name": "The Two-Greens Rule",
+        "body": "Leaf Green draws; Leaf Ink speaks. Any element that carries words or cream text uses Leaf Ink.",
+        "section": "colors"
+      },
+      {
+        "name": "The Single Darkness Rule",
+        "body": "The page changes ground exactly once, at Vitrin 05. No other section may invert.",
+        "section": "colors"
+      },
+      {
+        "name": "The Italic Is The Turn Rule",
+        "body": "Emphasis in a display or headline is always the italic of the same face in Leaf Ink. No colour highlight, no underline, no bold weight change.",
+        "section": "typography"
+      },
+      {
+        "name": "The No-Eyebrow Rule",
+        "body": "Headings carry their own weight. A case is identified by its engraved plate number in the frame line, never by a small label sitting above the heading.",
+        "section": "typography"
+      },
+      {
+        "name": "The Eleven-Pixel Floor Rule",
+        "body": "Nothing functional is set below 0.6875rem (11px), and body copy never below 0.75rem (12px).",
+        "section": "typography"
+      },
+      {
+        "name": "The Drawn-Not-Lifted Rule",
+        "body": "A surface is never raised with a shadow to signal hierarchy. If a region needs to separate, it gets a hairline frame or a tonal step.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "Do set every word-bearing element in Leaf Ink or darker; check cream-on-fill and fill-on-cream both clear 4.5:1.",
+      "Do keep one specimen per case, at photographic fidelity, with its credit printed on the image.",
+      "Do engrave the case number into the frame line with the amber ring.",
+      "Do cap prose at 68ch and ledes at 46ch.",
+      "Do give every interactive control a 2px Deep Forest focus outline at 3px offset.",
+      "Do pair every state colour with a word or an icon."
+    ],
+    "donts": [
+      "Don't introduce a second dark section; Vitrin 05 is the page's only inversion.",
+      "Don't use Leaf Green for text — that is what Leaf Ink exists for.",
+      "Don't round a surface beyond 2px, and never give a case a shadow.",
+      "Don't place a kicker or eyebrow above a heading.",
+      "Don't let amber fill any area larger than an icon.",
+      "Don't swap a photograph for a drawn vector butterfly.",
+      "Don't add a card inside a card, or a panel inside a case."
+    ]
+  }
+}
