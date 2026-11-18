@@ -1050,32 +1050,34 @@ main > .case:last-child { padding-bottom: calc(var(--step) * 0.55); }
 .modal[open] { animation: modal-in 0.28s var(--ease) both; }
 @keyframes modal-in { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
 
-/* ---------- Butterfly rewards: flying and bloom -------------------------- */
+/* ---------- Butterfly rewards: flying, roaming and cursor ---------------- */
+/* #wings is a manual popover so it sits in the top layer, above the modal
+   dialog and its backdrop. The resets below undo the popover UA styles. */
 .wings {
   position: fixed; inset: 0; z-index: 60;
+  width: 100%; height: 100%; max-width: none; max-height: none;
+  margin: 0; padding: 0; border: 0; background: transparent; color: inherit;
   pointer-events: none; overflow: hidden;
 }
-.wings svg { position: absolute; display: block; will-change: transform, opacity; }
+.wings > svg { position: absolute; display: block; will-change: transform, opacity; }
+
+/* One flapping butterfly. Position, tilt and wing beat are set from main.js. */
+.bf {
+  position: absolute; left: 0; top: 0;
+  pointer-events: none; will-change: transform, opacity;
+  opacity: 1; transition: opacity 0.6s ease;
+}
+.bf svg { display: block; width: 100%; height: 100%; overflow: visible; }
+.bf.is-leaving { opacity: 0; }
+.bf--cursor { z-index: 2; opacity: 0; transition: opacity 0.15s ease; }
+.bf--cursor.is-visible { opacity: 1; }
 
 /* ---------- Optional butterfly cursor (fine pointers only) -------------- */
+/* The native pointer is hidden only while the script is drawing the
+   butterfly in its place (the script adds .cursor-wing). */
 @media (hover: hover) and (pointer: fine) {
   html.cursor-wing,
-  html.cursor-wing body,
-  html.cursor-wing p,
-  html.cursor-wing h1,
-  html.cursor-wing h2,
-  html.cursor-wing h3,
-  html.cursor-wing span,
-  html.cursor-wing div,
-  html.cursor-wing li,
-  html.cursor-wing dd,
-  html.cursor-wing td,
-  html.cursor-wing th { cursor: url("data:image/png;base64,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") 13 10, auto; }
-  html.cursor-wing a,
-  html.cursor-wing button,
-  html.cursor-wing label,
-  html.cursor-wing input,
-  html.cursor-wing [role="switch"] { cursor: url("data:image/png;base64,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") 13 10, pointer; }
+  html.cursor-wing * { cursor: none !important; }
 }
 
 /* ---------- Motion ------------------------------------------------------- */
@@ -1097,7 +1099,8 @@ main > .case:last-child { padding-bottom: calc(var(--step) * 0.55); }
   }
   .js .reveal { opacity: 1; transform: none; }
   .modal[open] { animation: none; }
-  .wings { display: none; }
+  .wings > svg, .bf--swarm { display: none; }
+  .lily { display: none; }
   .plate__img img { transform: none; }
   .case .tick { transform: none; opacity: 1; }
 }
@@ -1109,3 +1112,49 @@ main > .case:last-child { padding-bottom: calc(var(--step) * 0.55); }
   .case, .case--dark { background: #fff; color: #000; }
   .reveal { opacity: 1; transform: none; }
 }
+
+/* ---------- Secret blue butterfly, cursor choice, info dialog ------------------- */
+.bf--secret { pointer-events: auto; cursor: pointer; }
+.bf--secret::before { content: ""; position: absolute; inset: -14px; }
+.bf--secret svg { filter: drop-shadow(0 0 5px rgb(70 190 255 / 0.6)); }
+
+.seg { display: inline-flex; flex: 0 0 auto; border: 1px solid var(--rule-strong); border-radius: 1px; }
+.seg button {
+  min-height: 2.25rem; padding: 0.3rem 0.65rem; background: none; border: 0;
+  font: inherit; font-size: 0.6875rem; letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--ink-faint); cursor: pointer;
+}
+.seg button + button { border-left: 1px solid var(--rule-soft); }
+.seg button:hover { color: var(--forest); }
+.seg button[aria-checked="true"] { background: var(--forest); color: var(--cream); }
+.seg button:focus-visible { outline: 2px solid var(--forest); outline-offset: -3px; }
+
+.modal--blue { width: min(36rem, calc(100vw - 2rem)); max-height: calc(100vh - 2rem); overflow-y: auto; }
+.modal--blue h2 { margin-top: 0.4rem; }
+.modal__stat { display: flex; align-items: center; gap: 1rem; margin: 1.1rem 0 0; padding: 0.9rem 0; border-block: 1px solid var(--rule-soft); }
+.modal__stat b { font-family: var(--serif); font-weight: 400; font-size: clamp(2.6rem, 8vw, 3.6rem); line-height: 1; color: #1f6fb8; flex: 0 0 auto; }
+.modal__stat span { font-size: 0.9375rem; line-height: 1.5; color: var(--ink-soft); }
+.modal__sub { margin: 1.1rem 0 0; font-family: var(--sans); font-size: 0.6875rem; letter-spacing: 0.14em; text-transform: uppercase; font-weight: 500; color: var(--ink-faint); }
+.modal__sub + .small { margin-top: 0.3rem; }
+.modal__src { color: var(--ink-faint); }
+
+/* While the info dialog is open, keep the butterflies from crossing the text. */
+.wings > .bf, .wings > svg { transition: opacity 0.4s ease; }
+.wings.is-quiet > .bf:not(.bf--cursor), .wings.is-quiet > svg { opacity: 0.18; }
+
+/* ---------- Spider lily reward ------------------------------------------------ */
+.lily { margin-top: 1.25rem; display: flex; align-items: flex-end; gap: 1rem; }
+.lily[hidden] { display: none; }
+.lily__btn {
+  flex: 0 0 auto; width: 5.5rem; min-width: 44px; min-height: 44px; padding: 0.25rem;
+  background: none; border: 0; border-radius: 1px; cursor: pointer; color: inherit;
+}
+.lily__btn svg { display: block; width: 100%; height: auto; overflow: visible; transform-origin: 50% 100%; }
+.lily__btn:focus-visible { outline: 2px solid var(--forest); outline-offset: 2px; }
+.lily__btn[aria-disabled="true"] { cursor: default; }
+.lily.is-grown .lily__btn svg { animation: lily-grow 0.9s cubic-bezier(0.2, 0.8, 0.2, 1) both; }
+.lily__btn.is-open .lily__bloom { animation: lily-open 0.7s ease-out both; transform-box: fill-box; transform-origin: 50% 70%; }
+@keyframes lily-grow { from { transform: scale(0.15); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+@keyframes lily-open { 0% { transform: scale(1); } 35% { transform: scale(1.18) rotate(-4deg); } 100% { transform: scale(1.06); } }
+.bf--lily svg { filter: drop-shadow(0 0 4px rgb(200 16 46 / 0.35)); }
+@media print { .lily { display: none !important; } }

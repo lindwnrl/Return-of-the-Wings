@@ -50,7 +50,9 @@ DESIGN.md                  # sistem visual (token, tipografi, komponen)
 | Sakelar habitat | Mulai nonaktif; setiap sakelar punya kata status ("Aktif"/"Nonaktif") dan catatan yang berubah |
 | Popup keberhasilan | Muncul setiap kali keempat elemen aktif, dengan pesan dari PRD |
 | Animasi kupu-kupu | Tiga kupu-kupu melintas saat habitat lengkap; 18 kupu-kupu naik dan memudar saat komitmen dikirim |
-| Kursor kupu-kupu | Hanya untuk penunjuk presisi; bisa dinyalakan/dimatikan; disimpan di `localStorage` |
+| Kupu-kupu terbang | Hadiah "Rumah lengkap" punya sakelar Nyala/Mati. Saat dialog "Simulasi habitat berhasil dilengkapi!" muncul, kupu-kupu terbang berkeliaran di sepanjang halaman (posisinya menempel pada halaman, bukan layar; menghindari kursor, sesekali menyambar atau meluncur; tampil di atas dialog juga); mati otomatis di `prefers-reduced-motion`; disimpan di `localStorage` (`swarmOn`) |
+| Kupu-kupu biru rahasia | Satu kupu-kupu bersayap biru gelap (terinspirasi swallowtail asli) terbang di antara yang lain. Jika diklik, muncul dialog informasi kelangkaan kupu-kupu (survei Lumajang, Jawa Timur, Leksono dkk. 2025: 57 dari 123 spesies hanya di satu lokasi; artinya; dan ajakan melestarikan) dan ia berubah menjadi kursor baru dan sakelar kursor menjadi tiga pilihan: Mati / Klasik / Biru (`rewards.blue`, `rewards.cursorStyle`) |
+| Kursor kupu-kupu | Hanya untuk penunjuk presisi; kupu-kupu menggantikan kursor dan sayapnya mengepak: pelan saat diam, cepat saat bergerak, paling cepat di atas tautan/tombol; bisa dinyalakan/dimatikan; disimpan di `localStorage` |
 | Alternatif sentuh | Tombol "Terbangkan kupu-kupu" di perangkat sentuh, menggantikan kursor |
 | Sayap sempurna | Terbuka hanya bila skor kuis 5/5 |
 | Butterfly Bloom | 18 kupu-kupu dari bawah layar, menyebar, memudar, lalu membersihkan dirinya |
