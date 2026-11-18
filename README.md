@@ -1,10 +1,10 @@
 # The Return of the Wings
 
-Halaman kampanye edukasi lingkungan: biodiversitas diperkenalkan lewat kupu-kupu —
-siklus hidupnya, tanaman inang dan nektarnya, ancaman terhadap habitatnya, dan tindakan
-yang bisa dilakukan siapa saja. Bahasa Indonesia.
+Halaman kampanye edukasi lingkungan yang memperkenalkan biodiversitas melalui kupu-kupu,
+mulai dari siklus hidupnya, tanaman inang dan nektarnya, ancaman terhadap habitatnya, hingga tindakan
+sederhana yang bisa dilakukan siapa saja. Ditulis dalam Bahasa Indonesia.
 
-Purwarupa frontend sesuai PRD v0.3. Tanpa backend, tanpa akun, tanpa dependensi.
+Aplikasi web statis sesuai PRD v0.4. Berjalan langsung di sisi frontend tanpa backend, tanpa akun, dan tanpa dependensi eksternal.
 
 ## Menjalankan
 
@@ -15,78 +15,70 @@ python -m http.server 8000
 # http://127.0.0.1:8000
 ```
 
-Tidak ada langkah build. Seluruh berkas statis; unggah apa adanya ke Netlify/Vercel.
+Tidak memerlukan langkah build. Seluruh berkas bersifat statis dan siap diunggah langsung ke Netlify, Vercel, atau GitHub Pages.
 
 ## Struktur
 
 ```
-index.html                 # satu halaman, tujuh bagian (vitrin 01–07)
-assets/css/styles.css      # token, tata letak, komponen, gerak, cetak
-assets/js/main.js          # navigasi, scroll-spy, stepper siklus, simulasi habitat, kuis, komitmen, hadiah
-assets/img/*.webp          # foto spesimen (JPEG asli disimpan untuk rujukan)
-assets/fonts/*.woff2       # DM Serif Display + DM Sans, dihosting sendiri
-PRODUCT.md                 # kebenaran produk (pengguna, batasan, komitmen merek)
-DESIGN.md                  # sistem visual (token, tipografi, komponen)
+index.html                 # satu halaman utama dengan tujuh bagian (Vitrin 01–07)
+assets/css/styles.css      # token desain, tata letak, komponen, animasi, gaya cetak
+assets/js/main.js          # navigasi, scroll-spy, tab siklus, simulasi habitat, kuis, komitmen, hadiah
+assets/img/*.webp          # foto spesimen teroptimasi
+assets/fonts/*.woff2       # DM Serif Display + DM Sans (self-hosted)
+PRODUCT.md                 # spesifikasi produk (pengguna, batasan, komitmen merek)
+DESIGN.md                  # sistem visual (token warna, tipografi, komponen)
 ```
 
 ## Interaksi
 
 | Fitur | Perilaku |
 |---|---|
-| Indeks vitrin (rail kiri) | Menandai bagian aktif saat menggulir; tersembunyi di bawah 1200px |
-| Menu seluler | Buka/tutup, `Esc` menutup, fokus kembali ke tombol |
-| Strip empat tahap (hero) | Di ponsel hanya nama tahapnya; kalimat penjelas ada di tab siklus hidup |
-| Siklus hidup | Empat tab, panah kiri/kanan, `Home`/`End`, `aria-selected` |
-| Simulasi habitat (FR-08) | Empat sakelar `role="switch"`, semuanya mulai nonaktif. Mengaktifkan keempatnya membuka dialog keberhasilan dan menerbangkan kupu-kupu |
-| Kuis (FR-09) | Tombol terkunci sampai kelima pertanyaan terjawab, berubah menjadi "Kirim Jawaban"; jawaban terkunci setelah dikirim; skor + penjelasan |
-| Hadiah | Tiga hadiah: Rumah lengkap, Kursor kupu-kupu, Spider lily |
-| Aksi Nyata (FR-10) | Minimal satu langkah untuk mengirim; konfirmasi lokal + animasi Butterfly Bloom |
-| Checklist aksi | Enam langkah, tersimpan di `localStorage` (`rotw.checklist.v1`) |
+| Indeks vitrin (rail kiri) | Menandai bagian aktif saat menggulir dan otomatis disembunyikan pada layar di bawah 1200px |
+| Menu seluler | Membuka dan menutup menu navigasi, tombol `Esc` menutup menu dan mengembalikan fokus ke tombol |
+| Strip empat tahap (hero) | Pada layar ponsel hanya menampilkan nama tahap, sedangkan penjelasan lengkapnya tersedia di tab siklus hidup |
+| Siklus hidup | Empat tab interaktif dengan dukungan tombol panah kiri/kanan, `Home`/`End`, dan atribut `aria-selected` |
+| Simulasi habitat (FR-08) | Empat sakelar `role="switch"` yang semuanya dimulai dalam posisi nonaktif. Mengaktifkan keempatnya akan membuka dialog keberhasilan dan menerbangkan kupu-kupu |
+| Kuis (FR-09) | Tombol kirim baru aktif setelah kelima pertanyaan dijawab dan berubah label menjadi "Kirim Jawaban", lalu menampilkan skor serta pembahasan tiap nomor |
+| Hadiah | Tiga hadiah interaktif berupa Rumah lengkap, Kursor kupu-kupu, dan Spider lily |
+| Aksi Nyata (FR-10) | Memilih minimal satu langkah komitmen untuk menampilkan konfirmasi lokal serta animasi Butterfly Bloom |
+| Checklist aksi | Enam pilihan langkah nyata yang disimpan di `localStorage` (`rotw.checklist.v1`) |
 
 ### Fitur gamifikasi (PRD v0.4)
 
 | Fitur | Perilaku |
 |---|---|
-| Sakelar habitat | Mulai nonaktif; setiap sakelar punya kata status ("Aktif"/"Nonaktif") dan catatan yang berubah |
-| Popup keberhasilan | Muncul setiap kali keempat elemen aktif, dengan pesan dari PRD |
-| Animasi kupu-kupu | Tiga kupu-kupu melintas saat habitat lengkap; 18 kupu-kupu naik dan memudar saat komitmen dikirim |
-| Kupu-kupu terbang | Hadiah "Rumah lengkap" punya sakelar Nyala/Mati. Saat dialog "Simulasi habitat berhasil dilengkapi!" muncul, kupu-kupu terbang berkeliaran di sepanjang halaman (posisinya menempel pada halaman, bukan layar; menghindari kursor, sesekali menyambar atau meluncur; tampil di atas dialog juga); mati otomatis di `prefers-reduced-motion`; disimpan di `localStorage` (`swarmOn`) |
-| Kupu-kupu biru rahasia | Satu kupu-kupu bersayap biru gelap (terinspirasi swallowtail asli) terbang di antara yang lain. Jika diklik, muncul dialog informasi kelangkaan kupu-kupu (survei Lumajang, Jawa Timur, Leksono dkk. 2025: 57 dari 123 spesies hanya di satu lokasi; artinya; dan ajakan melestarikan) dan ia berubah menjadi kursor baru dan sakelar kursor menjadi tiga pilihan: Mati / Klasik / Biru (`rewards.blue`, `rewards.cursorStyle`) |
-| Kursor kupu-kupu | Hanya untuk penunjuk presisi; kupu-kupu menggantikan kursor dan sayapnya mengepak: pelan saat diam, cepat saat bergerak, paling cepat di atas tautan/tombol; bisa dinyalakan/dimatikan; disimpan di `localStorage` |
-| Alternatif sentuh | Tombol "Terbangkan kupu-kupu" di perangkat sentuh, menggantikan kursor |
-| Spider lily | Terbuka hanya bila skor kuis 5/5. Sakelar Nyala/Mati menumbuhkan bunga spider lily merah di bawah daftar Hadiah; menekan bunga melepas dua kupu-kupu merah yang terbang di sepanjang halaman, sekali per aktivasi (bunga lalu berstatus "sudah mekar"). Kupu-kupu hanya bertahan selama sesi; yang disimpan hanya status sakelar (`lilyOn`) |
-| Butterfly Bloom | 18 kupu-kupu dari bawah layar, menyebar, memudar, lalu membersihkan dirinya |
-| Pengurangan gerak | Semua animasi hadiah dilewati; dialog dan teks konfirmasi tetap muncul |
+| Sakelar habitat | Dimulai dalam kondisi nonaktif, dilengkapi label status ("Aktif"/"Nonaktif") dan penjelasan dampak yang berubah secara dinamis |
+| Popup keberhasilan | Muncul setiap kali keempat elemen habitat diaktifkan |
+| Animasi kupu-kupu | Tiga kupu-kupu melintas saat habitat lengkap, dan 18 kupu-kupu terbang naik saat komitmen dikirim |
+| Kupu-kupu terbang | Hadiah "Rumah lengkap" memiliki sakelar Nyala/Mati. Saat aktif, kupu-kupu terbang berkeliaran mengikuti koordinat halaman, menghindari kursor, dan otomatis nonaktif jika `prefers-reduced-motion` menyala (`swarmOn`) |
+| Kupu-kupu biru rahasia | Satu kupu-kupu bersayap biru gelap terbang di antara kupu-kupu lain setelah habitat dan kuis diselesaikan. Jika diklik, muncul dialog hasil riset keragaman kupu-kupu di Lumajang (Leksono dkk. 2025) sekaligus membuka opsi kursor ketiga yaitu Mati / Klasik / Biru (`rewards.blue`, `rewards.cursorStyle`) |
+| Kursor kupu-kupu | Tersedia pada perangkat dengan penunjuk presisi (mouse). Sayap mengepak perlahan saat diam, lebih cepat saat bergerak, dan paling cepat di atas tautan atau tombol (`localStorage`) |
+| Alternatif sentuh | Tombol "Terbangkan kupu-kupu" hadir pada perangkat layar sentuh sebagai pengganti kursor kustom |
+| Spider lily | Terbuka khusus bila skor kuis mencapai 5/5. Sakelar Nyala/Mati menumbuhkan bunga spider lily merah di bawah daftar Hadiah, dan menekan bunganya akan melepas dua kupu-kupu merah selama sesi berlangsung (`lilyOn`) |
+| Butterfly Bloom | Animasi 18 kupu-kupu yang terbang dari bawah layar lalu memudar dan menghapus elemen DOM-nya secara otomatis |
+| Pengurangan gerak | Seluruh animasi hadiah dilewati ketika pengaturan pengurangan gerak aktif, namun dialog dan teks konfirmasi tetap ditampilkan |
 
-Semua hadiah dan progres disimpan di peramban ini saja (`rotw.habitat.v1`, `rotw.rewards.v1`,
-`rotw.checklist.v1`, `rotw.commit.v1`) dan tidak tersinkron antarperangkat.
+Semua hadiah dan progres disimpan secara lokal di peramban perangkat (`rotw.habitat.v1`, `rotw.rewards.v1`,
+`rotw.checklist.v1`, `rotw.commit.v1`) tanpa sinkronisasi antarperangkat.
 
-Kuis dan checklist bekerja tanpa penyimpanan (mode privat tetap berfungsi; pilihan hanya
-tidak bertahan setelah muat ulang).
+Kuis dan checklist tetap berfungsi penuh pada mode penjelajahan privat meskipun datanya tidak disimpan setelah halaman dimuat ulang.
 
 ## Aksesibilitas
 
-- Target WCAG 2.2 AA. Semua teks memakai `--leaf-ink` (#3C6A44) atau lebih gelap di atas krem:
-  kontras ≥ 5.5:1. Hijau palet asli (#477A50) dipakai untuk garis, ikon, dan diagram.
-- `prefers-reduced-motion` menonaktifkan semua transisi dan entrance.
-- Tanpa JavaScript, seluruh isi tetap terlihat (kelas `.js` yang mengaktifkan animasi
-  dipasang oleh skrip inline).
-- Skip link memindahkan fokus ke `<main>`, landmark semantik, fokus terlihat, target sentuh ≥ 44px.
-- Umpan balik kuis tidak bergantung pada warna: ikon + label "Benar" / "Belum tepat".
-- Setiap sakelar habitat punya kata status, bukan hanya posisi dan warna.
-- Bunga spider lily adalah tombol sungguhan: bisa dicapai dengan Tab dan ditekan dengan
-  Enter/Space, punya label yang berubah saat sudah mekar, dan hasilnya diumumkan lewat
-  `aria-live`. Saat `prefers-reduced-motion` aktif, sakelar dan bunganya disembunyikan
-  dan sebuah kalimat menjelaskan sebabnya.
-- Merah spider lily (`#C8102E`, `#8E0B21`) adalah satu-satunya warna di luar palet dan
-  dibatasi pada bunga serta dua kupu-kupunya; alasannya dicatat di DESIGN.md.
-- Hadiah kursor tidak pernah wajib: kursor standar dan navigasi papan tunas tetap berfungsi.
-- Animasi hadiah berada di lapisan `pointer-events: none` dan tidak menghalangi interaksi.
+- Memenuhi target WCAG 2.2 AA. Seluruh teks menggunakan `--leaf-ink` (#3C6A44) atau warna lebih gelap di atas latar krem dengan rasio kontras ≥ 5.5:1.
+- Menghormati pengaturan `prefers-reduced-motion` dengan menonaktifkan transisi serta animasi dekoratif.
+- Seluruh konten tetap terbaca penuh meskipun JavaScript dinonaktifkan.
+- Dilengkapi tautan lewati ke isi utama (`#main`), landmark semantik, indikator fokus yang jelas, dan ukuran area sentuh minimal 44px.
+- Umpan balik kuis selalu memadukan warna dengan ikon serta teks label "Benar" atau "Belum tepat".
+- Setiap sakelar habitat menampilkan teks status secara eksplisit sehingga tidak bergantung pada warna saja.
+- Bunga spider lily dibuat menggunakan elemen `<button>` asli yang dapat diakses dengan tombol `Tab` serta ditekan menggunakan `Enter` atau `Space`, dilengkapi pengumuman `aria-live`.
+- Warna merah spider lily (`#C8102E`, `#8E0B21`) merupakan satu-satunya pengecualian di luar palet utama yang dikhususkan bagi bunga hadiah beserta dua kupu-kupunya sesuai catatan di `DESIGN.md`.
+- Hadiah kursor bersifat opsional sehingga kursor standar dan navigasi keyboard (papan ketik) tetap berfungsi normal.
+- Seluruh lapisan animasi hadiah menggunakan `pointer-events: none` agar tidak pernah menghalangi klik pengguna.
 
 ## Gambar
 
-Semua foto dari Wikimedia Commons, diperkecil ke WebP, dengan atribusi dan lisensi
-di footer halaman dan di setiap pelat. Tidak ada gambar tanpa kredit.
+Semua foto berasal dari Wikimedia Commons yang telah dioptimasi ke format WebP, lengkap dengan atribusi pemilik dan lisensi pada setiap foto maupun bagian footer.
 
 | Berkas | Spesies / subjek | Pemilik | Lisensi |
 |---|---|---|---|
@@ -108,6 +100,4 @@ di footer halaman dan di setiap pelat. Tidak ada gambar tanpa kredit.
    uses in East Java, Indonesia. *Biodiversitas*, 26(2), 551–563.
    <https://doi.org/10.13057/biodiv/d260204>
 
-Rentang waktu tiap tahap siklus bersifat umum dan berbeda menurut spesies, ketinggian,
-dan musim. Klaim tentang penurunan populasi diperlakukan sebagai hipotesis kampanye,
-bukan temuan ilmiah — lihat catatan di Vitrin 05.
+Rentang waktu pada setiap tahap metamorfosis merupakan gambaran umum yang dapat berbeda menurut spesies, ketinggian wilayah, serta musim.

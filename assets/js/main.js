@@ -251,15 +251,15 @@
   var habitatDialog = document.getElementById('habitatDialog');
 
   var HAB_ON = {
-    inang: 'Tanaman inang tersedia: daun untuk telur dan ulat.',
-    nektar: 'Bunga nektar tersedia: bahan bakar untuk kupu-kupu dewasa.',
-    perlindungan: 'Naungan dan semak tersedia: tempat berlindung dari angin dan hujan.',
-    koridor: 'Koridor tersedia: petak-petak hijau kini saling terhubung.'
+    inang: 'Tanaman inang tersedia sebagai sumber daun untuk telur dan ulat.',
+    nektar: 'Bunga nektar tersedia sebagai sumber energi untuk kupu-kupu dewasa.',
+    perlindungan: 'Naungan dan semak tersedia sebagai tempat berlindung dari angin, hujan, dan pemangsa.',
+    koridor: 'Koridor hijau tersedia sehingga petak-petak habitat kini saling terhubung.'
   };
   var HAB_OFF = {
     inang: 'Tanpa tanaman inang, tidak ada daun untuk telur dan ulat. Generasi berikutnya berhenti di sini.',
     nektar: 'Tanpa bunga penghasil nektar, kupu-kupu dewasa kehabisan bahan bakar untuk terbang dan kawin.',
-    perlindungan: 'Tanpa vegetasi pelindung, kupu-kupu terbuka pada angin, hujan, dan pemangsa.',
+    perlindungan: 'Tanpa tajuk dan semak pelindung, kupu-kupu rentan terhadap terpaan angin, hujan, dan pemangsa.',
     koridor: 'Ruang hijau yang terpisah membuat kupu-kupu sulit berpindah di antara petak-petak habitat.'
   };
 
@@ -932,8 +932,8 @@
     }
     l.btn.classList.add('is-open');
     l.btn.setAttribute('aria-disabled', 'true');
-    l.btn.setAttribute('aria-label', 'Bunga spider lily sudah mekar; dua kupu-kupu sedang terbang. Matikan lalu nyalakan sakelar untuk bunga baru.');
-    if (l.hint) l.hint.textContent = 'Dua kupu-kupu spider lily terbang. Matikan sakelar untuk menghilangkannya, nyalakan lagi untuk bunga baru.';
+    l.btn.setAttribute('aria-label', 'Bunga spider lily sudah mekar dan dua kupu-kupu sedang terbang. Matikan lalu nyalakan sakelar untuk bunga baru.');
+    if (l.hint) l.hint.textContent = 'Dua kupu-kupu spider lily sedang terbang. Matikan sakelar untuk menghilangkannya, lalu nyalakan kembali untuk menumbuhkan bunga baru.';
     ensureLoop();
   }
 
@@ -1110,24 +1110,24 @@
 
     var COPY = {
       '1': {
-        correct: 'Tepat. Tanaman inang adalah makanan larva sekaligus tempat bertelur, dua fungsi yang tidak digantikan bunga.',
-        wrong: 'Belum. Tanaman inang berfungsi sebagai makanan ulat dan tempat betina meletakkan telur; nektar adalah urusan imago.'
+        correct: 'Tanaman inang menyediakan daun makanan bagi ulat sekaligus tempat induk betina meletakkan telurnya.',
+        wrong: 'Tanaman inang berfungsi sebagai makanan ulat dan tempat betina bertelur, sedangkan nektar adalah sumber energi kupu-kupu dewasa.'
       },
       '2': {
-        correct: 'Tepat. Larva adalah tahap paling rakus; telur belum makan dan pupa berhenti makan sama sekali.',
-        wrong: 'Belum. Yang paling banyak makan adalah larva (ulat). Telur belum makan, dan pupa justru tidak makan.'
+        correct: 'Larva (ulat) adalah tahap paling aktif makan, sementara telur belum membutuhkan makan dan pupa (kepompong) berpuasa selama metamorfosis.',
+        wrong: 'Tahap yang paling banyak makan adalah larva (ulat). Telur belum makan, sementara pupa (kepompong) berhenti makan selama berubah wujud.'
       },
       '3': {
-        correct: 'Tepat. Tanpa daun inang, betina tidak punya tempat bertelur, sehingga tidak ada generasi berikutnya.',
-        wrong: 'Belum. Masalahnya bukan pada nektar, melainkan pada tidak adanya daun inang untuk larva.'
+        correct: 'Tanpa daun tanaman inang, kupu-kupu betina tidak memiliki tempat bertelur sehingga siklus generasi berikutnya terputus.',
+        wrong: 'Kupu-kupu betina membutuhkan daun tanaman inang tertentu agar telur dan ulatnya bisa tumbuh menjadi generasi baru.'
       },
       '4': {
-        correct: 'Tepat. Fragmentasi memisahkan populasi, sehingga pertukaran individu dan gen menjadi sulit.',
-        wrong: 'Belum. Fragmentasi memisahkan populasi menjadi kantong-kantong kecil yang sulit bertukar gen.'
+        correct: 'Fragmentasi memecah habitat menjadi petak-petak terpisah sehingga populasi sulit bertemu dan bertukar gen.',
+        wrong: 'Fragmentasi memisahkan habitat menjadi kantong-kantong kecil yang terisolasi sehingga populasi sulit berpindah maupun bertukar gen.'
       },
       '5': {
-        correct: 'Tepat. Kelangkaan yang terlihat bisa disebabkan musim, cuaca, tanaman berbunga, atau jam pengamatan. Itu hipotesis, bukan kesimpulan.',
-        wrong: 'Belum. Menghilangnya kupu-kupu dari satu pengamatan tidak membuktikan pencemaran atau kepunahan; perlu pengamatan yang lebih teliti.'
+        correct: 'Jarang terlihatnya kupu-kupu bisa dipengaruhi musim, cuaca, siklus mekarnya bunga, atau waktu pengamatan sehingga perlu diamati lebih lanjut.',
+        wrong: 'Jarang terlihatnya kupu-kupu dalam satu waktu belum tentu membuktikan pencemaran berat atau kepunahan karena perlu pengamatan lintas waktu dan musim.'
       }
     };
 
@@ -1217,11 +1217,11 @@
       resultTitle.textContent = correct + ' dari ' + total + ' benar';
 
       if (correct === total) {
-        resultText.textContent = 'Semua benar. Yang paling penting bukan skornya, melainkan bahwa urutan kebutuhannya sudah jelas: inang untuk larva, nektar untuk imago, naungan, dan jalur di antaranya.';
+        resultText.textContent = 'Semua jawaban tepat! Kamu sudah memahami rangkaian utuhnya, mulai dari tanaman inang untuk ulat, bunga nektar untuk kupu-kupu dewasa, naungan untuk berlindung, hingga koridor yang menyambungkan semuanya.';
       } else if (correct >= total - 2) {
-        resultText.textContent = 'Hampir semua tepat. Baca ulang penjelasan di bawah jawaban yang masih tertukar, biasanya antara kebutuhan larva dan kebutuhan kupu-kupu dewasa.';
+        resultText.textContent = 'Hampir semuanya tepat! Coba simak kembali penjelasan pada nomor yang masih tertukar, terutama perbedaan antara kebutuhan ulat dan kebutuhan kupu-kupu dewasa.';
       } else {
-        resultText.textContent = 'Cukup. Kembali ke Vitrin 03 dan 04 sebentar; dua bagian itu memuat hampir semua jawaban.';
+        resultText.textContent = 'Permulaan yang baik. Kamu bisa menengok kembali Vitrin 03 dan 04 sejenak karena kedua bagian itu memuat petunjuk untuk semua pertanyaan di atas.';
       }
 
       var rewards = STORE.read(REWARD_KEY, {});
@@ -1325,8 +1325,8 @@
 
         commitDone.hidden = false;
         commitTitle.textContent = 'Komitmen tercatat di peramban ini.';
-        commitText.textContent = picked.length + ' dari ' + boxes.length + ' langkah dipilih: ' +
-          titles.join('; ') + '.';
+        commitText.textContent = picked.length + ' dari ' + boxes.length + ' langkah dipilih, yaitu ' +
+          titles.join(', ') + '.';
         commitBtn.textContent = 'Perbarui komitmen';
 
         STORE.write('rotw.commit.v1', { at: new Date().toISOString(), tasks: titles });
