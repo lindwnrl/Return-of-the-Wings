@@ -39,7 +39,7 @@ DESIGN.md                  # sistem visual (token, tipografi, komponen)
 | Siklus hidup | Empat tab, panah kiri/kanan, `Home`/`End`, `aria-selected` |
 | Simulasi habitat (FR-08) | Empat sakelar `role="switch"`, semuanya mulai nonaktif. Mengaktifkan keempatnya membuka dialog keberhasilan dan menerbangkan kupu-kupu |
 | Kuis (FR-09) | Tombol terkunci sampai kelima pertanyaan terjawab, berubah menjadi "Kirim Jawaban"; jawaban terkunci setelah dikirim; skor + penjelasan |
-| Hadiah | Tiga hadiah: Rumah lengkap, Kursor kupu-kupu, Spider lily |
+| Hadiah | Tiga hadiah: Rumah lengkap, Kursor kupu-kupu, Sayap sempurna |
 | Aksi Nyata (FR-10) | Minimal satu langkah untuk mengirim; konfirmasi lokal + animasi Butterfly Bloom |
 | Checklist aksi | Enam langkah, tersimpan di `localStorage` (`rotw.checklist.v1`) |
 
@@ -54,7 +54,7 @@ DESIGN.md                  # sistem visual (token, tipografi, komponen)
 | Kupu-kupu biru rahasia | Satu kupu-kupu bersayap biru gelap (terinspirasi swallowtail asli) terbang di antara yang lain. Jika diklik, muncul dialog informasi kelangkaan kupu-kupu (survei Lumajang, Jawa Timur, Leksono dkk. 2025: 57 dari 123 spesies hanya di satu lokasi; artinya; dan ajakan melestarikan) dan ia berubah menjadi kursor baru dan sakelar kursor menjadi tiga pilihan: Mati / Klasik / Biru (`rewards.blue`, `rewards.cursorStyle`) |
 | Kursor kupu-kupu | Hanya untuk penunjuk presisi; kupu-kupu menggantikan kursor dan sayapnya mengepak: pelan saat diam, cepat saat bergerak, paling cepat di atas tautan/tombol; bisa dinyalakan/dimatikan; disimpan di `localStorage` |
 | Alternatif sentuh | Tombol "Terbangkan kupu-kupu" di perangkat sentuh, menggantikan kursor |
-| Spider lily | Terbuka hanya bila skor kuis 5/5. Sakelar Nyala/Mati menumbuhkan bunga spider lily merah di bawah daftar Hadiah; menekan bunga melepas dua kupu-kupu merah yang terbang di sepanjang halaman, sekali per aktivasi (bunga lalu berstatus "sudah mekar"). Kupu-kupu hanya bertahan selama sesi; yang disimpan hanya status sakelar (`lilyOn`) |
+| Sayap sempurna | Terbuka hanya bila skor kuis 5/5 |
 | Butterfly Bloom | 18 kupu-kupu dari bawah layar, menyebar, memudar, lalu membersihkan dirinya |
 | Pengurangan gerak | Semua animasi hadiah dilewati; dialog dan teks konfirmasi tetap muncul |
 
@@ -74,12 +74,6 @@ tidak bertahan setelah muat ulang).
 - Skip link memindahkan fokus ke `<main>`, landmark semantik, fokus terlihat, target sentuh ≥ 44px.
 - Umpan balik kuis tidak bergantung pada warna: ikon + label "Benar" / "Belum tepat".
 - Setiap sakelar habitat punya kata status, bukan hanya posisi dan warna.
-- Bunga spider lily adalah tombol sungguhan: bisa dicapai dengan Tab dan ditekan dengan
-  Enter/Space, punya label yang berubah saat sudah mekar, dan hasilnya diumumkan lewat
-  `aria-live`. Saat `prefers-reduced-motion` aktif, sakelar dan bunganya disembunyikan
-  dan sebuah kalimat menjelaskan sebabnya.
-- Merah spider lily (`#C8102E`, `#8E0B21`) adalah satu-satunya warna di luar palet dan
-  dibatasi pada bunga serta dua kupu-kupunya; alasannya dicatat di DESIGN.md.
 - Hadiah kursor tidak pernah wajib: kursor standar dan navigasi papan tunas tetap berfungsi.
 - Animasi hadiah berada di lapisan `pointer-events: none` dan tidak menghalangi interaksi.
 
