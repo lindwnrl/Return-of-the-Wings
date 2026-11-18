@@ -103,12 +103,14 @@
       }
       setActive(active);
 
-      if (progressBar) {
-        var doc = document.documentElement;
-        var max = doc.scrollHeight - window.innerHeight;
-        var p = max > 0 ? Math.min(1, Math.max(0, window.scrollY / max)) : 0;
-        progressBar.style.transform = 'scaleX(' + p.toFixed(4) + ')';
-      }
+      var doc = document.documentElement;
+      var max = doc.scrollHeight - window.innerHeight;
+      var p = max > 0 ? Math.min(1, Math.max(0, window.scrollY / max)) : 0;
+      if (progressBar) progressBar.style.transform = 'scaleX(' + p.toFixed(4) + ')';
+
+      // The backdrop only listens to where the reader is; it never runs on its own.
+      setBackdropMood(active);
+      setBackdropShift(p);
       ticking = false;
     });
   }
@@ -160,6 +162,87 @@
 
   var HAB_KEY = 'rotw.habitat.v1';
   var REWARD_KEY = 'rotw.rewards.v1';
+
+  /* -------------------------------------------------------- savanna backdrop */
+  /* Still by default (docs: "tipe tengah"). It has no click targets and no
+     motion of its own. It changes in one place only: in case 04 it echoes the
+     four habitat switches that already exist. Elsewhere it just shifts its
+     light, and it dims in the quiz and during long reading. A switch turns the
+     reaction off; prefers-reduced-motion makes it fully static. */
+  var savanna = document.getElementById('savanna');
+  var BACKDROP_KEY = 'rotw.backdrop.v1';
+  // ?latar=statis | interaktif forces a version for side-by-side testing; it is not saved.
+  var backdropParam = (function () {
+    try { return new URLSearchParams(window.location.search).get('latar'); } catch (err) { return null; }
+  })();
+  var MOODS = {
+    atas: 'dawn',             // 01 hero: dawn light, strongest
+    biodiversitas: 'calm',    // 02 long reading
+    'kupu-kupu': 'quiet',     // 03 life-cycle tabs already interactive
+    rumah: 'echo',            // 04 the only place the backdrop reacts
+    ancaman: 'calm',          // 05 dark case covers it anyway
+    kuis: 'quiet',            // 06 concentration
+    aksi: 'calm'              // 07 rewards own the motion
+  };
+  var backdrop = {
+    mood: 'calm',
+    on: {},
+    react: backdropParam === 'statis' ? false
+      : backdropParam === 'interaktif' ? true
+      : STORE.read(BACKDROP_KEY, { react: true }).react !== false
+  };
+
+  function renderBackdrop() {
+    if (!savanna) return;
+    var echo = backdrop.react && !reduceMotion && backdrop.mood === 'echo';
+    Array.prototype.forEach.call(savanna.querySelectorAll('[data-grow]'), function (g) {
+      g.classList.toggle('is-on', echo && !!backdrop.on[g.getAttribute('data-grow')]);
+    });
+  }
+
+  function syncBackdrop(on) {
+    backdrop.on = on || backdrop.on;
+    renderBackdrop();
+  }
+
+  function setBackdropMood(id) {
+    if (!savanna || reduceMotion) return;
+    var mood = MOODS[id] || 'calm';
+    if (mood === backdrop.mood && savanna.hasAttribute('data-mood')) return;
+    backdrop.mood = mood;
+    savanna.setAttribute('data-mood', mood);
+    savanna.classList.toggle('is-quiet', mood === 'quiet');
+    renderBackdrop();
+  }
+
+  function setBackdropShift(p) {
+    if (savanna && !reduceMotion) savanna.style.setProperty('--sv-p', p.toFixed(4));
+  }
+
+  var backdropToggle = document.getElementById('backdropToggle');
+  var backdropControl = document.getElementById('backdropControl');
+  var backdropReduced = document.getElementById('backdropReduced');
+
+  function paintBackdropToggle() {
+    if (!backdropToggle) return;
+    backdropToggle.setAttribute('aria-checked', String(backdrop.react));
+    var word = backdropToggle.querySelector('.switch__state');
+    if (word) word.textContent = backdrop.react ? 'Nyala' : 'Mati';
+  }
+
+  if (reduceMotion) {
+    // Static backdrop: say why the control is not offered instead of leaving a dead switch.
+    if (backdropControl) backdropControl.hidden = true;
+    if (backdropReduced) backdropReduced.hidden = false;
+  } else if (backdropToggle) {
+    paintBackdropToggle();
+    backdropToggle.addEventListener('click', function () {
+      backdrop.react = !backdrop.react;
+      if (!backdropParam) STORE.write(BACKDROP_KEY, { react: backdrop.react });
+      paintBackdropToggle();
+      renderBackdrop();
+    });
+  }
 
   var switches = Array.prototype.slice.call(document.querySelectorAll('.switch[data-target]'));
   var planLayers = Array.prototype.slice.call(document.querySelectorAll('.plan svg .layer'));
@@ -227,6 +310,7 @@
           : count + ' dari 4 elemen terisi. Halaman ini belum lengkap.');
     }
 
+    syncBackdrop(on);
     if (count === switches.length) completeHabitat(announce);
     return count;
   }
@@ -780,14 +864,17 @@
       hint: document.getElementById('lilyHint') };
   }
 
+  var LILY_LABEL = 'Bunga spider lily merah. Tekan untuk melepas dua kupu-kupu';
+
   function showLily() {
     var l = lilyEls();
-    if (!l.spot || lilyShown) return;
+    if (!l.spot || !l.btn || lilyShown) return;
     lilyShown = true;
     lilyReleased = false;
     l.btn.classList.remove('is-open');
     l.btn.removeAttribute('aria-disabled');
-    l.hint.textContent = 'Bunga spider lily tumbuh. Tekan bunganya.';
+    l.btn.setAttribute('aria-label', LILY_LABEL);
+    if (l.hint) l.hint.textContent = 'Bunga spider lily tumbuh. Tekan bunganya.';
     l.spot.hidden = false;
     l.spot.classList.remove('is-grown');
     void l.spot.offsetWidth;
@@ -807,9 +894,16 @@
     var l = lilyEls();
     removeLilyButterflies();
     lilyReleased = false;
+    // Drop the pressed look even when the flower is already hidden, so the next
+    // switch-on always starts from a closed bud.
+    if (l.btn) {
+      l.btn.classList.remove('is-open');
+      l.btn.removeAttribute('aria-disabled');
+      l.btn.setAttribute('aria-label', LILY_LABEL);
+    }
     if (!lilyShown) return;
     lilyShown = false;
-    if (l.spot) l.spot.hidden = true;
+    if (l.spot) { l.spot.hidden = true; l.spot.classList.remove('is-grown'); }
     if (l.hint) l.hint.textContent = '';
   }
 
@@ -838,7 +932,8 @@
     }
     l.btn.classList.add('is-open');
     l.btn.setAttribute('aria-disabled', 'true');
-    l.hint.textContent = 'Dua kupu-kupu spider lily terbang. Matikan sakelar untuk menyimpan bunganya.';
+    l.btn.setAttribute('aria-label', 'Bunga spider lily sudah mekar; dua kupu-kupu sedang terbang. Matikan lalu nyalakan sakelar untuk bunga baru.');
+    if (l.hint) l.hint.textContent = 'Dua kupu-kupu spider lily terbang. Matikan sakelar untuk menghilangkannya, nyalakan lagi untuk bunga baru.';
     ensureLoop();
   }
 
