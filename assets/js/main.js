@@ -780,14 +780,17 @@
       hint: document.getElementById('lilyHint') };
   }
 
+  var LILY_LABEL = 'Bunga spider lily merah. Tekan untuk melepas dua kupu-kupu';
+
   function showLily() {
     var l = lilyEls();
-    if (!l.spot || lilyShown) return;
+    if (!l.spot || !l.btn || lilyShown) return;
     lilyShown = true;
     lilyReleased = false;
     l.btn.classList.remove('is-open');
     l.btn.removeAttribute('aria-disabled');
-    l.hint.textContent = 'Bunga spider lily tumbuh. Tekan bunganya.';
+    l.btn.setAttribute('aria-label', LILY_LABEL);
+    if (l.hint) l.hint.textContent = 'Bunga spider lily tumbuh. Tekan bunganya.';
     l.spot.hidden = false;
     l.spot.classList.remove('is-grown');
     void l.spot.offsetWidth;
@@ -807,9 +810,16 @@
     var l = lilyEls();
     removeLilyButterflies();
     lilyReleased = false;
+    // Drop the pressed look even when the flower is already hidden, so the next
+    // switch-on always starts from a closed bud.
+    if (l.btn) {
+      l.btn.classList.remove('is-open');
+      l.btn.removeAttribute('aria-disabled');
+      l.btn.setAttribute('aria-label', LILY_LABEL);
+    }
     if (!lilyShown) return;
     lilyShown = false;
-    if (l.spot) l.spot.hidden = true;
+    if (l.spot) { l.spot.hidden = true; l.spot.classList.remove('is-grown'); }
     if (l.hint) l.hint.textContent = '';
   }
 
@@ -838,7 +848,8 @@
     }
     l.btn.classList.add('is-open');
     l.btn.setAttribute('aria-disabled', 'true');
-    l.hint.textContent = 'Dua kupu-kupu spider lily terbang. Matikan sakelar untuk menyimpan bunganya.';
+    l.btn.setAttribute('aria-label', 'Bunga spider lily sudah mekar; dua kupu-kupu sedang terbang. Matikan lalu nyalakan sakelar untuk bunga baru.');
+    if (l.hint) l.hint.textContent = 'Dua kupu-kupu spider lily terbang. Matikan sakelar untuk menghilangkannya, nyalakan lagi untuk bunga baru.';
     ensureLoop();
   }
 
