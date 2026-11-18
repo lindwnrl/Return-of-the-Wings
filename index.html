@@ -1,942 +1,1355 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>The Return of the Wings — Dunia yang setiap sayapnya berarti</title>
-<meta name="description" content="Kampanye edukasi lingkungan tentang biodiversitas melalui kupu-kupu: siklus hidup, tanaman inang, habitat, ancaman, dan tindakan yang bisa dilakukan siapa saja.">
-<meta name="theme-color" content="#F3F0DF">
-<meta property="og:title" content="The Return of the Wings">
-<meta property="og:description" content="Dunia yang setiap sayapnya berarti. Belajar biodiversitas lewat kupu-kupu di sekitar kita.">
-<meta property="og:type" content="website">
-<link rel="preload" href="assets/fonts/dm-serif-display-latin.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="assets/fonts/dm-sans-latin.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="assets/img/hero-tree-nymph.webp" as="image" type="image/webp">
-<link rel="stylesheet" href="assets/css/styles.css">
-<script>document.documentElement.classList.add("js");</script>
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23F3F0DF'/%3E%3Cpath d='M16 6c4 0 8 4 8 9s-3 9-8 9-8-4-8-9 4-9 8-9z' fill='%23183D2B'/%3E%3Cpath d='M16 8v16' stroke='%23F3F0DF' stroke-width='1.2'/%3E%3C/svg%3E">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>The Return of the Wings · Dunia yang setiap sayapnya berarti</title>
+  <meta name="description"
+    content="Kampanye edukasi lingkungan tentang biodiversitas melalui kupu-kupu, mulai dari siklus hidup, tanaman inang, habitat, ancaman, hingga langkah sederhana yang bisa kita lakukan.">
+  <meta name="theme-color" content="#F3F0DF">
+  <meta property="og:title" content="The Return of the Wings">
+  <meta property="og:description"
+    content="Dunia yang setiap sayapnya berarti. Belajar biodiversitas lewat kupu-kupu di sekitar kita.">
+  <meta property="og:type" content="website">
+  <link rel="preload" href="assets/fonts/dm-serif-display-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/dm-sans-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/img/hero-tree-nymph.webp" as="image" type="image/webp">
+  <link rel="stylesheet" href="assets/css/styles.css">
+  <script>document.documentElement.classList.add("js");</script>
+  <link rel="icon"
+    href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23F3F0DF'/%3E%3Cpath d='M16 6c4 0 8 4 8 9s-3 9-8 9-8-4-8-9 4-9 8-9z' fill='%23183D2B'/%3E%3Cpath d='M16 8v16' stroke='%23F3F0DF' stroke-width='1.2'/%3E%3C/svg%3E">
 </head>
+
 <body>
-<a class="skip" href="#main">Lewati ke isi utama</a>
+  <a class="skip" href="#main">Lewati ke isi utama</a>
 
-<header class="topbar">
-  <div class="shell">
-    <div class="topbar__inner">
-      <a class="brand" href="#atas">
-        The Return of the <em>Wings</em>
-        <small>Kampanye biodiversitas</small>
-      </a>
-      <nav class="nav" aria-label="Navigasi utama">
-        <a href="#biodiversitas">Biodiversitas</a>
-        <a href="#kupu-kupu">Kupu-kupu</a>
-        <a href="#rumah">Rumahnya</a>
-        <a href="#ancaman">Ancaman</a>
-        <a href="#kuis">Kuis</a>
-        <a href="#aksi">Aksi</a>
-      </nav>
-      <button class="menu-btn" type="button" id="menuBtn" aria-expanded="false" aria-controls="drawer">
-        <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2 4h12M2 8h12M2 12h12"/></svg>
-        Menu
-      </button>
-    </div>
-    <div class="drawer" id="drawer" hidden>
-      <a href="#biodiversitas">Biodiversitas <span>02</span></a>
-      <a href="#kupu-kupu">Mengenal kupu-kupu <span>03</span></a>
-      <a href="#rumah">Rumah kupu-kupu <span>04</span></a>
-      <a href="#ancaman">Ancaman <span>05</span></a>
-      <a href="#kuis">Kuis <span>06</span></a>
-      <a href="#aksi">Ambil tindakan <span>07</span></a>
-    </div>
+  <!-- Latar savana: dekoratif, tanpa target klik, diam secara default.
+     Hanya bereaksi di Vitrin 04 (lihat main.js, "savanna backdrop"). -->
+  <div class="savanna" id="savanna" aria-hidden="true">
+    <svg viewBox="0 0 1440 900" preserveAspectRatio="xMidYMax slice" focusable="false">
+      <defs>
+        <linearGradient id="svSky" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0" stop-color="#B8D99A" stop-opacity="0" />
+          <stop offset="1" stop-color="#B8D99A" stop-opacity=".12" />
+        </linearGradient>
+        <radialGradient id="svGlow" cx=".5" cy=".5" r=".5">
+          <stop offset="0" stop-color="#FFFDF3" stop-opacity=".95" />
+          <stop offset=".55" stop-color="#FFFDF3" stop-opacity=".4" />
+          <stop offset="1" stop-color="#FFFDF3" stop-opacity="0" />
+        </radialGradient>
+        <symbol id="svTuft" viewBox="0 0 30 24">
+          <g fill="none" stroke="#477A50" stroke-opacity=".3" stroke-width="1.1" stroke-linecap="round"
+            vector-effect="non-scaling-stroke">
+            <path
+              d="M15 24C14 16 11 9 6 3M15 24C15 14 15 8 15 0M15 24C16 16 19 9 25 4M12 24C11 18 8 14 3 11M18 24C19 18 22 14 28 12" />
+          </g>
+        </symbol>
+        <symbol id="svShrub" viewBox="0 0 120 70">
+          <path d="M6 70C0 50 14 34 32 36C34 18 58 8 74 22C88 12 112 24 108 46C120 52 118 70 106 70Z" fill="#B8D99A"
+            fill-opacity=".09" stroke="#477A50" stroke-opacity=".3" stroke-width="1"
+            vector-effect="non-scaling-stroke" />
+          <path d="M30 70C32 54 40 44 52 40M70 70C68 56 74 44 86 38" fill="none" stroke="#477A50" stroke-opacity=".24"
+            stroke-width="1" vector-effect="non-scaling-stroke" />
+        </symbol>
+        <symbol id="svAcacia" viewBox="0 0 320 190">
+          <path d="M156 190C156 150 150 118 138 92M156 150C166 124 184 108 206 96" fill="none" stroke="#183D2B"
+            stroke-opacity=".24" stroke-width="1.2" vector-effect="non-scaling-stroke" />
+          <path d="M20 78C50 40 120 30 160 40C210 28 280 40 304 76C260 92 200 84 160 88C120 84 60 92 20 78Z"
+            fill="#B8D99A" fill-opacity=".08" stroke="#477A50" stroke-opacity=".28" stroke-width="1"
+            vector-effect="non-scaling-stroke" />
+          <path d="M60 70C100 56 140 54 160 58M176 56C210 50 250 56 280 68" fill="none" stroke="#477A50"
+            stroke-opacity=".2" stroke-width="1" vector-effect="non-scaling-stroke" />
+        </symbol>
+      </defs>
+
+      <!-- Lapisan tetap: langit, cahaya, punggung bukit, akasia jauh, tanah -->
+      <rect width="1440" height="700" fill="url(#svSky)" />
+      <g class="sv-glow">
+        <ellipse cx="660" cy="600" rx="660" ry="300" fill="url(#svGlow)" />
+      </g>
+      <g class="sv-sun">
+        <path d="M587 596A13 13 0 0 1 613 596Z" fill="#E9A94D" fill-opacity=".85" />
+      </g>
+      <path
+        d="M0 628C120 612 230 604 340 616S520 596 600 596S740 614 840 616S1000 592 1120 600S1330 604 1440 620V760H0Z"
+        fill="#B8D99A" fill-opacity=".08" />
+      <path
+        d="M0 690C160 650 300 660 420 676C560 694 680 640 840 650C1000 660 1100 700 1240 672C1330 654 1400 660 1440 668V900H0Z"
+        fill="#B8D99A" fill-opacity=".09" />
+      <path
+        d="M0 690C160 650 300 660 420 676C560 694 680 640 840 650C1000 660 1100 700 1240 672C1330 654 1400 660 1440 668"
+        fill="none" stroke="#477A50" stroke-opacity=".24" stroke-width="1" vector-effect="non-scaling-stroke" />
+      <use href="#svAcacia" x="90" y="560" width="200" height="118.8" />
+      <use href="#svAcacia" x="585" y="596" width="120" height="71.3" />
+      <use href="#svAcacia" x="1090" y="548" width="250" height="148.5" />
+      <path d="M0 740C240 720 480 732 720 728C960 724 1200 716 1440 730V900H0Z" fill="#B8D99A" fill-opacity=".04" />
+      <path d="M0 800C300 784 560 796 800 790C1040 784 1260 780 1440 794V900H0Z" fill="#B8D99A" fill-opacity=".04" />
+      <use href="#svTuft" x="40" y="742" width="30" height="24.0" />
+      <use href="#svTuft" x="150" y="752" width="26" height="20.8" />
+      <use href="#svTuft" x="430" y="758" width="28" height="22.4" />
+      <use href="#svTuft" x="560" y="744" width="26" height="20.8" />
+      <use href="#svTuft" x="700" y="752" width="30" height="24.0" />
+      <use href="#svTuft" x="820" y="742" width="26" height="20.8" />
+      <use href="#svTuft" x="940" y="756" width="32" height="25.6" />
+      <use href="#svTuft" x="1310" y="740" width="26" height="20.8" />
+      <use href="#svTuft" x="90" y="822" width="34" height="27.2" />
+      <use href="#svTuft" x="260" y="836" width="30" height="24.0" />
+      <use href="#svTuft" x="520" y="828" width="34" height="27.2" />
+      <use href="#svTuft" x="760" y="840" width="30" height="24.0" />
+      <use href="#svTuft" x="1000" y="830" width="34" height="27.2" />
+      <use href="#svTuft" x="1240" y="838" width="30" height="24.0" />
+
+      <!-- Lapisan yang bereaksi: hanya tampil di Vitrin 04, mengikuti empat sakelar -->
+      <g class="sv-grow" data-grow="inang">
+        <use href="#svShrub" x="60" y="790" width="120" height="70.0" />
+        <use href="#svShrub" x="230" y="818" width="96" height="56.0" />
+        <use href="#svShrub" x="470" y="804" width="110" height="64.1" />
+        <use href="#svShrub" x="610" y="812" width="128" height="74.6" />
+        <use href="#svShrub" x="770" y="800" width="108" height="63.0" />
+        <use href="#svShrub" x="905" y="824" width="96" height="56.0" />
+        <use href="#svShrub" x="1090" y="796" width="120" height="70.0" />
+        <use href="#svShrub" x="1260" y="816" width="108" height="63.0" />
+        <use href="#svShrub" x="1370" y="802" width="92" height="53.6" />
+      </g>
+      <g class="sv-grow" data-grow="nektar">
+        <path d="M90 876 c4 -9 -4 -15 2 -22" fill="none" stroke="#477A50" stroke-opacity=".4" stroke-width="1"
+          vector-effect="non-scaling-stroke" />
+        <circle cx="92" cy="854" r="3.3" fill="#E9A94D" fill-opacity=".8" />
+        <path d="M150 866 c-4 -9 4 -15 -2 -22" fill="none" stroke="#477A50" stroke-opacity=".4" stroke-width="1"
+          vector-effect="non-scaling-stroke" />
+        <circle cx="148" cy="844" r="3.3" fill="#E9A94D" fill-opacity=".8" />
+        <path d="M215 876 c-4 -14 4 -24 -2 -34" fill="none" stroke="#477A50" stroke-opacity=".4" stroke-width="1"
+          vector-effect="non-scaling-stroke" />
+        <circle cx="213" cy="842" r="3.3" fill="#E9A94D" fill-opacity=".8" />
+        <path d="M300 872 c-4 -9 4 -15 -2 -22" fill="none" stroke="#477A50" stroke-opacity=".4" stroke-width="1"
+          vector-effect="non-scaling-stroke" />
+        <circle cx="298" cy="850" r="3.3" fill="#E9A94D" fill-opacity=".8" />
+        <path d="M380 880 c-4 -11 4 -20 -2 -28" fill="none" stroke="#477A50" stroke-opacity=".4" stroke-width="1"
+          vector-effect="non-scaling-stroke" />
+        <circle cx="378" cy="852" r="3.3" fill="#E9A94D" fill-opacity=".8" />
+        <path d="M455 872 c4 -9 -4 -15 2 -22" fill="none" stroke="#477A50" stroke-opacity=".4" stroke-width="1"
+          vector-effect="non-scaling-stroke" />
+        <circle cx="457" cy="850" r="3.3" fill="#E9A94D" fill-opacity=".8" />
+        <path d="M540 866 c-4 -14 4 -24 -2 -34" fill="none" stroke="#477A50" stroke-opacity=".4" stroke-width="1"
+          vector-effect="non-scaling-stroke" />
+        <circle cx="538" cy="832" r="3.3" fill="#E9A94D" fill-opacity=".8" />
+        <path d="M600 872 c-4 -14 4 -24 -2 -34" fill="none" stroke="#477A50" stroke-opacity=".4" stroke-width="1"
+          vector-effect="non-scaling-stroke" />
+        <circle cx="598" cy="838" r="3.3" fill="#E9A94D" fill-opacity=".8" />
+        <path d="M655 880 c-2 -9 2 -15 -1 -22" fill="none" stroke="#477A50" stroke-opacity=".4" stroke-width="1"
+          vector-effect="non-scaling-stroke" />
+        <circle cx="654" cy="858" r="3.3" fill="#E9A94D" fill-opacity=".8" />
+        <path d="M700 866 c-2 -14 2 -24 -1 -34" fill="none" stroke="#477A50" stroke-opacity=".4" stroke-width="1"
+          vector-effect="non-scaling-stroke" />
+        <circle cx="699" cy="832" r="3.3" fill="#E9A94D" fill-opacity=".8" />
+        <path d="M760 876 c-2 -11 2 -20 -1 -28" fill="none" stroke="#477A50" stroke-opacity=".4" stroke-width="1"
+          vector-effect="non-scaling-stroke" />
+        <circle cx="759" cy="848" r="3.3" fill="#E9A94D" fill-opacity=".8" />
+        <path d="M815 866 c2 -14 -2 -24 1 -34" fill="none" stroke="#477A50" stroke-opacity=".4" stroke-width="1"
+          vector-effect="non-scaling-stroke" />
+        <circle cx="816" cy="832" r="3.3" fill="#E9A94D" fill-opacity=".8" />
+        <path d="M870 872 c-2 -9 2 -15 -1 -22" fill="none" stroke="#477A50" stroke-opacity=".4" stroke-width="1"
+          vector-effect="non-scaling-stroke" />
+        <circle cx="869" cy="850" r="3.3" fill="#E9A94D" fill-opacity=".8" />
+        <path d="M935 876 c-4 -9 4 -15 -2 -22" fill="none" stroke="#477A50" stroke-opacity=".4" stroke-width="1"
+          vector-effect="non-scaling-stroke" />
+        <circle cx="933" cy="854" r="3.3" fill="#E9A94D" fill-opacity=".8" />
+        <path d="M1010 866 c-2 -14 2 -24 -1 -34" fill="none" stroke="#477A50" stroke-opacity=".4" stroke-width="1"
+          vector-effect="non-scaling-stroke" />
+        <circle cx="1009" cy="832" r="3.3" fill="#E9A94D" fill-opacity=".8" />
+        <path d="M1085 880 c4 -14 -4 -24 2 -34" fill="none" stroke="#477A50" stroke-opacity=".4" stroke-width="1"
+          vector-effect="non-scaling-stroke" />
+        <circle cx="1087" cy="846" r="3.3" fill="#E9A94D" fill-opacity=".8" />
+        <path d="M1160 876 c4 -11 -4 -20 2 -28" fill="none" stroke="#477A50" stroke-opacity=".4" stroke-width="1"
+          vector-effect="non-scaling-stroke" />
+        <circle cx="1162" cy="848" r="3.3" fill="#E9A94D" fill-opacity=".8" />
+        <path d="M1235 876 c-2 -11 2 -20 -1 -28" fill="none" stroke="#477A50" stroke-opacity=".4" stroke-width="1"
+          vector-effect="non-scaling-stroke" />
+        <circle cx="1234" cy="848" r="3.3" fill="#E9A94D" fill-opacity=".8" />
+        <path d="M1300 872 c-2 -14 2 -24 -1 -34" fill="none" stroke="#477A50" stroke-opacity=".4" stroke-width="1"
+          vector-effect="non-scaling-stroke" />
+        <circle cx="1299" cy="838" r="3.3" fill="#E9A94D" fill-opacity=".8" />
+        <path d="M1370 866 c2 -14 -2 -24 1 -34" fill="none" stroke="#477A50" stroke-opacity=".4" stroke-width="1"
+          vector-effect="non-scaling-stroke" />
+        <circle cx="1371" cy="832" r="3.3" fill="#E9A94D" fill-opacity=".8" />
+      </g>
+      <g class="sv-grow" data-grow="perlindungan">
+        <use href="#svAcacia" x="560" y="640" width="260" height="154.4" />
+        <use href="#svAcacia" x="990" y="600" width="380" height="225.7" />
+        <use href="#svShrub" x="20" y="770" width="150" height="87.4" />
+        <use href="#svShrub" x="160" y="786" width="120" height="70.0" />
+      </g>
+      <g class="sv-grow" data-grow="koridor">
+        <path d="M60 850C260 826 420 872 620 846C820 820 1000 866 1380 836" fill="none" stroke="#B8D99A"
+          stroke-opacity=".16" stroke-width="10" stroke-linecap="round" />
+        <path d="M60 850C260 826 420 872 620 846C820 820 1000 866 1380 836" fill="none" stroke="#477A50"
+          stroke-opacity=".4" stroke-width="1.2" stroke-dasharray="3 9" vector-effect="non-scaling-stroke" />
+        <circle cx="60" cy="850" r="3" fill="#477A50" fill-opacity=".32" />
+        <circle cx="620" cy="846" r="3" fill="#477A50" fill-opacity=".32" />
+        <circle cx="1380" cy="836" r="3" fill="#477A50" fill-opacity=".32" />
+      </g>
+    </svg>
   </div>
-</header>
 
-<nav class="rail" aria-label="Indeks vitrin">
-  <a href="#atas" aria-current="true"><span>01</span></a>
-  <a href="#biodiversitas"><span>02</span></a>
-  <a href="#kupu-kupu"><span>03</span></a>
-  <a href="#rumah"><span>04</span></a>
-  <a href="#ancaman"><span>05</span></a>
-  <a href="#kuis"><span>06</span></a>
-  <a href="#aksi"><span>07</span></a>
-</nav>
-<div class="progress" aria-hidden="true"><div class="progress__bar" id="progressBar"></div></div>
-
-<main id="main" tabindex="-1">
-
-  <!-- ================= CASE 01 · HERO ================= -->
-  <section class="case case--hero" id="atas" aria-labelledby="hero-title">
+  <header class="topbar">
     <div class="shell">
-      <div class="hero">
-        <div class="hero__copy">
-          <h1 id="hero-title">Dunia yang<br>setiap sayapnya<br><em>berarti.</em></h1>
-          <p class="lede">Kupu-kupu bukan hiasan taman. Ia penanda apakah lingkungan kita masih
-            layak dihuni. Siklus hidupnya bisa kita baca seperti kalender musim.</p>
-          <div class="actions">
-            <a class="btn" href="#biodiversitas">
-              Mulai dari telur
-              <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 8h9M8 4l4 4-4 4"/></svg>
-            </a>
-            <a class="tlink" href="#aksi">Ambil tindakan</a>
+      <div class="topbar__inner">
+        <a class="brand" href="#atas">
+          The Return of the <em>Wings</em>
+          <small>Kampanye biodiversitas</small>
+        </a>
+        <nav class="nav" aria-label="Navigasi utama">
+          <a href="#biodiversitas">Biodiversitas</a>
+          <a href="#kupu-kupu">Kupu-kupu</a>
+          <a href="#rumah">Rumahnya</a>
+          <a href="#ancaman">Ancaman</a>
+          <a href="#kuis">Kuis</a>
+          <a href="#aksi">Aksi</a>
+        </nav>
+        <button class="menu-btn" type="button" id="menuBtn" aria-expanded="false" aria-controls="drawer">
+          <svg viewBox="0 0 16 16" aria-hidden="true">
+            <path d="M2 4h12M2 8h12M2 12h12" />
+          </svg>
+          Menu
+        </button>
+      </div>
+      <div class="drawer" id="drawer" hidden>
+        <a href="#biodiversitas">Biodiversitas <span>02</span></a>
+        <a href="#kupu-kupu">Mengenal kupu-kupu <span>03</span></a>
+        <a href="#rumah">Rumah kupu-kupu <span>04</span></a>
+        <a href="#ancaman">Ancaman <span>05</span></a>
+        <a href="#kuis">Kuis <span>06</span></a>
+        <a href="#aksi">Ambil tindakan <span>07</span></a>
+      </div>
+    </div>
+  </header>
+
+  <nav class="rail" aria-label="Indeks vitrin">
+    <a href="#atas" aria-current="true"><span>01</span></a>
+    <a href="#biodiversitas"><span>02</span></a>
+    <a href="#kupu-kupu"><span>03</span></a>
+    <a href="#rumah"><span>04</span></a>
+    <a href="#ancaman"><span>05</span></a>
+    <a href="#kuis"><span>06</span></a>
+    <a href="#aksi"><span>07</span></a>
+  </nav>
+  <div class="progress" aria-hidden="true">
+    <div class="progress__bar" id="progressBar"></div>
+  </div>
+
+  <main id="main" tabindex="-1">
+
+    <!-- ================= CASE 01 · HERO ================= -->
+    <section class="case case--hero" id="atas" aria-labelledby="hero-title">
+      <div class="shell">
+        <div class="hero">
+          <div class="hero__copy">
+            <h1 id="hero-title">Dunia yang<br>setiap sayapnya<br><em>berarti.</em></h1>
+            <p class="lede">Kehadiran kupu-kupu menandakan lingkungan tempat kita tinggal masih
+              sehat dan saling terhubung. Siklus hidupnya pun dapat kita baca layaknya kalender musim.</p>
+            <div class="actions">
+              <a class="btn" href="#biodiversitas">
+                Mulai dari telur
+                <svg viewBox="0 0 16 16" aria-hidden="true">
+                  <path d="M3 8h9M8 4l4 4-4 4" />
+                </svg>
+              </a>
+              <a class="tlink" href="#aksi">Ambil tindakan</a>
+            </div>
+            <p class="hero__msg">Dari satu organisme, terhubung ke seluruh ekosistem</p>
           </div>
-          <p class="hero__msg">Satu organisme, seluruh sistem</p>
+
+          <figure class="plate hero__plate" style="margin:0">
+            <div class="plate__img">
+              <img src="assets/img/hero-tree-nymph.webp" width="1800" height="1125"
+                alt="Kupu-kupu pohon (Idea leuconoe) dengan sayap bermotif hitam-putih hinggap di tepi daun hijau."
+                fetchpriority="high" decoding="async">
+              <div class="hero__aside">
+                <b>Idea leuconoe</b>
+                Dijuluki kupu-kupu sayap kertas, terbang perlahan di tepi hutan dan kebun yang lembap.
+              </div>
+              <div class="plate__credit">Foto: Richard Bartz · CC BY-SA 2.5 · Wikimedia Commons</div>
+            </div>
+          </figure>
         </div>
 
-        <figure class="plate hero__plate" style="margin:0">
-          <div class="plate__img">
-            <img src="assets/img/hero-tree-nymph.webp" width="1800" height="1125"
-                 alt="Kupu-kupu pohon (Idea leuconoe) dengan sayap bermotif hitam-putih hinggap di tepi daun hijau."
-                 fetchpriority="high" decoding="async">
-            <div class="hero__aside">
-              <b>Idea leuconoe</b>
-              Sayap kertas. Terbang lambat di tepi hutan dan kebun yang lembap.
+        <div class="hero__foot" aria-label="Empat tahap siklus hidup">
+          <div>01 · Telur<span>Berawal dari sebutir titik di daun</span></div>
+          <div>02 · Ulat<span>Makan daun inang dan berganti kulit</span></div>
+          <div>03 · Kepompong<span>Diam berlindung sambil berubah wujud</span></div>
+          <div>04 · Kupu-kupu<span>Terbang mengisap nektar dan menyerbuk</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= CASE 02 · BIODIVERSITAS ================= -->
+    <section class="case" id="biodiversitas" aria-labelledby="bio-title">
+      <div class="shell">
+        <div class="case__inner">
+          <span class="tick tick--tl" aria-hidden="true"></span><span class="tick tick--tr" aria-hidden="true"></span>
+          <span class="tick tick--bl" aria-hidden="true"></span><span class="tick tick--br" aria-hidden="true"></span>
+          <p class="case__no">Vitrin 02 · Biodiversitas</p>
+
+          <div class="case__grid case__grid--wide">
+            <div class="case__body">
+              <h2 id="bio-title">Biodiversitas bukan sekadar daftar nama, <em>melainkan jaring kehidupan.</em></h2>
+              <p class="lede">Biodiversitas mencakup keragaman kehidupan di setiap lapisannya, mulai dari
+                variasi gen dalam satu populasi, kekayaan spesies di suatu tempat, hingga ragam
+                ekosistem tempat semuanya bernaung.</p>
+              <div class="prose reveal" data-d="1">
+                <p>Ketiga lapisan ini saling menopang. Populasi kupu-kupu yang memiliki keragaman
+                  genetik tinggi lebih mampu bertahan saat musim berubah. Keragaman itu baru terjaga
+                  kalau tanaman inangnya masih tumbuh subur, dan tanaman tersebut hanya bisa bertahan kalau
+                  ekosistemnya utuh.</p>
+                <p>Karena itu, ketika kupu-kupu mulai jarang terlihat di sekitar rumah, artinya ada
+                  satu simpul dari jaring kehidupan yang terlepas. Hilangnya satu simpul
+                  akan ikut menggoyahkan simpul lainnya.</p>
+              </div>
+              <dl class="anatomy__list" style="margin-top:1.75rem">
+                <div class="anatomy__item">
+                  <dt>1</dt>
+                  <dd><b>Ekosistem</b> mencakup hutan, sawah, kebun, dan tepi sungai sebagai ruang hidup bersama.</dd>
+                </div>
+                <div class="anatomy__item">
+                  <dt>2</dt>
+                  <dd><b>Spesies</b> menunjukkan banyaknya jenis makhluk hidup di satu tempat, termasuk yang belum terdata.</dd>
+                </div>
+                <div class="anatomy__item">
+                  <dt>3</dt>
+                  <dd><b>Genetik</b> merupakan variasi di dalam satu spesies sebagai bekal agar populasi tahan menghadapi perubahan.</dd>
+                </div>
+              </dl>
             </div>
-            <div class="plate__credit">Foto: Richard Bartz · CC BY-SA 2.5 · Wikimedia Commons</div>
+
+            <div>
+              <figure class="strata reveal" data-d="2" style="margin:0">
+                <div class="strata__figure">
+                  <span class="strata__badge" style="--x:50%;--y:11.1%">1</span>
+                  <span class="strata__badge" style="--x:50%;--y:24.3%">2</span>
+                  <span class="strata__badge" style="--x:50%;--y:38%">3</span>
+                  <svg viewBox="0 0 440 440" role="img" aria-labelledby="strata-t strata-d">
+                    <title id="strata-t">Tiga tingkat biodiversitas yang saling membungkus</title>
+                    <desc id="strata-d">Tiga bentuk bersarang: ekosistem di lapisan luar, spesies di tengah, keragaman
+                      genetik paling dalam. Nomor 1 sampai 3 menandai tiap lapisan.</desc>
+                    <g fill="none" stroke="#477A50">
+                      <path d="M220 20c112 0 200 88 200 200 0 116-88 200-200 200S20 336 20 220C20 108 108 20 220 20Z"
+                        stroke-width="1.6" stroke-opacity=".8" />
+                      <path d="M220 78c80 0 142 62 142 142 0 82-62 142-142 142s-142-60-142-142c0-80 62-142 142-142Z"
+                        stroke-width="1.6" stroke-opacity=".9" />
+                      <path d="M220 140c46 0 80 34 80 80 0 48-34 80-80 80s-80-32-80-80c0-46 34-80 80-80Z"
+                        stroke-width="1.6" />
+                    </g>
+                    <g fill="#B8D99A" fill-opacity=".22">
+                      <path d="M220 78c80 0 142 62 142 142 0 82-62 142-142 142s-142-60-142-142c0-80 62-142 142-142Z" />
+                    </g>
+                    <g fill="#E9A94D" fill-opacity=".14">
+                      <path d="M220 140c46 0 80 34 80 80 0 48-34 80-80 80s-80-32-80-80c0-46 34-80 80-80Z" />
+                    </g>
+                    <g fill="#E9A94D">
+                      <circle cx="220" cy="49" r="11" />
+                      <circle cx="220" cy="107" r="11" />
+                      <circle cx="220" cy="167" r="11" />
+                    </g>
+                    <g stroke="#183D2B" stroke-width="1" stroke-opacity=".3" stroke-dasharray="2 4">
+                      <path d="M220 60v36M220 118v36M220 178v30" />
+                    </g>
+                  </svg>
+                </div>
+                <figcaption>Tiap lapisan bergantung pada lapisan di luarnya. Rusaknya lapisan luar
+                  membuat lapisan dalam kehilangan tempat hidup.</figcaption>
+              </figure>
+
+
+            </div>
           </div>
-        </figure>
-      </div>
 
-      <div class="hero__foot" aria-label="Empat tahap siklus hidup">
-        <div>01 · Telur<span>Satu titik, satu janji</span></div>
-        <div>02 · Ulat<span>Makan, tumbuh, berganti kulit</span></div>
-        <div>03 · Kepompong<span>Rapuh, lalu berubah</span></div>
-        <div>04 · Kupu-kupu<span>Terbang, menebar, menyerbuk</span></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ================= CASE 02 · BIODIVERSITAS ================= -->
-  <section class="case" id="biodiversitas" aria-labelledby="bio-title">
-    <div class="shell">
-      <div class="case__inner">
-        <span class="tick tick--tl" aria-hidden="true"></span><span class="tick tick--tr" aria-hidden="true"></span>
-        <span class="tick tick--bl" aria-hidden="true"></span><span class="tick tick--br" aria-hidden="true"></span>
-        <p class="case__no">Vitrin 02 · Biodiversitas</p>
-
-        <div class="case__grid case__grid--wide">
-          <div class="case__body">
-            <h2 id="bio-title">Biodiversitas bukan daftar nama. <em>Ia jaring.</em></h2>
-            <p class="lede">Biodiversitas adalah keragaman kehidupan pada semua tingkatnya:
-              variasi gen di dalam satu populasi, jumlah jenis di suatu tempat, dan ragam
-              ekosistem tempat mereka hidup.</p>
-            <div class="prose reveal" data-d="1">
-              <p>Ketiganya saling menopang. Satu populasi kupu-kupu yang masih beragam secara
-                genetik lebih mampu bertahan saat musim berubah. Keragaman itu hanya terjaga
-                kalau tumbuhan inangnya masih ada. Tumbuhan itu hanya bertahan kalau
-                ekosistemnya tidak terpotong-potong.</p>
-              <p>Karena itu, ketika kupu-kupu menghilang dari sebuah gang, yang sebenarnya
-                kita kehilangan adalah satu simpul dari jaring. Simpul yang hilang
-                menarik simpul lain bersamanya.</p>
+          <div class="web reveal" data-d="2" style="margin-top:clamp(2rem,4vw,3rem)">
+            <p class="micro" style="margin-bottom:0.75rem">Hubungan yang berjalan setiap hari</p>
+            <div class="web__row">
+              <span class="web__from">Tanaman inang</span><span class="web__rel">menghidupi</span>
+              <span class="web__to">ulat, karena larva hanya bisa tumbuh pada daun yang cocok.</span>
             </div>
-            <dl class="anatomy__list" style="margin-top:1.75rem">
-              <div class="anatomy__item"><dt>1</dt><dd><b>Ekosistem</b> — hutan, sawah, kebun, tepi sungai: panggung tempat semua berlangsung.</dd></div>
-              <div class="anatomy__item"><dt>2</dt><dd><b>Spesies</b> — jumlah jenis berbeda di satu tempat, termasuk yang belum diberi nama.</dd></div>
-              <div class="anatomy__item"><dt>3</dt><dd><b>Genetik</b> — variasi di dalam satu jenis; cadangan agar populasi tahan perubahan.</dd></div>
+            <div class="web__row">
+              <span class="web__from">Bunga nektar</span><span class="web__rel">menyuplai energi</span>
+              <span class="web__to">bagi kupu-kupu dewasa untuk terbang lewat kandungan gulanya.</span>
+            </div>
+            <div class="web__row">
+              <span class="web__from">Semak dan naungan</span><span class="web__rel">melindungi</span>
+              <span class="web__to">dari terpaan angin, hujan deras, serta incaran pemangsa.</span>
+            </div>
+            <div class="web__row">
+              <span class="web__from">Kupu-kupu</span><span class="web__rel">menyerbuki</span>
+              <span class="web__to">bunga saat berpindah mencari nektar, sebuah peran penting yang kerap luput dari perhatian.</span>
+            </div>
+            <div class="web__row">
+              <span class="web__from">Burung, laba-laba, semut</span><span class="web__rel">memangsa</span>
+              <span class="web__to">telur dan larva sehingga jumlah populasi di alam tetap seimbang.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= CASE 03 · MENGENAL KUPU-KUPU ================= -->
+    <section class="case" id="kupu-kupu" aria-labelledby="bfly-title">
+      <div class="shell">
+        <div class="case__inner">
+          <span class="tick tick--tl" aria-hidden="true"></span><span class="tick tick--tr" aria-hidden="true"></span>
+          <span class="tick tick--bl" aria-hidden="true"></span><span class="tick tick--br" aria-hidden="true"></span>
+          <p class="case__no">Vitrin 03 · Mengenal kupu-kupu</p>
+
+          <div class="case__body">
+            <h2 id="bfly-title">Tubuh kecil dengan <em>peran yang besar.</em></h2>
+            <p class="lede">Kupu-kupu termasuk serangga bersayap sisik (<i>Lepidoptera</i>) yang kilau warnanya
+              terbentuk dari ribuan sisik mikroskopis. Bentuk tubuhnya dirancang selaras dengan cara hidupnya di alam.</p>
+          </div>
+
+          <div class="anatomy reveal" data-d="1" style="margin-top:clamp(1.75rem,3vw,2.5rem)">
+            <figure class="anatomy__figure" style="margin:0">
+              <div class="anatomy__shot">
+                <img src="assets/img/anatomy.webp" width="1600" height="1199" loading="lazy" decoding="async"
+                  alt="Kupu-kupu Papilio polytes jantan dengan sayap terbuka penuh, hitam dengan deretan bercak putih di tepi sayap belakang dan dua ekor panjang.">
+                <span class="pin" style="--x:41.6%;--y:22.7%">1</span>
+                <span class="pin" style="--x:50.0%;--y:35.2%">2</span>
+                <span class="pin" style="--x:50.2%;--y:41.5%">3</span>
+                <span class="pin" style="--x:50.6%;--y:54%">4</span>
+                <span class="pin" style="--x:70%;--y:45%">5</span>
+                <span class="pin" style="--x:60%;--y:63%">6</span>
+                <span class="pin" style="--x:61.9%;--y:74%">7</span>
+                <span class="pin" style="--x:28.4%;--y:45.5%">8</span>
+              </div>
+              <figcaption class="anatomy__cap">
+                <b><i>Papilio polytes</i></b> · jantan, sayap terbuka.
+                Foto: Atanu Bose Photography · CC BY-SA 4.0
+              </figcaption>
+            </figure>
+
+            <dl class="anatomy__list">
+              <div class="anatomy__item">
+                <dt>1</dt>
+                <dd><b>Antena</b> berfungsi mengenali aroma bunga sekaligus menjaga keseimbangan saat terbang.</dd>
+              </div>
+              <div class="anatomy__item">
+                <dt>2</dt>
+                <dd><b>Mata majemuk</b> tersusun atas ribuan lensa kecil yang sangat peka terhadap gerak dan warna.</dd>
+              </div>
+              <div class="anatomy__item">
+                <dt>3</dt>
+                <dd><b>Toraks</b> menjadi pusat otot terbang tempat seluruh tenaga kepakan dihasilkan.</dd>
+              </div>
+              <div class="anatomy__item">
+                <dt>4</dt>
+                <dd><b>Abdomen</b> memuat sistem pencernaan serta ruang berkembangnya telur pada kupu-kupu betina.</dd>
+              </div>
+              <div class="anatomy__item">
+                <dt>5</dt>
+                <dd><b>Sayap depan</b> bekerja sebagai pengangkat utama berkat bidang tepinya yang lebar.</dd>
+              </div>
+              <div class="anatomy__item">
+                <dt>6</dt>
+                <dd><b>Sayap belakang</b> berperan sebagai kemudi dan penstabil ketika bermanuver di sela dahan.</dd>
+              </div>
+              <div class="anatomy__item">
+                <dt>7</dt>
+                <dd><b>Ekor</b> berupa perpanjangan sempit di sayap belakang untuk mengecoh arah patukan burung.</dd>
+              </div>
+              <div class="anatomy__item">
+                <dt>8</dt>
+                <dd><b>Sisik sayap</b> memantulkan cahaya dari susunan mikroskopisnya sehingga menghasilkan warna yang khas.</dd>
+              </div>
             </dl>
           </div>
 
-          <div>
-            <figure class="strata reveal" data-d="2" style="margin:0">
-              <div class="strata__figure">
-              <span class="strata__badge" style="--x:50%;--y:11.1%">1</span>
-              <span class="strata__badge" style="--x:50%;--y:24.3%">2</span>
-              <span class="strata__badge" style="--x:50%;--y:38%">3</span>
-              <svg viewBox="0 0 440 440" role="img" aria-labelledby="strata-t strata-d">
-                <title id="strata-t">Tiga tingkat biodiversitas yang saling membungkus</title>
-                <desc id="strata-d">Tiga bentuk bersarang: ekosistem di lapisan luar, spesies di tengah, keragaman genetik paling dalam. Nomor 1 sampai 3 menandai tiap lapisan.</desc>
-                <g fill="none" stroke="#477A50">
-                  <path d="M220 20c112 0 200 88 200 200 0 116-88 200-200 200S20 336 20 220C20 108 108 20 220 20Z" stroke-width="1.6" stroke-opacity=".8"/>
-                  <path d="M220 78c80 0 142 62 142 142 0 82-62 142-142 142s-142-60-142-142c0-80 62-142 142-142Z" stroke-width="1.6" stroke-opacity=".9"/>
-                  <path d="M220 140c46 0 80 34 80 80 0 48-34 80-80 80s-80-32-80-80c0-46 34-80 80-80Z" stroke-width="1.6"/>
-                </g>
-                <g fill="#B8D99A" fill-opacity=".22">
-                  <path d="M220 78c80 0 142 62 142 142 0 82-62 142-142 142s-142-60-142-142c0-80 62-142 142-142Z"/>
-                </g>
-                <g fill="#E9A94D" fill-opacity=".14">
-                  <path d="M220 140c46 0 80 34 80 80 0 48-34 80-80 80s-80-32-80-80c0-46 34-80 80-80Z"/>
-                </g>
-                <g fill="#E9A94D">
-                  <circle cx="220" cy="49" r="11"/><circle cx="220" cy="107" r="11"/><circle cx="220" cy="167" r="11"/>
-                </g>
-                <g stroke="#183D2B" stroke-width="1" stroke-opacity=".3" stroke-dasharray="2 4">
-                  <path d="M220 60v36M220 118v36M220 178v30"/>
-                </g>
-              </svg>
+          <!-- species drawer -->
+          <div style="margin-top:clamp(2.5rem,5vw,3.5rem)">
+            <p class="micro" style="margin-bottom:0.9rem">Tiga spesies yang dapat dijumpai di Indonesia</p>
+            <div class="drawer-grid reveal" data-d="2">
+              <article class="cell">
+                <img src="assets/img/blumei.webp" width="1200" height="900" loading="lazy" decoding="async"
+                  alt="Kupu-kupu Papilio blumei dengan pita hijau metalik pada sayap hitamnya.">
+                <p class="cell__no">01</p>
+                <h3><i>Papilio blumei</i></h3>
+                <p>Kupu-kupu bersayap hijau metalik asal Sulawesi. Kilau warnanya lahir dari
+                  pantulan cahaya pada struktur sisik yang berlapis rapat.</p>
+                <p class="cell__tag">Inang larva · jeruk dan kerabat Rutaceae</p>
+              </article>
+              <article class="cell">
+                <img src="assets/img/helena.webp" width="1200" height="900" loading="lazy" decoding="async"
+                  alt="Kupu-kupu Troides helena hitam dengan sayap belakang kuning cerah, hinggap di daun.">
+                <p class="cell__no">02</p>
+                <h3><i>Troides helena</i></h3>
+                <p>Kupu-kupu raja yang termasuk salah satu spesies terbesar di nusantara. Sering terbang tinggi di
+                  tajuk pohon dan turun saat mencari nektar.</p>
+                <p class="cell__tag">Inang larva · <i>Aristolochia</i> (sirih hutan)</p>
+              </article>
+              <article class="cell">
+                <img src="assets/img/agamemnon.webp" width="1200" height="900" loading="lazy" decoding="async"
+                  alt="Kupu-kupu Graphium agamemnon hitam dengan bintik hijau muda dan ekor panjang pada sayap belakang.">
+                <p class="cell__no">03</p>
+                <h3><i>Graphium agamemnon</i></h3>
+                <p>Spesies yang paling akrab di kawasan perkotaan. Terbangnya gesit dan sering singgah sebentar di
+                  bunga pagar, taman kota, maupun pot teras rumah.</p>
+                <p class="cell__tag">Inang larva · sirsak, kenanga, dan kerabat Annonaceae</p>
+              </article>
+            </div>
+            <p class="small" style="margin-top:0.9rem;max-width:62ch">Kebutuhan tanaman inang
+              dapat berbeda menurut spesies dan kondisi daerah setempat, sehingga daftar di atas menjadi gambaran umum
+              bagi pengamatan di lapangan.</p>
+          </div>
+
+          <!-- life cycle -->
+          <div class="cycle reveal" data-d="2">
+            <p class="micro" style="margin-bottom:0.75rem">Siklus hidup · pilih tahap</p>
+            <div class="cycle__tabs" role="tablist" aria-label="Tahap siklus hidup kupu-kupu">
+              <button class="cycle__tab" role="tab" id="tab-egg" aria-controls="panel-egg" aria-selected="true">
+                <span>01 · Telur</span><strong>Awal kehidupan di daun</strong>
+              </button>
+              <button class="cycle__tab" role="tab" id="tab-larva" aria-controls="panel-larva" aria-selected="false"
+                tabindex="-1">
+                <span>02 · Larva</span><strong>Masa tumbuh dan makan</strong>
+              </button>
+              <button class="cycle__tab" role="tab" id="tab-pupa" aria-controls="panel-pupa" aria-selected="false"
+                tabindex="-1">
+                <span>03 · Pupa</span><strong>Diam sambil bermetamorfosis</strong>
+              </button>
+              <button class="cycle__tab" role="tab" id="tab-adult" aria-controls="panel-adult" aria-selected="false"
+                tabindex="-1">
+                <span>04 · Imago</span><strong>Terbang dan menyerbuk</strong>
+              </button>
+            </div>
+
+            <div class="cycle__panel" role="tabpanel" id="panel-egg" aria-labelledby="tab-egg" tabindex="0">
+              <figure class="cycle__figure" style="margin:0">
+                <img src="assets/img/egg.webp" width="1200" height="900" loading="lazy" decoding="async"
+                  alt="Telur kupu-kupu berwarna kuning pucat dan bulat, menempel pada permukaan daun hijau berbulu halus.">
+              </figure>
+              <div>
+                <p class="cycle__stage">Tahap 01</p>
+                <h3 class="cycle__name">Telur</h3>
+                <p class="cycle__text">Induk betina meletakkan telurnya satu per satu secara spesifik pada daun tanaman inang yang
+                  cocok bagi calon ulatnya. Permukaan telur berlapis lilin halus dengan bentuk menyerupai
+                  kuncup kecil. Dalam beberapa hari, warna cangkang akan menggelap sebagai tanda ulat siap menetas.</p>
+                <p class="cycle__meta"><span>Umumnya <b>3–5 hari</b></span><span>Diletakkan <b>satu per satu</b> di bawah
+                    atau tepi daun</span></p>
               </div>
-              <figcaption>Tiap lapisan bergantung pada lapisan di luarnya. Rusaknya lapisan luar
-                membuat lapisan dalam kehilangan tempat hidup.</figcaption>
-            </figure>
+            </div>
 
+            <div class="cycle__panel" role="tabpanel" id="panel-larva" aria-labelledby="tab-larva" tabindex="0" hidden>
+              <figure class="cycle__figure" style="margin:0">
+                <img src="assets/img/larva.webp" width="1200" height="900" loading="lazy" decoding="async"
+                  alt="Ulat kupu-kupu berwarna hijau dengan garis gelap, memakan tepi daun hijau yang telah berlubang.">
+              </figure>
+              <div>
+                <p class="cycle__stage">Tahap 02</p>
+                <h3 class="cycle__name">Larva</h3>
+                <p class="cycle__text">Inilah fase paling aktif makan sekaligus paling rentan. Ulat memakan daun
+                  inang hampir sepanjang waktu dan berganti kulit beberapa kali seiring pertumbuhannya.
+                  Pada tahap ini pula ia menjadi incaran alami burung, semut, serta tawon parasit.</p>
+                <p class="cycle__meta"><span>Umumnya <b>2–3 minggu</b></span><span>Berganti kulit <b>4–5 kali</b></span>
+                </p>
+              </div>
+            </div>
 
-          </div>
-        </div>
+            <div class="cycle__panel" role="tabpanel" id="panel-pupa" aria-labelledby="tab-pupa" tabindex="0" hidden>
+              <figure class="cycle__figure" style="margin:0">
+                <img src="assets/img/pupa.webp" width="1200" height="900" loading="lazy" decoding="async"
+                  alt="Kepompong kupu-kupu hijau pucat menyerupai daun, menempel pada batang tipis.">
+              </figure>
+              <div>
+                <p class="cycle__stage">Tahap 03</p>
+                <h3 class="cycle__name">Pupa</h3>
+                <p class="cycle__text">Tubuh ulat mengeras menjadi kepompong dan menggantung dengan ikatan benang sutra.
+                  Dari luar ia tampak diam sepenuhnya, padahal di dalamnya seluruh jaringan tubuh sedang disusun
+                  ulang. Warna kepompong menyaru dengan daun atau ranting sekitar, sehingga ia membutuhkan semak yang tidak dipangkas habis.</p>
+                <p class="cycle__meta"><span>Umumnya <b>1–2 minggu</b></span><span>Kondisi <b>diam menetap</b> dan
+                    sangat rapuh</span></p>
+              </div>
+            </div>
 
-        <div class="web reveal" data-d="2" style="margin-top:clamp(2rem,4vw,3rem)">
-          <p class="micro" style="margin-bottom:0.75rem">Hubungan yang berjalan setiap hari</p>
-          <div class="web__row">
-            <span class="web__from">Tanaman inang</span><span class="web__rel">menghidupi</span>
-            <span class="web__to">ulat: tanpa daun yang tepat, larva tidak dapat tumbuh.</span>
-          </div>
-          <div class="web__row">
-            <span class="web__from">Bunga nektar</span><span class="web__rel">membiayai</span>
-            <span class="web__to">terbangnya kupu-kupu dewasa; gula adalah bahan bakar.</span>
-          </div>
-          <div class="web__row">
-            <span class="web__from">Semak dan naungan</span><span class="web__rel">melindungi</span>
-            <span class="web__to">dari angin kencang, hujan, dan mata pencari mangsa.</span>
-          </div>
-          <div class="web__row">
-            <span class="web__from">Kupu-kupu</span><span class="web__rel">menyerbuki</span>
-            <span class="web__to">bunga saat mencari nektar, jasa yang jarang terlihat.</span>
-          </div>
-          <div class="web__row">
-            <span class="web__from">Burung, laba-laba, semut</span><span class="web__rel">memangsa</span>
-            <span class="web__to">telur dan larva, menjaga jumlah tetap seimbang.</span>
+            <div class="cycle__panel" role="tabpanel" id="panel-adult" aria-labelledby="tab-adult" tabindex="0" hidden>
+              <figure class="cycle__figure" style="margin:0">
+                <img src="assets/img/polytes.webp" width="1200" height="900" loading="lazy" decoding="async"
+                  alt="Kupu-kupu Papilio polytes menghisap nektar dari bunga Lantana berwarna oranye dan merah muda.">
+              </figure>
+              <div>
+                <p class="cycle__stage">Tahap 04</p>
+                <h3 class="cycle__name">Kupu-kupu dewasa</h3>
+                <p class="cycle__text">Begitu sayapnya mengembang sempurna, perannya pun berganti menjadi pengisap nektar
+                  dan pencari pasangan. Saat berpindah dari satu bunga ke bunga lain,
+                  tubuhnya turut membawa serbuk sari yang membantu penyerbukan berbagai tumbuhan di sekitar kita.</p>
+                <p class="cycle__meta"><span>Umumnya <b>2–4 minggu</b></span><span>Berperan sebagai <b>penyerbuk</b>
+                    dalam ekosistem</span></p>
+              </div>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- ================= CASE 03 · MENGENAL KUPU-KUPU ================= -->
-  <section class="case" id="kupu-kupu" aria-labelledby="bfly-title">
-    <div class="shell">
-      <div class="case__inner">
-        <span class="tick tick--tl" aria-hidden="true"></span><span class="tick tick--tr" aria-hidden="true"></span>
-        <span class="tick tick--bl" aria-hidden="true"></span><span class="tick tick--br" aria-hidden="true"></span>
-        <p class="case__no">Vitrin 03 · Mengenal kupu-kupu</p>
+    <!-- ================= CASE 04 · RUMAH ================= -->
+    <section class="case" id="rumah" aria-labelledby="home-title">
+      <div class="shell">
+        <div class="case__inner">
+          <span class="tick tick--tl" aria-hidden="true"></span><span class="tick tick--tr" aria-hidden="true"></span>
+          <span class="tick tick--bl" aria-hidden="true"></span><span class="tick tick--br" aria-hidden="true"></span>
+          <p class="case__no">Vitrin 04 · Rumah kupu-kupu</p>
 
-        <div class="case__body">
-          <h2 id="bfly-title">Tubuh kecil dengan <em>pekerjaan besar.</em></h2>
-          <p class="lede">Kupu-kupu adalah serangga bersisik: warna sayapnya berasal dari ribuan
-            sisik mikroskopis, bukan pigmen semata. Bentuk tubuhnya menjelaskan cara hidupnya.</p>
-        </div>
+          <div class="case__body" style="max-width:64ch">
+            <h2 id="home-title">Rumah kupu-kupu terbentuk dari <em>empat ruang yang terhubung.</em></h2>
+            <p class="lede">Kupu-kupu membutuhkan empat elemen yang saling melengkapi, yakni
+              daun inang bagi ulatnya, bunga nektar bagi kupu-kupu dewasa, keteduhan untuk berlindung,
+              serta koridor hijau yang menyambungkan semuanya.</p>
+          </div>
 
-        <div class="anatomy reveal" data-d="1" style="margin-top:clamp(1.75rem,3vw,2.5rem)">
-          <figure class="anatomy__figure" style="margin:0">
-            <div class="anatomy__shot">
-              <img src="assets/img/anatomy.webp" width="1600" height="1199" loading="lazy" decoding="async"
-                   alt="Kupu-kupu Papilio polytes jantan dengan sayap terbuka penuh, hitam dengan deretan bercak putih di tepi sayap belakang dan dua ekor panjang.">
-              <span class="pin" style="--x:41.6%;--y:22.7%">1</span>
-              <span class="pin" style="--x:50.0%;--y:35.2%">2</span>
-              <span class="pin" style="--x:50.2%;--y:41.5%">3</span>
-              <span class="pin" style="--x:50.6%;--y:54%">4</span>
-              <span class="pin" style="--x:70%;--y:45%">5</span>
-              <span class="pin" style="--x:60%;--y:63%">6</span>
-              <span class="pin" style="--x:61.9%;--y:74%">7</span>
-              <span class="pin" style="--x:28.4%;--y:45.5%">8</span>
+          <div class="plan">
+            <div class="plan__grid">
+              <figure class="plan__figure" style="margin:0">
+                <span class="plan__mark" style="--x:4%;--y:5%">Rumah</span>
+                <span class="plan__mark plan__mark--narrow" style="--x:5%;--y:82%">Sepetak liar</span>
+                <svg viewBox="0 0 600 460" role="img" aria-labelledby="plan-t plan-d">
+                  <title id="plan-t">Rencana halaman rumah untuk kupu-kupu</title>
+                  <desc id="plan-d">Denah halaman: rumah di sisi atas, pagar di kanan, bedeng tanaman inang di kiri,
+                    bedeng bunga nektar di tengah, pohon dan semak sebagai tempat istirahat di kanan, piring air
+                    dangkal, sepetak liar di kiri bawah, serta jalur koridor yang menghubungkan ketiganya.</desc>
+                  <rect width="600" height="460" fill="#EDE9D3" />
+
+                  <!-- house band -->
+                  <path d="M0 0h600v58H0z" fill="#183D2B" fill-opacity=".09" />
+                  <path d="M0 58h600" stroke="#183D2B" stroke-opacity=".28" />
+                  <path d="M486 0v58M508 0v58" stroke="#183D2B" stroke-opacity=".18" />
+
+                  <!-- paving from the door -->
+                  <path d="M508 58v96c0 30-24 46-60 52" fill="none" stroke="#183D2B" stroke-opacity=".12"
+                    stroke-width="20" stroke-linecap="round" />
+                  <g stroke="#183D2B" stroke-opacity=".18" stroke-width="1">
+                    <path d="M500 76h16M498 100h20M494 124h24M484 144h26" />
+                  </g>
+
+                  <!-- fence -->
+                  <path d="M572 58v402" stroke="#183D2B" stroke-opacity=".22" stroke-dasharray="7 7" />
+                  <g stroke="#183D2B" stroke-opacity=".18">
+                    <path d="M558 96h26M558 168h26M558 240h26M558 312h26M558 384h26" />
+                  </g>
+
+                  <!-- corridor -->
+                  <g class="layer is-off" data-layer="koridor">
+                    <path d="M96 232c56-6 92 22 148 22 52 0 92-30 146-42" fill="none" stroke="#477A50"
+                      stroke-opacity=".15" stroke-width="14" stroke-linecap="round" />
+                    <path d="M96 232c56-6 92 22 148 22 52 0 92-30 146-42" fill="none" stroke="#477A50"
+                      stroke-width="1.2" stroke-dasharray="4 8" />
+                    <circle cx="96" cy="232" r="4" fill="#477A50" />
+                    <circle cx="244" cy="254" r="4" fill="#477A50" />
+                    <circle cx="390" cy="212" r="4" fill="#477A50" />
+                  </g>
+
+                  <!-- host bed -->
+                  <g class="layer is-off" data-layer="inang">
+                    <rect x="30" y="96" width="150" height="112" fill="#B8D99A" fill-opacity=".42" stroke="#477A50"
+                      stroke-opacity=".5" />
+                    <g fill="#477A50">
+                      <circle cx="64" cy="128" r="13" />
+                      <circle cx="102" cy="120" r="10" />
+                      <circle cx="140" cy="134" r="14" />
+                      <circle cx="80" cy="166" r="11" />
+                      <circle cx="120" cy="176" r="13" />
+                      <circle cx="154" cy="166" r="9" />
+                    </g>
+                    <g stroke="#183D2B" stroke-opacity=".26" stroke-width="1.2">
+                      <path d="M64 141v22M140 148v20M120 189v16" />
+                    </g>
+                  </g>
+
+                  <!-- nectar bed -->
+                  <g class="layer is-off" data-layer="nektar">
+                    <rect x="228" y="316" width="176" height="98" fill="#E9A94D" fill-opacity=".2" stroke="#E9A94D"
+                      stroke-opacity=".65" />
+                    <g fill="#E9A94D">
+                      <circle cx="256" cy="346" r="7" />
+                      <circle cx="284" cy="360" r="6" />
+                      <circle cx="312" cy="342" r="7" />
+                      <circle cx="340" cy="366" r="6" />
+                      <circle cx="368" cy="344" r="7" />
+                      <circle cx="384" cy="372" r="5" />
+                      <circle cx="262" cy="384" r="6" />
+                      <circle cx="296" cy="392" r="5" />
+                      <circle cx="330" cy="390" r="6" />
+                      <circle cx="358" cy="392" r="5" />
+                      <circle cx="246" cy="366" r="4" />
+                      <circle cx="396" cy="356" r="4" />
+                    </g>
+                  </g>
+
+                  <!-- shelter -->
+                  <g class="layer is-off" data-layer="perlindungan">
+                    <circle cx="466" cy="172" r="56" fill="#477A50" fill-opacity=".12" />
+                    <circle cx="466" cy="172" r="34" fill="#477A50" fill-opacity=".5" />
+                    <path d="M466 206v58" stroke="#183D2B" stroke-opacity=".45" stroke-width="4" />
+                    <path d="M392 288c12-20 34-30 54-30s40 10 52 30Z" fill="#477A50" fill-opacity=".22" />
+                    <path d="M392 288c12-20 34-30 54-30s40 10 52 30" fill="none" stroke="#477A50" stroke-opacity=".5"
+                      stroke-width="1.4" />
+                    <ellipse cx="540" cy="330" rx="24" ry="13" fill="#F3F0DF" stroke="#477A50" stroke-opacity=".45" />
+                    <ellipse cx="540" cy="328" rx="17" ry="8" fill="#B8D99A" fill-opacity=".7" />
+                  </g>
+
+                  <!-- untidy corner -->
+                  <g class="layer is-off" data-layer="perlindungan">
+                    <path d="M34 358c22-12 44-4 54 8 9 11 4 26-14 29-22 4-46-8-52-22" fill="#477A50" fill-opacity=".15"
+                      stroke="#477A50" stroke-opacity=".3" stroke-dasharray="3 4" />
+                  </g>
+                </svg>
+                <p class="plan__hint" id="planHint">Halaman ini masih kosong. Aktifkan elemen di
+                  samping untuk mengisinya.</p>
+              </figure>
+
+              <div class="plan__side">
+                <p class="micro" id="habTitle">Simulasi habitat · empat elemen, semua mulai nonaktif</p>
+                <ul class="hab" aria-labelledby="habTitle">
+                  <li class="hab__item">
+                    <button class="switch" type="button" role="switch" aria-checked="false" data-target="inang"
+                      aria-describedby="hab-note-inang">
+                      <span class="switch__track" aria-hidden="true"><span class="switch__knob"></span></span>
+                      <span class="switch__name"><span class="sw sw--inang" aria-hidden="true"></span>Tanaman
+                        inang</span>
+                      <span class="switch__state">Nonaktif</span>
+                    </button>
+                    <p class="hab__note" id="hab-note-inang" data-note="inang">Tanpa tanaman inang,
+                      tidak ada daun untuk telur dan ulat. Generasi berikutnya berhenti di sini.</p>
+                  </li>
+                  <li class="hab__item">
+                    <button class="switch" type="button" role="switch" aria-checked="false" data-target="nektar"
+                      aria-describedby="hab-note-nektar">
+                      <span class="switch__track" aria-hidden="true"><span class="switch__knob"></span></span>
+                      <span class="switch__name"><span class="sw sw--nektar" aria-hidden="true"></span>Bunga
+                        nektar</span>
+                      <span class="switch__state">Nonaktif</span>
+                    </button>
+                    <p class="hab__note" id="hab-note-nektar" data-note="nektar">Tanpa bunga penghasil
+                      nektar, kupu-kupu dewasa kehabisan bahan bakar untuk terbang dan kawin.</p>
+                  </li>
+                  <li class="hab__item">
+                    <button class="switch" type="button" role="switch" aria-checked="false" data-target="perlindungan"
+                      aria-describedby="hab-note-perlindungan">
+                      <span class="switch__track" aria-hidden="true"><span class="switch__knob"></span></span>
+                      <span class="switch__name"><span class="sw sw--naungan"
+                          aria-hidden="true"></span>Perlindungan</span>
+                      <span class="switch__state">Nonaktif</span>
+                    </button>
+                    <p class="hab__note" id="hab-note-perlindungan" data-note="perlindungan">Tanpa
+                      tajuk dan semak pelindung, kupu-kupu rentan terhadap terpaan angin, hujan, dan pemangsa.</p>
+                  </li>
+                  <li class="hab__item">
+                    <button class="switch" type="button" role="switch" aria-checked="false" data-target="koridor"
+                      aria-describedby="hab-note-koridor">
+                      <span class="switch__track" aria-hidden="true"><span class="switch__knob"></span></span>
+                      <span class="switch__name"><span class="sw sw--koridor" aria-hidden="true"></span>Koridor</span>
+                      <span class="switch__state">Nonaktif</span>
+                    </button>
+                    <p class="hab__note" id="hab-note-koridor" data-note="koridor">Ruang hijau yang
+                      terpisah membuat kupu-kupu sulit berpindah di antara petak-petak habitat.</p>
+                  </li>
+                </ul>
+                <p class="hab__progress" id="habProgress" role="status">0 dari 4 elemen aktif</p>
+                <p class="small">Keempat elemen ini saling mendukung, meski kebutuhan tiap spesies bisa berbeda.
+                  Simulasi ini dirancang sebagai model belajar untuk mengenali fungsi ruang hijau.</p>
+                <div class="hab__backdrop" id="backdropControl">
+                  <button class="switch" type="button" role="switch" aria-checked="true" id="backdropToggle"
+                    aria-describedby="backdropNote">
+                    <span class="switch__track" aria-hidden="true"><span class="switch__knob"></span></span>
+                    <span class="switch__name">Latar halaman ikut bereaksi</span>
+                    <span class="switch__state">Nyala</span>
+                  </button>
+                  <p class="small" id="backdropNote">Saat dinyalakan, ilustrasi tanaman di latar halaman ikut tumbuh
+                    mengikuti empat sakelar di atas pada bagian ini.</p>
+                </div>
+                <p class="small" id="backdropReduced" hidden>Latar halaman tetap diam karena
+                  pengaturan perangkatmu meminta pengurangan gerak.</p>
+              </div>
             </div>
-            <figcaption class="anatomy__cap">
-              <b><i>Papilio polytes</i></b> — jantan, sayap terbuka.
-              Foto: Atanu Bose Photography · CC BY-SA 4.0
+          </div>
+
+          <table class="compare reveal" data-d="2">
+            <caption>Dua kebutuhan, dua jenis tanaman</caption>
+            <thead>
+              <tr>
+                <th scope="col">Tanaman</th>
+                <th scope="col">Dipakai oleh</th>
+                <th scope="col">Yang dicari</th>
+                <th scope="col">Akibat jika hilang</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row" data-label="Tanaman">Inang<br><span class="small">jeruk, <i>Aristolochia</i></span></th>
+                <td data-label="Dipakai oleh">Ulat</td>
+                <td data-label="Yang dicari">Daun sebagai sumber pakan</td>
+                <td data-label="Jika hilang">Induk kehilangan tempat bertelur sehingga siklus generasi terputus</td>
+              </tr>
+              <tr>
+                <th scope="row" data-label="Tanaman">Nektar<br><span class="small">Lantana, Ixora, Asystasia</span></th>
+                <td data-label="Dipakai oleh">Kupu-kupu dewasa</td>
+                <td data-label="Yang dicari">Nektar manis sebagai sumber energi</td>
+                <td data-label="Jika hilang">Kupu-kupu dewasa kekurangan energi untuk terbang dan berkembang biak</td>
+              </tr>
+            </tbody>
+          </table>
+          <p class="small" style="margin-top:0.9rem;max-width:66ch">Menanam bunga saja belum cukup untuk
+            menambah generasi baru, sedangkan menanam tanaman inang tanpa bunga nektar membuat kupu-kupu dewasa kekurangan energi. Keduanya perlu
+            tumbuh dalam jarak terbang yang berdekatan.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= CASE 05 · ANCAMAN (dark) ================= -->
+    <section class="case case--dark" id="ancaman" aria-labelledby="threat-title">
+      <div class="shell">
+        <div class="case__inner">
+          <span class="tick tick--tl" aria-hidden="true"></span><span class="tick tick--tr" aria-hidden="true"></span>
+          <span class="tick tick--bl" aria-hidden="true"></span><span class="tick tick--br" aria-hidden="true"></span>
+          <p class="case__no">Vitrin 05 · Ancaman</p>
+
+          <div class="case__body">
+            <h2 id="threat-title">Ketika sayap kian jarang, <em>syarat hidupnya sedang menyusut.</em></h2>
+            <p class="lede">Berkurangnya kupu-kupu jarang dipicu oleh satu penyebab tunggal. Sering kali,
+              beberapa perubahan kecil di lingkungan sekitar saling menumpuk di ruang yang sama.</p>
+          </div>
+
+          <div class="threats reveal" data-d="1">
+            <div class="threat"><span class="threat__no">01</span><span class="threat__name">Kehilangan habitat</span>
+              <span class="threat__text">Alih fungsi lahan mengubah kebun menjadi bangunan dan semak menjadi
+                area perkerasan. Ketika tanaman inang ikut tergusur, induk kupu-kupu kehilangan tempat bertelur.</span>
+            </div>
+            <div class="threat"><span class="threat__no">02</span><span class="threat__name">Fragmentasi</span>
+              <span class="threat__text">Habitat yang tersisa terpecah menjadi kantong-kantong kecil yang jauh satu sama lain.
+                Populasi pun terisolasi, sulit bertukar gen, dan lebih rentan menghilang secara lokal.</span>
+            </div>
+            <div class="threat"><span class="threat__no">03</span><span class="threat__name">Pestisida</span>
+              <span class="threat__text">Penyemprotan hama secara menyeluruh tidak hanya mematikan ulat, tetapi juga
+                mengenai lebah, predator alami, serta kupu-kupu dewasa yang singgah di bunga.</span>
+            </div>
+            <div class="threat"><span class="threat__no">04</span><span class="threat__name">Polusi dan degradasi</span>
+              <span class="threat__text">Debu kendaraan, asap, dan penurunan kualitas air melemahkan pertumbuhan
+                tanaman inang sehingga kualitas daun bagi ulat ikut menurun.</span>
+            </div>
+            <div class="threat"><span class="threat__no">05</span><span class="threat__name">Vegetasi yang
+                menyusut</span>
+              <span class="threat__text">Kebiasaan memangkas habis rumput liar ikut menghilangkan semak rendah dan
+                bunga-bunga kecil di tepi jalan yang selama ini menjadi tempat kupu-kupu beristirahat.</span>
+            </div>
+          </div>
+
+          <figure class="frag reveal" data-d="2" style="margin-left:0;margin-right:0">
+            <div class="frag__panels">
+              <div class="frag__panel">
+                <p class="frag__state">Sebelum</p>
+                <svg viewBox="0 0 452 152" aria-hidden="true">
+                  <path d="M0 24h92v92H0zM112 48h52v44h-52zM184 24h92v92h-92zM296 48h52v44h-52zM368 24h84v92h-84z"
+                    fill="#477A50" fill-opacity=".38" stroke="#B8D99A" stroke-opacity=".55" />
+                  <g fill="#B8D99A" fill-opacity=".92">
+                    <circle cx="26" cy="50" r="3" />
+                    <circle cx="62" cy="84" r="3" />
+                    <circle cx="210" cy="46" r="3" />
+                    <circle cx="248" cy="86" r="3" />
+                    <circle cx="396" cy="52" r="3" />
+                    <circle cx="424" cy="90" r="3" />
+                    <circle cx="138" cy="70" r="2.4" />
+                    <circle cx="322" cy="70" r="2.4" />
+                  </g>
+                </svg>
+                <p class="frag__cap">Lima petak hijau saling tersambung sehingga populasi dapat berpindah dan bertukar gen.</p>
+              </div>
+              <div class="frag__panel">
+                <p class="frag__state">Sesudah</p>
+                <svg viewBox="0 0 452 152" aria-hidden="true">
+                  <path d="M0 24h80v92H0z" fill="#477A50" fill-opacity=".38" stroke="#B8D99A" stroke-opacity=".55" />
+                  <path d="M92 24h80v92H92z" fill="none" stroke="#F3F0DF" stroke-opacity=".4" stroke-dasharray="5 6" />
+                  <path d="M184 24h80v92h-80z" fill="#477A50" fill-opacity=".38" stroke="#B8D99A"
+                    stroke-opacity=".55" />
+                  <path d="M276 24h80v92h-80z" fill="none" stroke="#F3F0DF" stroke-opacity=".4"
+                    stroke-dasharray="5 6" />
+                  <path d="M368 24h84v92h-84z" fill="#477A50" fill-opacity=".38" stroke="#B8D99A"
+                    stroke-opacity=".55" />
+                  <g fill="#B8D99A" fill-opacity=".92">
+                    <circle cx="22" cy="50" r="3" />
+                    <circle cx="54" cy="84" r="3" />
+                    <circle cx="206" cy="46" r="3" />
+                    <circle cx="238" cy="86" r="3" />
+                    <circle cx="404" cy="62" r="3" />
+                  </g>
+                </svg>
+                <p class="frag__cap">Ketika dua petak penghubung hilang, petak yang tersisa terisolasi satu sama lain.</p>
+              </div>
+            </div>
+            <figcaption class="frag__caption">
+              <span><b>Garis putus-putus</b> menandai ruang hijau penghubung yang hilang.</span>
+              <span>Diagram skematis untuk menggambarkan konsep fragmentasi habitat.</span>
             </figcaption>
           </figure>
 
-          <dl class="anatomy__list">
-            <div class="anatomy__item"><dt>1</dt><dd><b>Antena</b> — merasakan bau dan menjaga keseimbangan saat terbang.</dd></div>
-            <div class="anatomy__item"><dt>2</dt><dd><b>Mata majemuk</b> — ribuan lensa kecil; peka pada gerak dan warna.</dd></div>
-            <div class="anatomy__item"><dt>3</dt><dd><b>Toraks</b> — rumah otot terbang; di sinilah tenaga dihasilkan.</dd></div>
-            <div class="anatomy__item"><dt>4</dt><dd><b>Abdomen</b> — pencernaan, dan pada betina tempat telur berkembang.</dd></div>
-            <div class="anatomy__item"><dt>5</dt><dd><b>Sayap depan</b> — pengangkat utama; tepinya yang lebar memberi daya angkat.</dd></div>
-            <div class="anatomy__item"><dt>6</dt><dd><b>Sayap belakang</b> — kemudi dan penstabil saat bermanuver di antara dahan.</dd></div>
-            <div class="anatomy__item"><dt>7</dt><dd><b>Ekor</b> — perpanjangan sempit sayap belakang; mengacaukan arah serangan burung.</dd></div>
-            <div class="anatomy__item"><dt>8</dt><dd><b>Sisik sayap</b> — warna berasal dari susunan sisik, bukan hanya pigmen.</dd></div>
-          </dl>
-        </div>
-
-        <!-- species drawer -->
-        <div style="margin-top:clamp(2.5rem,5vw,3.5rem)">
-          <p class="micro" style="margin-bottom:0.9rem">Tiga spesies yang dapat dijumpai di Indonesia</p>
-          <div class="drawer-grid reveal" data-d="2">
-            <article class="cell">
-              <img src="assets/img/blumei.webp" width="1200" height="900" loading="lazy" decoding="async"
-                   alt="Kupu-kupu Papilio blumei dengan pita hijau metalik pada sayap hitamnya.">
-              <p class="cell__no">01</p>
-              <h3><i>Papilio blumei</i></h3>
-              <p>Kupu-kupu sayap hijau metalik dari Sulawesi. Warnanya bukan pigmen, melainkan
-                pantulan cahaya pada struktur sisik.</p>
-              <p class="cell__tag">Inang larva: jeruk dan kerabat Rutaceae</p>
-            </article>
-            <article class="cell">
-              <img src="assets/img/helena.webp" width="1200" height="900" loading="lazy" decoding="async"
-                   alt="Kupu-kupu Troides helena hitam dengan sayap belakang kuning cerah, hinggap di daun.">
-              <p class="cell__no">02</p>
-              <h3><i>Troides helena</i></h3>
-              <p>Kupu-kupu raja, salah satu yang terbesar di kawasan ini. Terbang tinggi di
-                tajuk, turun untuk mencari nektar.</p>
-              <p class="cell__tag">Inang larva: <i>Aristolochia</i></p>
-            </article>
-            <article class="cell">
-              <img src="assets/img/agamemnon.webp" width="1200" height="900" loading="lazy" decoding="async"
-                   alt="Kupu-kupu Graphium agamemnon hitam dengan bintik hijau muda dan ekor panjang pada sayap belakang.">
-              <p class="cell__no">03</p>
-              <h3><i>Graphium agamemnon</i></h3>
-              <p>Yang paling sering terlihat di kota. Terbang cepat dan berhenti sebentar di
-                bunga pagar, taman kantor, dan pot di teras.</p>
-              <p class="cell__tag">Inang larva: sirsak, kenanga, dan kerabat Annonaceae</p>
-            </article>
-          </div>
-          <p class="small" style="margin-top:0.9rem;max-width:62ch">Catatan: kebutuhan inang
-            berbeda antarspesies dan antardaerah. Catatan tanaman inang di sini bersifat umum,
-            bukan resep tanam untuk setiap lokasi.</p>
-        </div>
-
-        <!-- life cycle -->
-        <div class="cycle reveal" data-d="2">
-          <p class="micro" style="margin-bottom:0.75rem">Siklus hidup · pilih tahap</p>
-          <div class="cycle__tabs" role="tablist" aria-label="Tahap siklus hidup kupu-kupu">
-            <button class="cycle__tab" role="tab" id="tab-egg" aria-controls="panel-egg" aria-selected="true">
-              <span>01 · Telur</span><strong>Mulai dari satu titik</strong>
-            </button>
-            <button class="cycle__tab" role="tab" id="tab-larva" aria-controls="panel-larva" aria-selected="false" tabindex="-1">
-              <span>02 · Larva</span><strong>Makan tanpa henti</strong>
-            </button>
-            <button class="cycle__tab" role="tab" id="tab-pupa" aria-controls="panel-pupa" aria-selected="false" tabindex="-1">
-              <span>03 · Pupa</span><strong>Berhenti, lalu berubah</strong>
-            </button>
-            <button class="cycle__tab" role="tab" id="tab-adult" aria-controls="panel-adult" aria-selected="false" tabindex="-1">
-              <span>04 · Imago</span><strong>Terbang dan menebar</strong>
-            </button>
-          </div>
-
-          <div class="cycle__panel" role="tabpanel" id="panel-egg" aria-labelledby="tab-egg" tabindex="0">
-            <figure class="cycle__figure" style="margin:0">
-              <img src="assets/img/egg.webp" width="1200" height="900" loading="lazy" decoding="async"
-                   alt="Telur kupu-kupu berwarna kuning pucat dan bulat, menempel pada permukaan daun hijau berbulu halus.">
-            </figure>
-            <div>
-              <p class="cycle__stage">Tahap 01</p>
-              <h3 class="cycle__name">Telur</h3>
-              <p class="cycle__text">Betina meletakkan telur satu per satu di daun inang yang
-                tepat, bukan di sembarang tanaman. Permukaannya berlapis lilin, dan bentuknya
-                sering menyerupai kuncup atau kotoran burung. Dalam beberapa hari, cangkang itu
-                menghitam: tanda ulat siap keluar.</p>
-              <p class="cycle__meta"><span>Umumnya <b>3–5 hari</b></span><span>Diletakkan <b>sendiri</b>, di bawah atau tepi daun</span></p>
-            </div>
-          </div>
-
-          <div class="cycle__panel" role="tabpanel" id="panel-larva" aria-labelledby="tab-larva" tabindex="0" hidden>
-            <figure class="cycle__figure" style="margin:0">
-              <img src="assets/img/larva.webp" width="1200" height="900" loading="lazy" decoding="async"
-                   alt="Ulat kupu-kupu berwarna hijau dengan garis gelap, memakan tepi daun hijau yang telah berlubang.">
-            </figure>
-            <div>
-              <p class="cycle__stage">Tahap 02</p>
-              <h3 class="cycle__name">Larva</h3>
-              <p class="cycle__text">Ini tahap paling rakus dan paling rentan. Ulat makan daun
-                inang hampir tanpa henti, berganti kulit beberapa kali. Setiap kali kulit lama
-                tanggal, tubuhnya bertambah besar. Di sini juga ia paling mudah dimangsa burung,
-                semut, dan tawon parasit.</p>
-              <p class="cycle__meta"><span>Umumnya <b>2–3 minggu</b></span><span>Berganti kulit <b>4–5 kali</b></span></p>
-            </div>
-          </div>
-
-          <div class="cycle__panel" role="tabpanel" id="panel-pupa" aria-labelledby="tab-pupa" tabindex="0" hidden>
-            <figure class="cycle__figure" style="margin:0">
-              <img src="assets/img/pupa.webp" width="1200" height="900" loading="lazy" decoding="async"
-                   alt="Kepompong kupu-kupu hijau pucat menyerupai daun, menempel pada batang tipis.">
-            </figure>
-            <div>
-              <p class="cycle__stage">Tahap 03</p>
-              <h3 class="cycle__name">Pupa</h3>
-              <p class="cycle__text">Tubuh mengeras dan menggantung, diikat benang sutra.
-                Dari luar ia tampak diam, tetapi di dalam seluruh tubuh larva dibongkar dan
-                disusun ulang. Warnanya meniru daun atau ranting di sekitarnya. Kamuflase itu
-                hanya bekerja jika lingkungannya tidak dibersihkan habis.</p>
-              <p class="cycle__meta"><span>Umumnya <b>1–2 minggu</b></span><span>Sifatnya <b>tidak bergerak</b> dan sangat rapuh</span></p>
-            </div>
-          </div>
-
-          <div class="cycle__panel" role="tabpanel" id="panel-adult" aria-labelledby="tab-adult" tabindex="0" hidden>
-            <figure class="cycle__figure" style="margin:0">
-              <img src="assets/img/polytes.webp" width="1200" height="900" loading="lazy" decoding="async"
-                   alt="Kupu-kupu Papilio polytes menghisap nektar dari bunga Lantana berwarna oranye dan merah muda.">
-            </figure>
-            <div>
-              <p class="cycle__stage">Tahap 04</p>
-              <h3 class="cycle__name">Kupu-kupu dewasa</h3>
-              <p class="cycle__text">Sayapnya terbuka, dan tugasnya berubah: mencari nektar,
-                menghindari pemangsa, dan menemukan pasangan. Saat berpindah dari bunga ke bunga,
-                ia membawa serbuk sari: jasa penyerbukan yang berlangsung tanpa upah dan tanpa
-                catatan.</p>
-              <p class="cycle__meta"><span>Umumnya <b>2–4 minggu</b></span><span>Peran <b>penyerbuk</b> dan mangsa dalam rantai makanan</span></p>
-            </div>
-          </div>
+          <aside class="hypothesis">
+            <span class="micro">Catatan kejujuran</span>
+            <p>Kupu-kupu yang jarang terlihat di suatu tempat <strong>belum tentu</strong>
+              menandakan lingkungan tersebut sudah rusak. Banyak faktor alamiah yang turut berpengaruh, mulai dari pergantian musim, cuaca,
+              siklus mekarnya bunga, hingga waktu pengamatan.</p>
+            <p>Kampanye ini berangkat dari pengamatan sehari-hari bahwa kupu-kupu terasa makin
+              jarang dijumpai di sejumlah permukiman. Pengamatan tersebut kami tempatkan sebagai <em>titik awal rasa ingin tahu</em>
+              untuk mengajak kita semua merawat kembali syarat hidup mereka di sekitar rumah.</p>
+          </aside>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- ================= CASE 04 · RUMAH ================= -->
-  <section class="case" id="rumah" aria-labelledby="home-title">
-    <div class="shell">
-      <div class="case__inner">
-        <span class="tick tick--tl" aria-hidden="true"></span><span class="tick tick--tr" aria-hidden="true"></span>
-        <span class="tick tick--bl" aria-hidden="true"></span><span class="tick tick--br" aria-hidden="true"></span>
-        <p class="case__no">Vitrin 04 · Rumah kupu-kupu</p>
+    <!-- ================= CASE 06 · KUIS ================= -->
+    <section class="case" id="kuis" aria-labelledby="quiz-title">
+      <div class="shell">
+        <div class="case__inner">
+          <span class="tick tick--tl" aria-hidden="true"></span><span class="tick tick--tr" aria-hidden="true"></span>
+          <span class="tick tick--bl" aria-hidden="true"></span><span class="tick tick--br" aria-hidden="true"></span>
+          <p class="case__no">Vitrin 06 · Kuis</p>
 
-        <div class="case__body" style="max-width:64ch">
-          <h2 id="home-title">Rumahnya bukan satu tanaman. <em>Ia satu rencana.</em></h2>
-          <p class="lede">Kupu-kupu membutuhkan empat hal yang jarang ada bersamaan:
-            daun untuk larvanya, bunga untuk dirinya, tempat berlindung, dan jalur aman
-            untuk berpindah di antara ketiganya.</p>
+          <div class="case__grid case__grid--wide">
+            <div class="case__body">
+              <h2 id="quiz-title">Lima pertanyaan singkat <em>untuk menguji ingatanmu.</em></h2>
+              <p class="lede">Kuis ini mengulas kembali konsep yang sering tertukar, seperti peran tanaman inang dan nektar,
+                perbedaan telur dan kepompong, serta kaitan antarhabitat.</p>
+            </div>
+            <p class="small" style="align-self:end;max-width:34ch">Tombol kirim aktif setelah
+              kelima pertanyaan terjawab. Skor dan penjelasan muncul setelah itu.</p>
+          </div>
+
+          <form class="quiz" id="quiz" novalidate>
+            <fieldset class="q" data-q="1" data-answer="b">
+              <legend class="q__legend"><span>01</span>Apa fungsi utama tanaman inang bagi kupu-kupu?</legend>
+              <div class="q__opts">
+                <label class="opt" data-verdict="wrong"><input type="radio" name="q1" value="a"><span>Tempat kupu-kupu
+                    dewasa beristirahat di malam hari</span></label>
+                <label class="opt" data-verdict="correct"><input type="radio" name="q1" value="b"><span>Makanan bagi
+                    ulat, dan tempat betina meletakkan telur</span></label>
+                <label class="opt" data-verdict="wrong"><input type="radio" name="q1" value="c"><span>Sumber nektar
+                    untuk bahan bakar terbang</span></label>
+              </div>
+              <p class="feedback" data-for="q1" hidden>
+                <svg viewBox="0 0 16 16" aria-hidden="true">
+                  <path d="M8 4v4M8 11.2v.6" />
+                  <circle cx="8" cy="8" r="6.4" />
+                </svg>
+                <span><b></b><span class="feedback__text"></span></span>
+              </p>
+            </fieldset>
+
+            <fieldset class="q" data-q="2" data-answer="c">
+              <legend class="q__legend"><span>02</span>Pada tahap mana kupu-kupu paling banyak makan?</legend>
+              <div class="q__opts">
+                <label class="opt" data-verdict="wrong"><input type="radio" name="q2"
+                    value="a"><span>Telur</span></label>
+                <label class="opt" data-verdict="wrong"><input type="radio" name="q2"
+                    value="b"><span>Pupa</span></label>
+                <label class="opt" data-verdict="correct"><input type="radio" name="q2" value="c"><span>Larva
+                    (ulat)</span></label>
+              </div>
+              <p class="feedback" data-for="q2" hidden>
+                <svg viewBox="0 0 16 16" aria-hidden="true">
+                  <path d="M8 4v4M8 11.2v.6" />
+                  <circle cx="8" cy="8" r="6.4" />
+                </svg>
+                <span><b></b><span class="feedback__text"></span></span>
+              </p>
+            </fieldset>
+
+            <fieldset class="q" data-q="3" data-answer="a">
+              <legend class="q__legend"><span>03</span>Mengapa menanam bunga nektar saja tidak cukup?</legend>
+              <div class="q__opts">
+                <label class="opt" data-verdict="correct"><input type="radio" name="q3" value="a"><span>Karena ulat
+                    memerlukan daun tanaman inang tertentu untuk tumbuh menjadi generasi berikutnya</span></label>
+                <label class="opt" data-verdict="wrong"><input type="radio" name="q3" value="b"><span>Karena kupu-kupu
+                    dewasa tidak meminum nektar</span></label>
+                <label class="opt" data-verdict="wrong"><input type="radio" name="q3" value="c"><span>Karena bunga
+                    menutupi sinar matahari</span></label>
+              </div>
+              <p class="feedback" data-for="q3" hidden>
+                <svg viewBox="0 0 16 16" aria-hidden="true">
+                  <path d="M8 4v4M8 11.2v.6" />
+                  <circle cx="8" cy="8" r="6.4" />
+                </svg>
+                <span><b></b><span class="feedback__text"></span></span>
+              </p>
+            </fieldset>
+
+            <fieldset class="q" data-q="4" data-answer="b">
+              <legend class="q__legend"><span>04</span>Apa akibat fragmentasi habitat bagi populasi kupu-kupu?</legend>
+              <div class="q__opts">
+                <label class="opt" data-verdict="wrong"><input type="radio" name="q4" value="a"><span>Kupu-kupu menjadi
+                    lebih besar</span></label>
+                <label class="opt" data-verdict="correct"><input type="radio" name="q4" value="b"><span>Populasi
+                    terpisah-pisah sehingga sulit bertukar individu dan gen</span></label>
+                <label class="opt" data-verdict="wrong"><input type="radio" name="q4" value="c"><span>Warna sayap
+                    berubah mengikuti musim</span></label>
+              </div>
+              <p class="feedback" data-for="q4" hidden>
+                <svg viewBox="0 0 16 16" aria-hidden="true">
+                  <path d="M8 4v4M8 11.2v.6" />
+                  <circle cx="8" cy="8" r="6.4" />
+                </svg>
+                <span><b></b><span class="feedback__text"></span></span>
+              </p>
+            </fieldset>
+
+            <fieldset class="q" data-q="5" data-answer="c">
+              <legend class="q__legend"><span>05</span>Kupu-kupu jarang terlihat di lingkunganmu. Kesimpulan yang paling
+                tepat?</legend>
+              <div class="q__opts">
+                <label class="opt" data-verdict="wrong"><input type="radio" name="q5" value="a"><span>Lingkungan itu
+                    pasti sudah tercemar berat</span></label>
+                <label class="opt" data-verdict="wrong"><input type="radio" name="q5" value="b"><span>Kupu-kupu di
+                    daerah itu sudah punah</span></label>
+                <label class="opt" data-verdict="correct"><input type="radio" name="q5" value="c"><span>Perlu pengamatan
+                    lebih teliti karena banyak faktor yang berpengaruh, termasuk pergantian musim dan waktu mekarnya bunga</span></label>
+              </div>
+              <p class="feedback" data-for="q5" hidden>
+                <svg viewBox="0 0 16 16" aria-hidden="true">
+                  <path d="M8 4v4M8 11.2v.6" />
+                  <circle cx="8" cy="8" r="6.4" />
+                </svg>
+                <span><b></b><span class="feedback__text"></span></span>
+              </p>
+            </fieldset>
+
+            <div class="quiz__foot">
+              <button class="btn btn--sm" type="submit" id="quizSubmit" disabled>Periksa Jawaban</button>
+              <button class="btn btn--sm btn--ghost" type="button" id="quizReset" hidden>Ulangi</button>
+              <p class="score" id="quizScore" aria-live="polite">0 dari 5 terjawab</p>
+            </div>
+
+            <div class="result" id="quizResult" hidden aria-live="polite">
+              <h3 id="resultTitle"></h3>
+              <p id="resultText"></p>
+              <p class="result__reward" id="quizReward" hidden></p>
+            </div>
+          </form>
         </div>
+      </div>
+    </section>
 
-        <div class="plan">
-          <div class="plan__grid">
-            <figure class="plan__figure" style="margin:0">
-              <span class="plan__mark" style="--x:4%;--y:5%">Rumah</span>
-              <span class="plan__mark plan__mark--narrow" style="--x:5%;--y:82%">Sepetak liar</span>
-              <svg viewBox="0 0 600 460" role="img" aria-labelledby="plan-t plan-d">
-                <title id="plan-t">Rencana halaman rumah untuk kupu-kupu</title>
-                <desc id="plan-d">Denah halaman: rumah di sisi atas, pagar di kanan, bedeng tanaman inang di kiri, bedeng bunga nektar di tengah, pohon dan semak sebagai tempat istirahat di kanan, piring air dangkal, sepetak liar di kiri bawah, serta jalur koridor yang menghubungkan ketiganya.</desc>
-                <rect width="600" height="460" fill="#EDE9D3"/>
+    <!-- ================= CASE 07 · AKSI ================= -->
+    <section class="case" id="aksi" aria-labelledby="act-title">
+      <div class="shell">
+        <div class="case__inner">
+          <span class="tick tick--tl" aria-hidden="true"></span><span class="tick tick--tr" aria-hidden="true"></span>
+          <span class="tick tick--bl" aria-hidden="true"></span><span class="tick tick--br" aria-hidden="true"></span>
+          <p class="case__no">Vitrin 07 · Ambil tindakan</p>
 
-                <!-- house band -->
-                <path d="M0 0h600v58H0z" fill="#183D2B" fill-opacity=".09"/>
-                <path d="M0 58h600" stroke="#183D2B" stroke-opacity=".28"/>
-                <path d="M486 0v58M508 0v58" stroke="#183D2B" stroke-opacity=".18"/>
+          <div class="case__body" style="max-width:60ch">
+            <h2 id="act-title">Enam hal yang bisa dimulai <em>bulan ini.</em></h2>
+            <p class="lede">Tak satu pun dari langkah ini membutuhkan lahan luas, izin rumit, atau biaya
+              besar. Beberapa di antaranya justru cukup dengan tidak terlalu sering memangkas tanaman liar.</p>
+          </div>
 
-                <!-- paving from the door -->
-                <path d="M508 58v96c0 30-24 46-60 52" fill="none" stroke="#183D2B" stroke-opacity=".12" stroke-width="20" stroke-linecap="round"/>
-                <g stroke="#183D2B" stroke-opacity=".18" stroke-width="1">
-                  <path d="M500 76h16M498 100h20M494 124h24M484 144h26"/>
-                </g>
+          <figure class="banner reveal" data-d="1">
+            <div class="banner__img">
+              <img src="assets/img/nectar.webp" width="1200" height="900" loading="lazy" decoding="async"
+                alt="Bunga Lantana berwarna oranye dan merah muda yang tumbuh rapat di antara daun hijau.">
+              <div class="plate__credit">Foto: Vengolis · CC BY-SA 4.0 · Wikimedia Commons</div>
+            </div>
+            <figcaption>Semak bunga yang dibiarkan tumbuh alami justru paling sering disinggahi kupu-kupu, seperti
+              <i>Lantana</i>, <i>Ixora</i> (soka), dan <i>Asystasia</i> yang mekar hampir sepanjang tahun
+              di dataran rendah.
+            </figcaption>
+          </figure>
 
-                <!-- fence -->
-                <path d="M572 58v402" stroke="#183D2B" stroke-opacity=".22" stroke-dasharray="7 7"/>
-                <g stroke="#183D2B" stroke-opacity=".18">
-                  <path d="M558 96h26M558 168h26M558 240h26M558 312h26M558 384h26"/>
-                </g>
+          <div class="checklist" id="checklist">
+            <label class="task">
+              <input type="checkbox" data-task="inang" id="task-inang">
+              <span class="task__box" aria-hidden="true"><svg viewBox="0 0 16 16">
+                  <path d="M3.5 8.5l3 3 6-7" />
+                </svg></span>
+              <span>
+                <span class="task__title">Tanam satu tanaman inang setempat</span>
+                <span class="task__why">Jeruk, <i>Aristolochia</i>, atau kerabatnya di pekarangan.
+                  Satu pot di balkon sudah cukup untuk satu betina bertelur.</span>
+                <span class="task__tag">Untuk larva · bisa dilakukan di pot</span>
+              </span>
+            </label>
+            <label class="task">
+              <input type="checkbox" data-task="nektar" id="task-nektar">
+              <span class="task__box" aria-hidden="true"><svg viewBox="0 0 16 16">
+                  <path d="M3.5 8.5l3 3 6-7" />
+                </svg></span>
+              <span>
+                <span class="task__title">Biarkan sepetak kecil tumbuh liar</span>
+                <span class="task__why">Gulma berbunga dan rumput tinggi adalah sumber nektar sekaligus
+                  tempat berlindung. Sepetak satu meter persegi sudah sangat berarti.</span>
+                <span class="task__tag">Untuk kupu-kupu dewasa · tanpa biaya</span>
+              </span>
+            </label>
+            <label class="task">
+              <input type="checkbox" data-task="pestisida" id="task-pestisida">
+              <span class="task__box" aria-hidden="true"><svg viewBox="0 0 16 16">
+                  <path d="M3.5 8.5l3 3 6-7" />
+                </svg></span>
+              <span>
+                <span class="task__title">Kurangi pestisida, mulai dari yang paling mudah</span>
+                <span class="task__why">Semprot hanya bagian yang benar-benar terserang, pagi atau
+                  sore saat penyerbuk tidak aktif, dan hindari saat tanaman berbunga.</span>
+                <span class="task__tag">Untuk semua serangga · kebiasaan</span>
+              </span>
+            </label>
+            <label class="task">
+              <input type="checkbox" data-task="tangkap" id="task-tangkap">
+              <span class="task__box" aria-hidden="true"><svg viewBox="0 0 16 16">
+                  <path d="M3.5 8.5l3 3 6-7" />
+                </svg></span>
+              <span>
+                <span class="task__title">Jangan menangkap atau memelihara kupu-kupu liar</span>
+                <span class="task__why">Menangkap satu ekor kupu-kupu liar sama artinya dengan memutus satu generasi berikutnya.
+                  Cukup amati dan potret keindahannya dari jarak dekat tanpa mengusiknya.</span>
+                <span class="task__tag">Untuk populasi · tanpa alat</span>
+              </span>
+            </label>
+            <label class="task">
+              <input type="checkbox" data-task="air" id="task-air">
+              <span class="task__box" aria-hidden="true"><svg viewBox="0 0 16 16">
+                  <path d="M3.5 8.5l3 3 6-7" />
+                </svg></span>
+              <span>
+                <span class="task__title">Sediakan air dangkal dan tempat istirahat</span>
+                <span class="task__why">Piring kecil berisi air dan batu, diletakkan di tempat
+                  teduh. Kupu-kupu meminum mineral dari tanah lembap.</span>
+                <span class="task__tag">Untuk kupu-kupu dewasa · satu piring</span>
+              </span>
+            </label>
+            <label class="task">
+              <input type="checkbox" data-task="komunitas" id="task-komunitas">
+              <span class="task__box" aria-hidden="true"><svg viewBox="0 0 16 16">
+                  <path d="M3.5 8.5l3 3 6-7" />
+                </svg></span>
+              <span>
+                <span class="task__title">Dukung inisiatif lingkungan di sekitar</span>
+                <span class="task__why">Bergabung dengan kelompok kebun atau komunitas setempat,
+                  atau sekadar mengajak tetangga menanam satu pohon bersama.</span>
+                <span class="task__tag">Untuk lingkungan · kolektif</span>
+              </span>
+            </label>
+          </div>
 
-                <!-- corridor -->
-                <g class="layer is-off" data-layer="koridor">
-                  <path d="M96 232c56-6 92 22 148 22 52 0 92-30 146-42" fill="none" stroke="#477A50" stroke-opacity=".15" stroke-width="14" stroke-linecap="round"/>
-                  <path d="M96 232c56-6 92 22 148 22 52 0 92-30 146-42" fill="none" stroke="#477A50" stroke-width="1.2" stroke-dasharray="4 8"/>
-                  <circle cx="96" cy="232" r="4" fill="#477A50"/>
-                  <circle cx="244" cy="254" r="4" fill="#477A50"/>
-                  <circle cx="390" cy="212" r="4" fill="#477A50"/>
-                </g>
+          <div class="actionbar">
+            <div class="meter">
+              <div class="meter__track">
+                <div class="meter__fill" id="meterFill"></div>
+              </div>
+              <p class="meter__label" id="meterLabel"><b>0 dari 6</b> langkah dipilih · tersimpan di peramban ini saja
+              </p>
+            </div>
+            <button class="btn btn--sm" type="button" id="commitSubmit" disabled>Kirim komitmen</button>
+            <button class="btn btn--sm btn--ghost" type="button" id="clearTasks" hidden>Bersihkan pilihan</button>
+          </div>
 
-                <!-- host bed -->
-                <g class="layer is-off" data-layer="inang">
-                  <rect x="30" y="96" width="150" height="112" fill="#B8D99A" fill-opacity=".42" stroke="#477A50" stroke-opacity=".5"/>
-                  <g fill="#477A50">
-                    <circle cx="64" cy="128" r="13"/><circle cx="102" cy="120" r="10"/>
-                    <circle cx="140" cy="134" r="14"/><circle cx="80" cy="166" r="11"/>
-                    <circle cx="120" cy="176" r="13"/><circle cx="154" cy="166" r="9"/>
+          <div class="commit" id="commitDone" role="status" hidden>
+            <h3 id="commitTitle">Komitmen tercatat di peramban ini.</h3>
+            <p id="commitText"></p>
+            <p class="small">Komitmen ini menjadi catatan pribadimu. Pilihanmu disimpan di peramban perangkat ini saja sebagai
+              pengingat langkah yang ingin kamu mulai, tanpa pelacakan dan tanpa sinkronisasi ke perangkat lain.</p>
+          </div>
+
+          <div class="rewards" id="rewards">
+            <div class="rewards__head">
+              <h3>Hadiah</h3>
+              <p class="small">Tersimpan di peramban perangkat ini saja dan tidak disinkronkan ke perangkat lain.</p>
+            </div>
+            <ul class="rewards__list">
+              <li class="reward" data-reward="habitat">
+                <span class="reward__mark" aria-hidden="true">
+                  <svg viewBox="0 0 24 24">
+                    <path d="M12 12C7 4 2 5 2 9c0 4 5 6 10 5Z" fill="currentColor" />
+                    <path d="M12 12c5-8 10-7 10-3 0 4-5 6-10 5Z" fill="currentColor" fill-opacity=".6" />
+                    <path d="M12 4v16" stroke="currentColor" stroke-width="1.2" />
+                  </svg>
+                </span>
+                <span class="reward__body">
+                  <span class="reward__name">Rumah lengkap</span>
+                  <span class="reward__state" data-state>Terkunci</span>
+                </span>
+                <button class="switch switch--sm" type="button" role="switch" aria-checked="true" id="swarmToggle"
+                  aria-label="Kupu-kupu terbang di halaman" hidden>
+                  <span class="switch__track" aria-hidden="true"><span class="switch__knob"></span></span>
+                  <span class="switch__state">Nyala</span>
+                </button>
+              </li>
+              <li class="reward" data-reward="cursor">
+                <span class="reward__mark" aria-hidden="true">
+                  <svg viewBox="0 0 24 24">
+                    <path d="M12 3v18M12 8l-7-4M12 8l7-4M12 14l-7 5M12 14l7 5" stroke="currentColor" stroke-width="1.2"
+                      fill="none" />
+                    <circle cx="12" cy="12" r="2.4" fill="currentColor" />
+                  </svg>
+                </span>
+                <span class="reward__body">
+                  <span class="reward__name">Kursor kupu-kupu</span>
+                  <span class="reward__state" data-state>Terkunci</span>
+                </span>
+                <button class="switch switch--sm" type="button" role="switch" aria-checked="false" id="cursorToggle"
+                  aria-label="Kursor kupu-kupu" hidden>
+                  <span class="switch__track" aria-hidden="true"><span class="switch__knob"></span></span>
+                  <span class="switch__state">Mati</span>
+                </button>
+                <div class="seg" id="cursorSeg" role="radiogroup" aria-label="Pilihan kursor kupu-kupu" hidden>
+                  <button type="button" role="radio" aria-checked="false" data-cursor="off">Mati</button>
+                  <button type="button" role="radio" aria-checked="false" data-cursor="classic">Klasik</button>
+                  <button type="button" role="radio" aria-checked="false" data-cursor="blue">Biru</button>
+                </div>
+                <button class="btn btn--sm btn--ghost" type="button" id="touchWings" hidden>
+                  Terbangkan kupu-kupu
+                </button>
+              </li>
+              <li class="reward" data-reward="perfect">
+                <span class="reward__mark" aria-hidden="true">
+                  <svg viewBox="0 0 24 24">
+                    <path d="M12 21V12" stroke="currentColor" stroke-width="1.4" fill="none" />
+                    <path
+                      d="M12 12C9 9 7 5 9 3M12 12C12 8 12 5 12 2M12 12c3-3 5-7 3-9M12 12C8 11 5 9 3 10M12 12c4-1 7-3 9-2"
+                      stroke="currentColor" stroke-width="1.5" fill="none" stroke-linecap="round" />
+                    <circle cx="12" cy="12" r="1.6" fill="currentColor" />
+                  </svg>
+                </span>
+                <span class="reward__body">
+                  <span class="reward__name">Spider lily</span>
+                  <span class="reward__state" data-state>Terkunci</span>
+                </span>
+                <button class="switch switch--sm" type="button" role="switch" aria-checked="false" id="lilyToggle"
+                  aria-label="Bunga spider lily di halaman" hidden>
+                  <span class="switch__track" aria-hidden="true"><span class="switch__knob"></span></span>
+                  <span class="switch__state">Mati</span>
+                </button>
+              </li>
+            </ul>
+            <p class="small" id="lilyReduced" hidden>Spider lily tidak ditampilkan karena pengaturan perangkatmu meminta
+              pengurangan gerak.</p>
+            <div class="lily" id="lilySpot" hidden>
+              <button class="lily__btn" type="button" id="lilyBtn"
+                aria-label="Bunga spider lily merah. Tekan untuk melepas dua kupu-kupu">
+                <svg viewBox="0 0 80 100" aria-hidden="true" focusable="false">
+                  <defs>
+                    <path id="lilyPetal" d="M40 38C33 30 28 18 36 8c3-4 8-2 7 4-1 10 1 18-3 26Z" />
+                    <path id="lilyStamen" d="M40 38C40 22 46 10 56 6" />
+                  </defs>
+                  <path d="M40 38C38 60 42 80 40 98" fill="none" stroke="#477A50" stroke-width="2.6"
+                    stroke-linecap="round" />
+                  <g class="lily__bloom">
+                    <g fill="#C8102E" stroke="#8E0B21" stroke-width="0.8" stroke-linejoin="round">
+                      <use href="#lilyPetal" transform="rotate(-100 40 38)" />
+                      <use href="#lilyPetal" transform="rotate(-60 40 38)" />
+                      <use href="#lilyPetal" transform="rotate(-20 40 38)" />
+                      <use href="#lilyPetal" transform="rotate(20 40 38)" />
+                      <use href="#lilyPetal" transform="rotate(60 40 38)" />
+                      <use href="#lilyPetal" transform="rotate(100 40 38)" />
+                    </g>
+                    <g fill="none" stroke="#8E0B21" stroke-width="1" stroke-linecap="round">
+                      <use href="#lilyStamen" transform="rotate(-70 40 38)" />
+                      <use href="#lilyStamen" transform="rotate(-35 40 38)" />
+                      <use href="#lilyStamen" transform="rotate(0 40 38)" />
+                      <use href="#lilyStamen" transform="rotate(35 40 38)" />
+                      <use href="#lilyStamen" transform="rotate(70 40 38)" />
+                    </g>
+                    <circle cx="40" cy="38" r="2.4" fill="#E9A94D" />
                   </g>
-                  <g stroke="#183D2B" stroke-opacity=".26" stroke-width="1.2">
-                    <path d="M64 141v22M140 148v20M120 189v16"/>
-                  </g>
-                </g>
-
-                <!-- nectar bed -->
-                <g class="layer is-off" data-layer="nektar">
-                  <rect x="228" y="316" width="176" height="98" fill="#E9A94D" fill-opacity=".2" stroke="#E9A94D" stroke-opacity=".65"/>
-                  <g fill="#E9A94D">
-                    <circle cx="256" cy="346" r="7"/><circle cx="284" cy="360" r="6"/><circle cx="312" cy="342" r="7"/>
-                    <circle cx="340" cy="366" r="6"/><circle cx="368" cy="344" r="7"/><circle cx="384" cy="372" r="5"/>
-                    <circle cx="262" cy="384" r="6"/><circle cx="296" cy="392" r="5"/><circle cx="330" cy="390" r="6"/>
-                    <circle cx="358" cy="392" r="5"/><circle cx="246" cy="366" r="4"/><circle cx="396" cy="356" r="4"/>
-                  </g>
-                </g>
-
-                <!-- shelter -->
-                <g class="layer is-off" data-layer="perlindungan">
-                  <circle cx="466" cy="172" r="56" fill="#477A50" fill-opacity=".12"/>
-                  <circle cx="466" cy="172" r="34" fill="#477A50" fill-opacity=".5"/>
-                  <path d="M466 206v58" stroke="#183D2B" stroke-opacity=".45" stroke-width="4"/>
-                  <path d="M392 288c12-20 34-30 54-30s40 10 52 30Z" fill="#477A50" fill-opacity=".22"/>
-                  <path d="M392 288c12-20 34-30 54-30s40 10 52 30" fill="none" stroke="#477A50" stroke-opacity=".5" stroke-width="1.4"/>
-                  <ellipse cx="540" cy="330" rx="24" ry="13" fill="#F3F0DF" stroke="#477A50" stroke-opacity=".45"/>
-                  <ellipse cx="540" cy="328" rx="17" ry="8" fill="#B8D99A" fill-opacity=".7"/>
-                </g>
-
-                <!-- untidy corner -->
-                <g class="layer is-off" data-layer="perlindungan">
-                  <path d="M34 358c22-12 44-4 54 8 9 11 4 26-14 29-22 4-46-8-52-22" fill="#477A50" fill-opacity=".15" stroke="#477A50" stroke-opacity=".3" stroke-dasharray="3 4"/>
-                </g>
-              </svg>
-              <p class="plan__hint" id="planHint">Halaman ini masih kosong. Aktifkan elemen di
-                samping untuk mengisinya.</p>
-            </figure>
-
-            <div class="plan__side">
-              <p class="micro" id="habTitle">Simulasi habitat · empat elemen, semua mulai nonaktif</p>
-              <ul class="hab" aria-labelledby="habTitle">
-                <li class="hab__item">
-                  <button class="switch" type="button" role="switch" aria-checked="false"
-                          data-target="inang" aria-describedby="hab-note-inang">
-                    <span class="switch__track" aria-hidden="true"><span class="switch__knob"></span></span>
-                    <span class="switch__name"><span class="sw sw--inang" aria-hidden="true"></span>Tanaman inang</span>
-                    <span class="switch__state">Nonaktif</span>
-                  </button>
-                  <p class="hab__note" id="hab-note-inang" data-note="inang">Tanpa tanaman inang,
-                    tidak ada daun untuk telur dan ulat. Generasi berikutnya berhenti di sini.</p>
-                </li>
-                <li class="hab__item">
-                  <button class="switch" type="button" role="switch" aria-checked="false"
-                          data-target="nektar" aria-describedby="hab-note-nektar">
-                    <span class="switch__track" aria-hidden="true"><span class="switch__knob"></span></span>
-                    <span class="switch__name"><span class="sw sw--nektar" aria-hidden="true"></span>Bunga nektar</span>
-                    <span class="switch__state">Nonaktif</span>
-                  </button>
-                  <p class="hab__note" id="hab-note-nektar" data-note="nektar">Tanpa bunga penghasil
-                    nektar, kupu-kupu dewasa kehabisan bahan bakar untuk terbang dan kawin.</p>
-                </li>
-                <li class="hab__item">
-                  <button class="switch" type="button" role="switch" aria-checked="false"
-                          data-target="perlindungan" aria-describedby="hab-note-perlindungan">
-                    <span class="switch__track" aria-hidden="true"><span class="switch__knob"></span></span>
-                    <span class="switch__name"><span class="sw sw--naungan" aria-hidden="true"></span>Perlindungan</span>
-                    <span class="switch__state">Nonaktif</span>
-                  </button>
-                  <p class="hab__note" id="hab-note-perlindungan" data-note="perlindungan">Tanpa
-                    vegetasi pelindung, kupu-kupu terbuka pada angin, hujan, dan pemangsa.</p>
-                </li>
-                <li class="hab__item">
-                  <button class="switch" type="button" role="switch" aria-checked="false"
-                          data-target="koridor" aria-describedby="hab-note-koridor">
-                    <span class="switch__track" aria-hidden="true"><span class="switch__knob"></span></span>
-                    <span class="switch__name"><span class="sw sw--koridor" aria-hidden="true"></span>Koridor</span>
-                    <span class="switch__state">Nonaktif</span>
-                  </button>
-                  <p class="hab__note" id="hab-note-koridor" data-note="koridor">Ruang hijau yang
-                    terpisah membuat kupu-kupu sulit berpindah di antara petak-petak habitat.</p>
-                </li>
-              </ul>
-              <p class="hab__progress" id="habProgress" role="status">0 dari 4 elemen aktif</p>
-              <p class="small">Empat elemen ini saling menopang, tetapi tidak semuanya wajib bagi
-                setiap spesies. Model ini alat belajar, bukan gambaran restorasi lingkungan
-                yang sebenarnya.</p>
-            </div>
-          </div>
-        </div>
-
-        <table class="compare reveal" data-d="2">
-          <caption>Dua kebutuhan, dua jenis tanaman</caption>
-          <thead>
-            <tr><th scope="col">Tanaman</th><th scope="col">Dipakai oleh</th><th scope="col">Yang dicari</th><th scope="col">Akibat jika hilang</th></tr>
-          </thead>
-          <tbody>
-            <tr>
-              <th scope="row" data-label="Tanaman">Inang<br><span class="small">jeruk, <i>Aristolochia</i></span></th>
-              <td data-label="Dipakai oleh">Ulat</td>
-              <td data-label="Yang dicari">Daun, sebagai makanan</td>
-              <td data-label="Jika hilang">Tidak ada tempat bertelur; generasi berikutnya tidak ada</td>
-            </tr>
-            <tr>
-              <th scope="row" data-label="Tanaman">Nektar<br><span class="small">Lantana, Ixora, Asystasia</span></th>
-              <td data-label="Dipakai oleh">Kupu-kupu dewasa</td>
-              <td data-label="Yang dicari">Gula, sebagai bahan bakar</td>
-              <td data-label="Jika hilang">Kupu-kupu ada, tetapi tidak cukup energi untuk kawin</td>
-            </tr>
-          </tbody>
-        </table>
-        <p class="small" style="margin-top:0.9rem;max-width:66ch">Menanam bunga saja tidak
-          menambah populasi; menanam inang tanpa bunga membuat imago kelaparan. Keduanya harus
-          ada dalam jarak terbang yang wajar.</p>
-      </div>
-    </div>
-  </section>
-
-  <!-- ================= CASE 05 · ANCAMAN (dark) ================= -->
-  <section class="case case--dark" id="ancaman" aria-labelledby="threat-title">
-    <div class="shell">
-      <div class="case__inner">
-        <span class="tick tick--tl" aria-hidden="true"></span><span class="tick tick--tr" aria-hidden="true"></span>
-        <span class="tick tick--bl" aria-hidden="true"></span><span class="tick tick--br" aria-hidden="true"></span>
-        <p class="case__no">Vitrin 05 · Ancaman</p>
-
-        <div class="case__body">
-          <h2 id="threat-title">Yang hilang bukan hanya sayap. <em>Ia syarat hidupnya.</em></h2>
-          <p class="lede">Tekanan terhadap kupu-kupu jarang datang dari satu sebab. Biasanya
-            beberapa perubahan kecil bertumpuk di ruang yang sama.</p>
-        </div>
-
-        <div class="threats reveal" data-d="1">
-          <div class="threat"><span class="threat__no">01</span><span class="threat__name">Kehilangan habitat</span>
-            <span class="threat__text">Lahan berubah fungsi: kebun menjadi beton, semak menjadi
-              lahan parkir. Ketika tanaman inang hilang, tidak ada daun yang bisa ditinggali telur.</span></div>
-          <div class="threat"><span class="threat__no">02</span><span class="threat__name">Fragmentasi</span>
-            <span class="threat__text">Habitat yang tersisa terpotong menjadi pulau-pulau kecil.
-              Populasi terpisah, tidak bertukar gen, dan rentan punah satu per satu.</span></div>
-          <div class="threat"><span class="threat__no">03</span><span class="threat__name">Pestisida</span>
-            <span class="threat__text">Ulat dianggap hama, lalu disemprot. Racun yang sama
-              mengenai lebah, predator alami, dan kupu-kupu dewasa yang hinggap di bunga.</span></div>
-          <div class="threat"><span class="threat__no">04</span><span class="threat__name">Polusi dan degradasi</span>
-            <span class="threat__text">Debu, asap, dan kualitas air yang memburuk melemahkan
-              tanaman inang. Tanaman yang lemah menghasilkan daun yang kurang bergizi.</span></div>
-          <div class="threat"><span class="threat__no">05</span><span class="threat__name">Vegetasi yang menyusut</span>
-            <span class="threat__text">Pembersihan rutin menghapus gulma berbunga, semak rendah,
-              dan tepian rumput. Justru bagian itulah yang dipakai kupu-kupu untuk beristirahat.</span></div>
-        </div>
-
-        <figure class="frag reveal" data-d="2" style="margin-left:0;margin-right:0">
-          <div class="frag__panels">
-            <div class="frag__panel">
-              <p class="frag__state">Sebelum</p>
-              <svg viewBox="0 0 452 152" aria-hidden="true">
-                <path d="M0 24h92v92H0zM112 48h52v44h-52zM184 24h92v92h-92zM296 48h52v44h-52zM368 24h84v92h-84z"
-                      fill="#477A50" fill-opacity=".38" stroke="#B8D99A" stroke-opacity=".55"/>
-                <g fill="#B8D99A" fill-opacity=".92">
-                  <circle cx="26" cy="50" r="3"/><circle cx="62" cy="84" r="3"/><circle cx="210" cy="46" r="3"/>
-                  <circle cx="248" cy="86" r="3"/><circle cx="396" cy="52" r="3"/><circle cx="424" cy="90" r="3"/>
-                  <circle cx="138" cy="70" r="2.4"/><circle cx="322" cy="70" r="2.4"/>
-                </g>
-              </svg>
-              <p class="frag__cap">Lima petak, satu jaringan. Populasi dapat bertukar individu dan gen.</p>
-            </div>
-            <div class="frag__panel">
-              <p class="frag__state">Sesudah</p>
-              <svg viewBox="0 0 452 152" aria-hidden="true">
-                <path d="M0 24h80v92H0z" fill="#477A50" fill-opacity=".38" stroke="#B8D99A" stroke-opacity=".55"/>
-                <path d="M92 24h80v92H92z" fill="none" stroke="#F3F0DF" stroke-opacity=".4" stroke-dasharray="5 6"/>
-                <path d="M184 24h80v92h-80z" fill="#477A50" fill-opacity=".38" stroke="#B8D99A" stroke-opacity=".55"/>
-                <path d="M276 24h80v92h-80z" fill="none" stroke="#F3F0DF" stroke-opacity=".4" stroke-dasharray="5 6"/>
-                <path d="M368 24h84v92h-84z" fill="#477A50" fill-opacity=".38" stroke="#B8D99A" stroke-opacity=".55"/>
-                <g fill="#B8D99A" fill-opacity=".92">
-                  <circle cx="22" cy="50" r="3"/><circle cx="54" cy="84" r="3"/><circle cx="206" cy="46" r="3"/>
-                  <circle cx="238" cy="86" r="3"/><circle cx="404" cy="62" r="3"/>
-                </g>
-              </svg>
-              <p class="frag__cap">Petak terisolasi. Dua hilang; yang tersisa tidak lagi terhubung.</p>
-            </div>
-          </div>
-          <figcaption class="frag__caption">
-            <span><b>Garis putus-putus</b> menandai petak yang hilang, bukan spesies yang punah.</span>
-            <span>Ilustrasi skematis, bukan data lapangan.</span>
-          </figcaption>
-        </figure>
-
-        <aside class="hypothesis">
-          <span class="micro">Catatan kejujuran</span>
-          <p>Kupu-kupu yang jarang terlihat di sebuah lingkungan <strong>tidak otomatis</strong>
-            berarti lingkungan itu rusak. Banyak hal memengaruhi: musim, cuaca tahun itu,
-            jenis tanaman yang sedang berbunga, bahkan jam pengamatan.</p>
-          <p>Kampanye ini bertolak dari pengamatan sederhana: bahwa kupu-kupu terasa makin
-            jarang di beberapa lingkungan. Pengamatan itu diperlakukan sebagai <em>hipotesis</em>,
-            bukan kesimpulan ilmiah. Yang bisa kita lakukan sekarang bukan menghitung kerugian,
-            melainkan menjaga syarat hidupnya tetap ada.</p>
-        </aside>
-      </div>
-    </div>
-  </section>
-
-  <!-- ================= CASE 06 · KUIS ================= -->
-  <section class="case" id="kuis" aria-labelledby="quiz-title">
-    <div class="shell">
-      <div class="case__inner">
-        <span class="tick tick--tl" aria-hidden="true"></span><span class="tick tick--tr" aria-hidden="true"></span>
-        <span class="tick tick--bl" aria-hidden="true"></span><span class="tick tick--br" aria-hidden="true"></span>
-        <p class="case__no">Vitrin 06 · Kuis</p>
-
-        <div class="case__grid case__grid--wide">
-          <div class="case__body">
-            <h2 id="quiz-title">Lima pertanyaan. <em>Tanpa nilai rapor.</em></h2>
-            <p class="lede">Kuis ini menguji hal-hal yang sering tertukar: inang dan nektar,
-              telur dan kepompong, sebab dan akibat.</p>
-          </div>
-          <p class="small" style="align-self:end;max-width:34ch">Tombol kirim aktif setelah
-            kelima pertanyaan terjawab. Skor dan penjelasan muncul setelah itu.</p>
-        </div>
-
-        <form class="quiz" id="quiz" novalidate>
-          <fieldset class="q" data-q="1" data-answer="b">
-            <legend class="q__legend"><span>01</span>Apa fungsi utama tanaman inang bagi kupu-kupu?</legend>
-            <div class="q__opts">
-              <label class="opt" data-verdict="wrong"><input type="radio" name="q1" value="a"><span>Tempat kupu-kupu dewasa beristirahat di malam hari</span></label>
-              <label class="opt" data-verdict="correct"><input type="radio" name="q1" value="b"><span>Makanan bagi ulat, dan tempat betina meletakkan telur</span></label>
-              <label class="opt" data-verdict="wrong"><input type="radio" name="q1" value="c"><span>Sumber nektar untuk bahan bakar terbang</span></label>
-            </div>
-            <p class="feedback" data-for="q1" hidden>
-              <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 4v4M8 11.2v.6"/><circle cx="8" cy="8" r="6.4"/></svg>
-              <span><b></b><span class="feedback__text"></span></span>
-            </p>
-          </fieldset>
-
-          <fieldset class="q" data-q="2" data-answer="c">
-            <legend class="q__legend"><span>02</span>Pada tahap mana kupu-kupu paling banyak makan?</legend>
-            <div class="q__opts">
-              <label class="opt" data-verdict="wrong"><input type="radio" name="q2" value="a"><span>Telur</span></label>
-              <label class="opt" data-verdict="wrong"><input type="radio" name="q2" value="b"><span>Pupa</span></label>
-              <label class="opt" data-verdict="correct"><input type="radio" name="q2" value="c"><span>Larva (ulat)</span></label>
-            </div>
-            <p class="feedback" data-for="q2" hidden>
-              <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 4v4M8 11.2v.6"/><circle cx="8" cy="8" r="6.4"/></svg>
-              <span><b></b><span class="feedback__text"></span></span>
-            </p>
-          </fieldset>
-
-          <fieldset class="q" data-q="3" data-answer="a">
-            <legend class="q__legend"><span>03</span>Mengapa menanam bunga nektar saja tidak cukup?</legend>
-            <div class="q__opts">
-              <label class="opt" data-verdict="correct"><input type="radio" name="q3" value="a"><span>Karena ulat memerlukan daun inang tertentu; tanpa itu tidak ada generasi berikutnya</span></label>
-              <label class="opt" data-verdict="wrong"><input type="radio" name="q3" value="b"><span>Karena kupu-kupu dewasa tidak meminum nektar</span></label>
-              <label class="opt" data-verdict="wrong"><input type="radio" name="q3" value="c"><span>Karena bunga menutupi sinar matahari</span></label>
-            </div>
-            <p class="feedback" data-for="q3" hidden>
-              <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 4v4M8 11.2v.6"/><circle cx="8" cy="8" r="6.4"/></svg>
-              <span><b></b><span class="feedback__text"></span></span>
-            </p>
-          </fieldset>
-
-          <fieldset class="q" data-q="4" data-answer="b">
-            <legend class="q__legend"><span>04</span>Apa akibat fragmentasi habitat bagi populasi kupu-kupu?</legend>
-            <div class="q__opts">
-              <label class="opt" data-verdict="wrong"><input type="radio" name="q4" value="a"><span>Kupu-kupu menjadi lebih besar</span></label>
-              <label class="opt" data-verdict="correct"><input type="radio" name="q4" value="b"><span>Populasi terpisah-pisah sehingga sulit bertukar individu dan gen</span></label>
-              <label class="opt" data-verdict="wrong"><input type="radio" name="q4" value="c"><span>Warna sayap berubah mengikuti musim</span></label>
-            </div>
-            <p class="feedback" data-for="q4" hidden>
-              <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 4v4M8 11.2v.6"/><circle cx="8" cy="8" r="6.4"/></svg>
-              <span><b></b><span class="feedback__text"></span></span>
-            </p>
-          </fieldset>
-
-          <fieldset class="q" data-q="5" data-answer="c">
-            <legend class="q__legend"><span>05</span>Kupu-kupu jarang terlihat di lingkunganmu. Kesimpulan yang paling tepat?</legend>
-            <div class="q__opts">
-              <label class="opt" data-verdict="wrong"><input type="radio" name="q5" value="a"><span>Lingkungan itu pasti sudah tercemar berat</span></label>
-              <label class="opt" data-verdict="wrong"><input type="radio" name="q5" value="b"><span>Kupu-kupu di daerah itu sudah punah</span></label>
-              <label class="opt" data-verdict="correct"><input type="radio" name="q5" value="c"><span>Perlu pengamatan lebih teliti; banyak faktor memengaruhi, termasuk musim dan tanaman berbunga</span></label>
-            </div>
-            <p class="feedback" data-for="q5" hidden>
-              <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 4v4M8 11.2v.6"/><circle cx="8" cy="8" r="6.4"/></svg>
-              <span><b></b><span class="feedback__text"></span></span>
-            </p>
-          </fieldset>
-
-          <div class="quiz__foot">
-            <button class="btn btn--sm" type="submit" id="quizSubmit" disabled>Periksa Jawaban</button>
-            <button class="btn btn--sm btn--ghost" type="button" id="quizReset" hidden>Ulangi</button>
-            <p class="score" id="quizScore" aria-live="polite">0 dari 5 terjawab</p>
-          </div>
-
-          <div class="result" id="quizResult" hidden aria-live="polite">
-            <h3 id="resultTitle"></h3>
-            <p id="resultText"></p>
-            <p class="result__reward" id="quizReward" hidden></p>
-          </div>
-        </form>
-      </div>
-    </div>
-  </section>
-
-  <!-- ================= CASE 07 · AKSI ================= -->
-  <section class="case" id="aksi" aria-labelledby="act-title">
-    <div class="shell">
-      <div class="case__inner">
-        <span class="tick tick--tl" aria-hidden="true"></span><span class="tick tick--tr" aria-hidden="true"></span>
-        <span class="tick tick--bl" aria-hidden="true"></span><span class="tick tick--br" aria-hidden="true"></span>
-        <p class="case__no">Vitrin 07 · Ambil tindakan</p>
-
-        <div class="case__body" style="max-width:60ch">
-          <h2 id="act-title">Enam hal yang bisa dimulai <em>bulan ini.</em></h2>
-          <p class="lede">Tidak satu pun dari ini memerlukan lahan luas, izin, atau uang
-            banyak. Beberapa justru berarti melakukan lebih sedikit.</p>
-        </div>
-
-        <figure class="banner reveal" data-d="1">
-          <div class="banner__img">
-            <img src="assets/img/nectar.webp" width="1200" height="900" loading="lazy" decoding="async"
-                 alt="Bunga Lantana berwarna oranye dan merah muda yang tumbuh rapat di antara daun hijau.">
-            <div class="plate__credit">Foto: Vengolis · CC BY-SA 4.0 · Wikimedia Commons</div>
-          </div>
-          <figcaption>Bunga yang tidak dirapikan justru yang paling sering dikunjungi:
-            <i>Lantana</i>, <i>Ixora</i>, dan <i>Asystasia</i> berbunga hampir sepanjang tahun
-            di dataran rendah.</figcaption>
-        </figure>
-
-        <div class="checklist" id="checklist">
-          <label class="task">
-            <input type="checkbox" data-task="inang" id="task-inang">
-            <span class="task__box" aria-hidden="true"><svg viewBox="0 0 16 16"><path d="M3.5 8.5l3 3 6-7"/></svg></span>
-            <span>
-              <span class="task__title">Tanam satu tanaman inang setempat</span>
-              <span class="task__why">Jeruk, <i>Aristolochia</i>, atau kerabatnya di pekarangan.
-                Satu pot di balkon sudah cukup untuk satu betina bertelur.</span>
-              <span class="task__tag">Untuk larva · bisa dilakukan di pot</span>
-            </span>
-          </label>
-          <label class="task">
-            <input type="checkbox" data-task="nektar" id="task-nektar">
-            <span class="task__box" aria-hidden="true"><svg viewBox="0 0 16 16"><path d="M3.5 8.5l3 3 6-7"/></svg></span>
-            <span>
-              <span class="task__title">Biarkan sepetak kecil tumbuh liar</span>
-              <span class="task__why">Gulma berbunga dan rumput tinggi adalah restoran dan
-                tempat berlindung. Sepetak satu meter persegi sudah berarti.</span>
-              <span class="task__tag">Untuk imago · tanpa biaya</span>
-            </span>
-          </label>
-          <label class="task">
-            <input type="checkbox" data-task="pestisida" id="task-pestisida">
-            <span class="task__box" aria-hidden="true"><svg viewBox="0 0 16 16"><path d="M3.5 8.5l3 3 6-7"/></svg></span>
-            <span>
-              <span class="task__title">Kurangi pestisida, mulai dari yang paling mudah</span>
-              <span class="task__why">Semprot hanya bagian yang benar-benar terserang, pagi atau
-                sore saat penyerbuk tidak aktif, dan hindari saat tanaman berbunga.</span>
-              <span class="task__tag">Untuk semua serangga · kebiasaan</span>
-            </span>
-          </label>
-          <label class="task">
-            <input type="checkbox" data-task="tangkap" id="task-tangkap">
-            <span class="task__box" aria-hidden="true"><svg viewBox="0 0 16 16"><path d="M3.5 8.5l3 3 6-7"/></svg></span>
-            <span>
-              <span class="task__title">Jangan menangkap atau memelihara kupu-kupu liar</span>
-              <span class="task__why">Satu individu yang diambil berarti satu generasi yang
-                hilang. Amati dan foto dari jarak dekat. Itu sudah cukup.</span>
-              <span class="task__tag">Untuk populasi · tanpa alat</span>
-            </span>
-          </label>
-          <label class="task">
-            <input type="checkbox" data-task="air" id="task-air">
-            <span class="task__box" aria-hidden="true"><svg viewBox="0 0 16 16"><path d="M3.5 8.5l3 3 6-7"/></svg></span>
-            <span>
-              <span class="task__title">Sediakan air dangkal dan tempat istirahat</span>
-              <span class="task__why">Piring kecil berisi air dan batu, diletakkan di tempat
-                teduh. Kupu-kupu meminum mineral dari tanah lembap.</span>
-              <span class="task__tag">Untuk imago · satu piring</span>
-            </span>
-          </label>
-          <label class="task">
-            <input type="checkbox" data-task="komunitas" id="task-komunitas">
-            <span class="task__box" aria-hidden="true"><svg viewBox="0 0 16 16"><path d="M3.5 8.5l3 3 6-7"/></svg></span>
-            <span>
-              <span class="task__title">Dukung inisiatif lingkungan di sekitar</span>
-              <span class="task__why">Bergabung dengan kelompok kebun atau komunitas setempat,
-                atau sekadar mengajak tetangga menanam satu pohon bersama.</span>
-              <span class="task__tag">Untuk lingkungan · kolektif</span>
-            </span>
-          </label>
-        </div>
-
-        <div class="actionbar">
-          <div class="meter">
-            <div class="meter__track"><div class="meter__fill" id="meterFill"></div></div>
-            <p class="meter__label" id="meterLabel"><b>0 dari 6</b> langkah dipilih · tersimpan di peramban ini saja</p>
-          </div>
-          <button class="btn btn--sm" type="button" id="commitSubmit" disabled>Kirim komitmen</button>
-          <button class="btn btn--sm btn--ghost" type="button" id="clearTasks" hidden>Bersihkan pilihan</button>
-        </div>
-
-        <div class="commit" id="commitDone" role="status" hidden>
-          <h3 id="commitTitle">Komitmen tercatat di peramban ini.</h3>
-          <p id="commitText"></p>
-          <p class="small">Komitmen ini adalah pernyataan Anda sendiri. Tidak ada pihak yang
-            memverifikasinya, tidak ada angka dampak lingkungan yang dihitung, dan catatannya
-            tidak tersinkron ke perangkat lain.</p>
-        </div>
-
-        <div class="rewards" id="rewards">
-          <div class="rewards__head">
-            <h3>Hadiah</h3>
-            <p class="small">Tersimpan di peramban ini saja; tidak tersinkron antarperangkat.</p>
-          </div>
-          <ul class="rewards__list">
-            <li class="reward" data-reward="habitat">
-              <span class="reward__mark" aria-hidden="true">
-                <svg viewBox="0 0 24 24"><path d="M12 12C7 4 2 5 2 9c0 4 5 6 10 5Z" fill="currentColor"/><path d="M12 12c5-8 10-7 10-3 0 4-5 6-10 5Z" fill="currentColor" fill-opacity=".6"/><path d="M12 4v16" stroke="currentColor" stroke-width="1.2"/></svg>
-              </span>
-              <span class="reward__body">
-                <span class="reward__name">Rumah lengkap</span>
-                <span class="reward__state" data-state>Terkunci</span>
-              </span>
-            </li>
-            <li class="reward" data-reward="cursor">
-              <span class="reward__mark" aria-hidden="true">
-                <svg viewBox="0 0 24 24"><path d="M12 3v18M12 8l-7-4M12 8l7-4M12 14l-7 5M12 14l7 5" stroke="currentColor" stroke-width="1.2" fill="none"/><circle cx="12" cy="12" r="2.4" fill="currentColor"/></svg>
-              </span>
-              <span class="reward__body">
-                <span class="reward__name">Kursor kupu-kupu</span>
-                <span class="reward__state" data-state>Terkunci</span>
-              </span>
-              <button class="switch switch--sm" type="button" role="switch" aria-checked="false"
-                      id="cursorToggle" aria-label="Kursor kupu-kupu" hidden>
-                <span class="switch__track" aria-hidden="true"><span class="switch__knob"></span></span>
-                <span class="switch__state">Mati</span>
+                </svg>
               </button>
-              <button class="btn btn--sm btn--ghost" type="button" id="touchWings" hidden>
-                Terbangkan kupu-kupu
-              </button>
-            </li>
-            <li class="reward" data-reward="perfect">
-              <span class="reward__mark" aria-hidden="true">
-                <svg viewBox="0 0 24 24"><path d="M12 2l2.6 6.3L21 9l-4.7 4.3L17.5 20 12 16.6 6.5 20l1.2-6.7L3 9l6.4-.7Z" fill="currentColor"/></svg>
-              </span>
-              <span class="reward__body">
-                <span class="reward__name">Sayap sempurna</span>
-                <span class="reward__state" data-state>Terkunci</span>
-              </span>
-            </li>
+              <p class="small" id="lilyHint" aria-live="polite"></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="sitefoot">
+    <div class="shell">
+      <div class="sitefoot__grid">
+        <div>
+          <h2>Setiap sayap menandai satu simpul.</h2>
+          <p style="margin-top:0.9rem;max-width:38ch">The Return of the Wings adalah kampanye
+            edukasi lingkungan. Isinya dapat dipakai ulang untuk kegiatan belajar di sekolah,
+            komunitas, atau taman kota.</p>
+          <p style="margin-top:1.5rem"><a class="tlink" href="#atas">Kembali ke atas</a></p>
+        </div>
+        <div>
+          <h3>Kredit gambar</h3>
+          <ul class="credits">
+            <li><b>Idea leuconoe</b><span>Richard Bartz · CC BY-SA 2.5</span></li>
+            <li><b>Papilio blumei</b><span>Yi-Kai Tea · CC BY-SA 4.0</span></li>
+            <li><b>Troides helena</b><span>ZiemowitJ · CC BY 4.0</span></li>
+            <li><b>Graphium agamemnon</b><span>ManaskaMukhopadhyay · CC BY-SA 4.0</span></li>
+            <li><b>Telur</b><span>Hemant Ogale · CC BY-SA 4.0</span></li>
+            <li><b>Kepompong</b><span>Sandipoutsider · CC BY-SA 4.0</span></li>
+            <li><b>Larva</b><span>Vinayaraj · CC BY-SA 4.0</span></li>
+            <li><b>Papilio polytes</b><span>Charles J. Sharp · CC BY-SA 4.0</span></li>
+            <li><b>Lantana</b><span>Vengolis · CC BY-SA 4.0</span></li>
           </ul>
+          <p class="small" style="margin-top:0.9rem">Seluruh foto berasal dari Wikimedia Commons yang telah disesuaikan ukurannya dengan tetap mengikuti lisensi aslinya.</p>
+        </div>
+        <div>
+          <h3>Rujukan</h3>
+          <ol class="refs">
+            <li>Academy of Natural Sciences. <i>An Educator's Guide to Butterflies</i>.
+              <a href="https://www.ansp.org/~/media/Files/ans/education/field-trips/Butterflies_Teachers_Guide.ashx"
+                rel="noopener">ansp.org</a>
+            </li>
+            <li>Leksono, A. S. dkk. (2025). Butterfly diversity along an altitudinal gradient and
+              land uses in East Java, Indonesia. <i>Biodiversitas</i>, 26(2), 551–563.
+              <a href="https://doi.org/10.13057/biodiv/d260204" rel="noopener">doi</a>
+            </li>
+          </ol>
+          <p class="small" style="margin-top:1rem">Rentang waktu tiap tahap siklus hidup merupakan gambaran umum dan dapat berbeda menurut spesies, ketinggian tempat, serta musim.</p>
         </div>
       </div>
-    </div>
-  </section>
-
-</main>
-
-<footer class="sitefoot">
-  <div class="shell">
-    <div class="sitefoot__grid">
-      <div>
-        <h2>Setiap sayap menandai satu simpul.</h2>
-        <p style="margin-top:0.9rem;max-width:38ch">The Return of the Wings adalah kampanye
-          edukasi lingkungan. Isinya dapat dipakai ulang untuk kegiatan belajar di sekolah,
-          komunitas, atau taman kota.</p>
-        <p style="margin-top:1.5rem"><a class="tlink" href="#atas">Kembali ke atas</a></p>
-      </div>
-      <div>
-        <h3>Kredit gambar</h3>
-        <ul class="credits">
-          <li><b>Idea leuconoe</b><span>Richard Bartz · CC BY-SA 2.5</span></li>
-          <li><b>Papilio blumei</b><span>Yi-Kai Tea · CC BY-SA 4.0</span></li>
-          <li><b>Troides helena</b><span>ZiemowitJ · CC BY 4.0</span></li>
-          <li><b>Graphium agamemnon</b><span>ManaskaMukhopadhyay · CC BY-SA 4.0</span></li>
-          <li><b>Telur</b><span>Hemant Ogale · CC BY-SA 4.0</span></li>
-          <li><b>Kepompong</b><span>Sandipoutsider · CC BY-SA 4.0</span></li>
-          <li><b>Larva</b><span>Vinayaraj · CC BY-SA 4.0</span></li>
-          <li><b>Papilio polytes</b><span>Charles J. Sharp · CC BY-SA 4.0</span></li>
-          <li><b>Lantana</b><span>Vengolis · CC BY-SA 4.0</span></li>
-        </ul>
-        <p class="small" style="margin-top:0.9rem">Semua gambar dari Wikimedia Commons,
-          dipotong dan diperkecil; lisensi asli berlaku.</p>
-      </div>
-      <div>
-        <h3>Rujukan</h3>
-        <ol class="refs">
-          <li>Academy of Natural Sciences. <i>An Educator's Guide to Butterflies</i>.
-            <a href="https://www.ansp.org/~/media/Files/ans/education/field-trips/Butterflies_Teachers_Guide.ashx" rel="noopener">ansp.org</a></li>
-          <li>Leksono, A. S. dkk. (2025). Butterfly diversity along an altitudinal gradient and
-            land uses in East Java, Indonesia. <i>Biodiversitas</i>, 26(2), 551–563.
-            <a href="https://doi.org/10.13057/biodiv/d260204" rel="noopener">doi</a></li>
-        </ol>
-        <p class="small" style="margin-top:1rem">Rentang waktu pada tiap tahap bersifat umum;
-          nilai sebenarnya berbeda menurut spesies, ketinggian, dan musim.</p>
+      <div class="sitefoot__end">
+        <span>The Return of the Wings · versi 0.4 · media edukasi</span>
+        <span>Dibangun dengan HTML, CSS, dan JavaScript tanpa dependensi.</span>
       </div>
     </div>
-    <div class="sitefoot__end">
-      <span>The Return of the Wings · versi 0.4 · purwarupa edukasi</span>
-      <span>Dibangun dengan HTML, CSS, dan JavaScript tanpa dependensi.</span>
+  </footer>
+
+  <dialog class="modal" id="habitatDialog" aria-labelledby="habitatDone">
+    <h2 id="habitatDone">Simulasi habitat berhasil dilengkapi!</h2>
+    <p class="modal__lead">Kamu telah merancang ruang yang lebih ramah bagi kupu-kupu.</p>
+    <p class="modal__reward" id="habitatReward" hidden></p>
+    <p class="small">Keempat elemen ini saling mendukung, meski kebutuhan tiap spesies bisa berbeda.
+      Simulasi ini merupakan model belajar untuk memahami fungsi ruang hijau di sekitar kita.</p>
+    <div class="modal__foot">
+      <button class="btn btn--sm" type="button" id="habitatClose">Tutup</button>
+      <a class="tlink" href="#kuis">Lanjut ke kuis</a>
     </div>
-  </div>
-</footer>
+  </dialog>
 
-<dialog class="modal" id="habitatDialog" aria-labelledby="habitatDone">
-  <h2 id="habitatDone">Simulasi habitat berhasil dilengkapi!</h2>
-  <p class="modal__lead">Kamu telah merancang ruang yang lebih ramah bagi kupu-kupu.</p>
-  <p class="modal__reward" id="habitatReward" hidden></p>
-  <p class="small">Empat elemen ini saling menopang, tetapi kebutuhan tiap spesies berbeda.
-    Model ini alat belajar, bukan gambaran restorasi lingkungan yang sebenarnya.</p>
-  <div class="modal__foot">
-    <button class="btn btn--sm" type="button" id="habitatClose">Tutup</button>
-    <a class="tlink" href="#kuis">Lanjut ke kuis</a>
-  </div>
-</dialog>
+  <div class="wings" id="wings" popover="manual" aria-hidden="true"></div>
 
-<div class="wings" id="wings" aria-hidden="true"></div>
+  <dialog class="modal modal--blue" id="blueDialog" aria-labelledby="blueTitle">
+    <p class="micro">Kupu-kupu biru ditemukan</p>
+    <h2 id="blueTitle">Di Jawa Timur, banyak kupu-kupu hanya hidup di sedikit tempat.</h2>
+    <p class="modal__stat"><b>57 dari 123</b><span>spesies kupu-kupu di Lumajang hanya ditemukan di satu dari tujuh
+        lokasi survei. Lebih dari 70% spesies tersebar sempit.</span></p>
+    <p class="modal__lead">Di hutan dan kebun tepi danau (Ranu Bedali), rata-rata tercatat sekitar 24 spesies. Di lahan
+      yang didominasi pertanian (Kandangtepus), hanya tercatat sekitar 3 spesies. Semakin luas lahan pertanian monokultur, semakin rendah keragaman
+      kupu-kupunya, sedangkan area hutan dan kebun campuran mampu menampung keragaman yang jauh lebih tinggi.</p>
+    <h3 class="modal__sub">Apa artinya?</h3>
+    <p class="small">Banyak spesies kupu-kupu sangat bergantung pada kondisi habitat tertentu.
+      Jika ruang hidup tersebut berubah menjadi lahan pertanian intensif, permukiman, atau jalan raya, spesies
+      yang bergantung padanya ikut menghilang. Kepekaan inilah yang menjadikan keragaman kupu-kupu sebagai
+      penanda alami kesehatan lingkungan.</p>
+    <h3 class="modal__sub">Yang bisa kamu lakukan</h3>
+    <p class="small">Ikut merawat hutan, kebun campuran, dan tepian air di sekitarmu. Tanam tanaman inang dan bunga nektar,
+      batasi pemakaian pestisida, serta sisakan sepetak rumput tumbuh alami. Lahan pertanian organik dan kebun pekarangan pun tetap bisa menjadi ruang hidup yang ramah bagi
+      kupu-kupu.</p>
+    <p class="modal__reward" id="blueCursorNote"></p>
+    <p class="small modal__src">Sumber: Leksono dkk., <i>Biodiversitas</i> 26(2):551–563 (2025), berdasarkan survei 3.099 kupu-kupu
+      di tujuh lokasi Kabupaten Lumajang pada musim kemarau (Agustus–Oktober 2022) sebagai potret keragaman lokal pada periode tersebut.</p>
+    <div class="modal__foot">
+      <button class="btn btn--sm" type="button" id="blueClose">Tutup</button>
+      <a class="tlink" href="#aksi" id="blueAction">Ambil tindakan</a>
+    </div>
+  </dialog>
 
-<script src="assets/js/main.js" defer></script>
+  <script src="assets/js/main.js" defer></script>
 </body>
+
 </html>

@@ -103,12 +103,14 @@
       }
       setActive(active);
 
-      if (progressBar) {
-        var doc = document.documentElement;
-        var max = doc.scrollHeight - window.innerHeight;
-        var p = max > 0 ? Math.min(1, Math.max(0, window.scrollY / max)) : 0;
-        progressBar.style.transform = 'scaleX(' + p.toFixed(4) + ')';
-      }
+      var doc = document.documentElement;
+      var max = doc.scrollHeight - window.innerHeight;
+      var p = max > 0 ? Math.min(1, Math.max(0, window.scrollY / max)) : 0;
+      if (progressBar) progressBar.style.transform = 'scaleX(' + p.toFixed(4) + ')';
+
+      // The backdrop only listens to where the reader is; it never runs on its own.
+      setBackdropMood(active);
+      setBackdropShift(p);
       ticking = false;
     });
   }
@@ -161,6 +163,87 @@
   var HAB_KEY = 'rotw.habitat.v1';
   var REWARD_KEY = 'rotw.rewards.v1';
 
+  /* -------------------------------------------------------- savanna backdrop */
+  /* Still by default (docs: "tipe tengah"). It has no click targets and no
+     motion of its own. It changes in one place only: in case 04 it echoes the
+     four habitat switches that already exist. Elsewhere it just shifts its
+     light, and it dims in the quiz and during long reading. A switch turns the
+     reaction off; prefers-reduced-motion makes it fully static. */
+  var savanna = document.getElementById('savanna');
+  var BACKDROP_KEY = 'rotw.backdrop.v1';
+  // ?latar=statis | interaktif forces a version for side-by-side testing; it is not saved.
+  var backdropParam = (function () {
+    try { return new URLSearchParams(window.location.search).get('latar'); } catch (err) { return null; }
+  })();
+  var MOODS = {
+    atas: 'dawn',             // 01 hero: dawn light, strongest
+    biodiversitas: 'calm',    // 02 long reading
+    'kupu-kupu': 'quiet',     // 03 life-cycle tabs already interactive
+    rumah: 'echo',            // 04 the only place the backdrop reacts
+    ancaman: 'calm',          // 05 dark case covers it anyway
+    kuis: 'quiet',            // 06 concentration
+    aksi: 'calm'              // 07 rewards own the motion
+  };
+  var backdrop = {
+    mood: 'calm',
+    on: {},
+    react: backdropParam === 'statis' ? false
+      : backdropParam === 'interaktif' ? true
+      : STORE.read(BACKDROP_KEY, { react: true }).react !== false
+  };
+
+  function renderBackdrop() {
+    if (!savanna) return;
+    var echo = backdrop.react && !reduceMotion && backdrop.mood === 'echo';
+    Array.prototype.forEach.call(savanna.querySelectorAll('[data-grow]'), function (g) {
+      g.classList.toggle('is-on', echo && !!backdrop.on[g.getAttribute('data-grow')]);
+    });
+  }
+
+  function syncBackdrop(on) {
+    backdrop.on = on || backdrop.on;
+    renderBackdrop();
+  }
+
+  function setBackdropMood(id) {
+    if (!savanna || reduceMotion) return;
+    var mood = MOODS[id] || 'calm';
+    if (mood === backdrop.mood && savanna.hasAttribute('data-mood')) return;
+    backdrop.mood = mood;
+    savanna.setAttribute('data-mood', mood);
+    savanna.classList.toggle('is-quiet', mood === 'quiet');
+    renderBackdrop();
+  }
+
+  function setBackdropShift(p) {
+    if (savanna && !reduceMotion) savanna.style.setProperty('--sv-p', p.toFixed(4));
+  }
+
+  var backdropToggle = document.getElementById('backdropToggle');
+  var backdropControl = document.getElementById('backdropControl');
+  var backdropReduced = document.getElementById('backdropReduced');
+
+  function paintBackdropToggle() {
+    if (!backdropToggle) return;
+    backdropToggle.setAttribute('aria-checked', String(backdrop.react));
+    var word = backdropToggle.querySelector('.switch__state');
+    if (word) word.textContent = backdrop.react ? 'Nyala' : 'Mati';
+  }
+
+  if (reduceMotion) {
+    // Static backdrop: say why the control is not offered instead of leaving a dead switch.
+    if (backdropControl) backdropControl.hidden = true;
+    if (backdropReduced) backdropReduced.hidden = false;
+  } else if (backdropToggle) {
+    paintBackdropToggle();
+    backdropToggle.addEventListener('click', function () {
+      backdrop.react = !backdrop.react;
+      if (!backdropParam) STORE.write(BACKDROP_KEY, { react: backdrop.react });
+      paintBackdropToggle();
+      renderBackdrop();
+    });
+  }
+
   var switches = Array.prototype.slice.call(document.querySelectorAll('.switch[data-target]'));
   var planLayers = Array.prototype.slice.call(document.querySelectorAll('.plan svg .layer'));
   var habProgress = document.getElementById('habProgress');
@@ -168,15 +251,15 @@
   var habitatDialog = document.getElementById('habitatDialog');
 
   var HAB_ON = {
-    inang: 'Tanaman inang tersedia: daun untuk telur dan ulat.',
-    nektar: 'Bunga nektar tersedia: bahan bakar untuk kupu-kupu dewasa.',
-    perlindungan: 'Naungan dan semak tersedia: tempat berlindung dari angin dan hujan.',
-    koridor: 'Koridor tersedia: petak-petak hijau kini saling terhubung.'
+    inang: 'Tanaman inang tersedia sebagai sumber daun untuk telur dan ulat.',
+    nektar: 'Bunga nektar tersedia sebagai sumber energi untuk kupu-kupu dewasa.',
+    perlindungan: 'Naungan dan semak tersedia sebagai tempat berlindung dari angin, hujan, dan pemangsa.',
+    koridor: 'Koridor hijau tersedia sehingga petak-petak habitat kini saling terhubung.'
   };
   var HAB_OFF = {
     inang: 'Tanpa tanaman inang, tidak ada daun untuk telur dan ulat. Generasi berikutnya berhenti di sini.',
     nektar: 'Tanpa bunga penghasil nektar, kupu-kupu dewasa kehabisan bahan bakar untuk terbang dan kawin.',
-    perlindungan: 'Tanpa vegetasi pelindung, kupu-kupu terbuka pada angin, hujan, dan pemangsa.',
+    perlindungan: 'Tanpa tajuk dan semak pelindung, kupu-kupu rentan terhadap terpaan angin, hujan, dan pemangsa.',
     koridor: 'Ruang hijau yang terpisah membuat kupu-kupu sulit berpindah di antara petak-petak habitat.'
   };
 
@@ -227,6 +310,7 @@
           : count + ' dari 4 elemen terisi. Halaman ini belum lengkap.');
     }
 
+    syncBackdrop(on);
     if (count === switches.length) completeHabitat(announce);
     return count;
   }
@@ -242,8 +326,6 @@
     STORE.write(HAB_KEY, habState());
 
     if (announce) {
-      flyAcross('cross');
-
       var rewardLine = document.getElementById('habitatReward');
       if (rewardLine) {
         rewardLine.hidden = !firstTime;
@@ -258,6 +340,8 @@
         if (typeof habitatDialog.showModal === 'function') habitatDialog.showModal();
         else habitatDialog.setAttribute('open', '');
       }
+      // The butterflies must stay visible above the dialog and its backdrop.
+      raiseWings();
     }
   }
 
@@ -360,6 +444,504 @@
     });
   }
 
+  /* ------------------------------------------------- flapping butterflies */
+  /* One small engine drives both the roaming butterflies (reward "Rumah
+     lengkap") and the butterfly cursor. Each butterfly is a div holding the
+     four-wing SVG; the wing beat is a scaleX on each wing pair around the
+     body axis, set every frame, so the beat rate can change smoothly. */
+  var wingsReady = false;
+  var rafId = 0;
+  var lastFrame = 0;
+  var swarm = [];
+  var lilyBf = [];
+  var lilyShown = false;
+  var lilyReleased = false;
+  var cursorBf = null;
+  var pointer = { x: 0, y: 0, px: 0, py: 0, seen: false, hover: false, down: false, tilt: 0, rate: 1.4, depth: 0.55, phase: 0 };
+  var HOVERABLE = 'a, button, label, input, select, textarea, summary, [role="switch"], [role="tab"]';
+  var SWARM_COLORS = [['#183D2B', '#E9A94D'], ['#183D2B', '#B8D99A'], ['#3C6A44', '#E9A94D']];
+
+  // Moves #wings to the top of the top layer (above an open modal dialog).
+  function raiseWings() {
+    if (!wingsRoot || typeof wingsRoot.showPopover !== 'function') return;
+    try {
+      if (wingsRoot.matches(':popover-open')) wingsRoot.hidePopover();
+      wingsRoot.showPopover();
+    } catch (err) { /* unsupported: #wings stays a plain fixed layer */ }
+  }
+  raiseWings();
+
+  function butterflyMarkup(ink, accent) {
+    var edge = ' stroke="#F3F0DF" stroke-width="0.9" stroke-linejoin="round" paint-order="stroke"';
+    return '<svg viewBox="0 0 32 32" aria-hidden="true" focusable="false">' +
+      '<g class="bf__hind" fill="' + ink + '"' + edge + '>' +
+      '<path d="M14.5 17C10 20 5.5 25 4 28c3 .5 7.5-2 10.5-7Z"/>' +
+      '<path d="M17.5 17C22 20 26.5 25 28 28c-3 .5-7.5-2-10.5-7Z"/>' +
+      '</g>' +
+      '<g class="bf__fore" fill="' + accent + '"' + edge + '>' +
+      '<path d="M14.5 14C10 6 4 3.5 2.5 6.5 1 9.5 5 15 12 16.5Z"/>' +
+      '<path d="M17.5 14C22 6 28 3.5 29.5 6.5 31 9.5 27 15 20 16.5Z"/>' +
+      '</g>' +
+      '<path d="M16 8v17" stroke="#F3F0DF" stroke-width="3.6" stroke-linecap="round"/>' +
+      '<path d="M16 8v17" stroke="' + ink + '" stroke-width="2.2" stroke-linecap="round"/>' +
+      '<path d="M15 8.5 12 4M17 8.5 20 4" stroke="' + ink + '" stroke-width="1.2" stroke-linecap="round" fill="none"/>' +
+      '</svg>';
+  }
+
+  /* The secret blue butterfly: a swallowtail with near-black forewings, iridescent
+     blue hindwings edged with white spots, and two tails (after the reference
+     photo). Drawn as the left half and mirrored; viewBox is 64 wide, body at x=32. */
+  var blueUid = 0;
+  function swallowtailMarkup(p) {
+    var id = 'bb' + (++blueUid);
+    var edge = ' stroke="' + p.edge + '" stroke-opacity="0.5" stroke-width="0.5" stroke-linejoin="round"';
+    function both(inner) { return inner + '<g transform="translate(64 0) scale(-1 1)">' + inner + '</g>'; }
+    var fore = '<path d="M31 28C27 19 16 11 6 10C3 13 3 22 8 29C14 34 24 33 31 32Z" fill="url(#' + id + 'f)"' + edge + '/>' +
+      '<path d="M31 29C24 24 15 19 7 14M31 30C23 28 14 26 8 25" stroke="' + p.fline + '" stroke-opacity="0.28" stroke-width="0.5" fill="none"/>' +
+      '<circle cx="6.6" cy="15.5" r="0.8" fill="' + p.fdot + '" opacity="0.8"/><circle cx="5.7" cy="20" r="0.8" fill="' + p.fdot + '" opacity="0.8"/><circle cx="7.2" cy="25.4" r="0.8" fill="' + p.fdot + '" opacity="0.8"/>';
+    var hind = '<path d="M17 51C15 56 14 60 14 62C19 60 23 56 25 51Z" fill="' + p.tail + '"' + edge + '/>' +
+      '<path d="M31 31C24 32 14 33 9 38C7 44 11 50 18 53C23 55 28 50 31 43Z" fill="url(#' + id + 'h)"' + edge + '/>' +
+      '<path d="M31 33C23 37 15 41 10 43M31 36C25 42 20 47 16 51M31 40C28 45 25 49 22 53" stroke="' + p.vein + '" stroke-opacity="0.45" stroke-width="0.5" fill="none"/>' +
+      '<g fill="' + p.spot + '" opacity="0.95"><circle cx="11" cy="41" r="1.15"/><circle cx="11.4" cy="46" r="1.15"/><circle cx="14.6" cy="50" r="1.15"/><circle cx="19.6" cy="52" r="1.1"/></g>';
+    return '<svg viewBox="0 0 64 64" aria-hidden="true" focusable="false">' +
+      '<defs><linearGradient id="' + id + 'f" gradientUnits="userSpaceOnUse" x1="31" y1="30" x2="6" y2="12"><stop offset="0" stop-color="' + p.f0 + '"/><stop offset="0.5" stop-color="' + p.f1 + '"/><stop offset="1" stop-color="' + p.f2 + '"/></linearGradient>' +
+      '<linearGradient id="' + id + 'h" gradientUnits="userSpaceOnUse" x1="31" y1="34" x2="9" y2="50"><stop offset="0" stop-color="' + p.h0 + '"/><stop offset="0.55" stop-color="' + p.h1 + '"/><stop offset="1" stop-color="' + p.h2 + '"/></linearGradient></defs>' +
+      '<g class="bf__hind">' + both(hind) + '</g><g class="bf__fore">' + both(fore) + '</g>' +
+      '<path d="M31.2 22C29 17 26 13 22.5 10.5M32.8 22C35 17 38 13 41.5 10.5" stroke="' + p.body + '" stroke-width="0.6" fill="none" stroke-linecap="round"/>' +
+      '<ellipse cx="32" cy="34" rx="1.7" ry="10" fill="' + p.body + '"/><circle cx="32" cy="23.5" r="2.1" fill="' + p.body + '"/>' +
+      '</svg>';
+  }
+  var SWALLOW = {
+    blue: { edge: '#dff1ff', f0: '#3b4296', f1: '#1d1b5c', f2: '#0f0e2f', fline: '#8fa4ff', fdot: '#cfe9ff',
+      tail: '#0d0f33', h0: '#52d0f5', h1: '#1f7ccc', h2: '#14307c', vein: '#06265a', spot: '#fff', body: '#0a0a18' },
+    /* Spider lily butterflies: same swallowtail drawing, near-black red forewings,
+       crimson hindwings, cream spots (swallowtails are common visitors of red spider lilies). */
+    red: { edge: '#f6e3c8', f0: '#5b0e16', f1: '#3a0c12', f2: '#2a0a0f', fline: '#c8505a', fdot: '#f6e3c8',
+      tail: '#1a0709', h0: '#e0343f', h1: '#b3202a', h2: '#8e0b21', vein: '#4a0710', spot: '#f6e3c8', body: '#1a0709' }
+  };
+  function blueMarkup() { return swallowtailMarkup(SWALLOW.blue); }
+
+  function makeButterfly(size, ink, accent, cls, kind) {
+    var el = document.createElement('div');
+    el.className = 'bf ' + cls;
+    el.style.width = size + 'px';
+    el.style.height = size + 'px';
+    el.innerHTML = kind === 'blue' ? blueMarkup() : (kind === 'lily' ? swallowtailMarkup(SWALLOW.red) : butterflyMarkup(ink, accent));
+    wingsRoot.appendChild(el);
+    return { el: el, size: size, cx: (kind === 'blue' || kind === 'lily') ? 32 : 16, kind: kind || 'classic',
+      fore: el.querySelector('.bf__fore'), hind: el.querySelector('.bf__hind') };
+  }
+
+  // phase: wing-beat angle in radians. depth: 0 = wings held open, 1 = full beat.
+  // The hind wings trail the fore wings a little, which reads as a real flap.
+  function flapWings(b, phase, depth) {
+    var fore = 0.5 + 0.5 * Math.cos(phase);
+    var hind = 0.5 + 0.5 * Math.cos(phase - 0.8);
+    var cx = b.cx || 16;
+    b.fore.setAttribute('transform', 'translate(' + cx + ' 0) scale(' + (1 - 0.85 * depth * (1 - fore)).toFixed(3) + ' 1) translate(-' + cx + ' 0)');
+    b.hind.setAttribute('transform', 'translate(' + cx + ' 0) scale(' + (1 - 0.8 * depth * (1 - hind)).toFixed(3) + ' 1) translate(-' + cx + ' 0)');
+  }
+
+  function angleDiff(a, b) {
+    var d = a - b;
+    while (d > Math.PI) d -= Math.PI * 2;
+    while (d < -Math.PI) d += Math.PI * 2;
+    return d;
+  }
+
+  /* ---- roaming butterflies ---- */
+  /* Positions are page coordinates (x across, y down the whole document), so
+     scrolling moves the page past them instead of dragging them along with
+     the screen. Each one patrols a band of the page around its own home
+     height; the count scales with the page length so every stretch of the
+     page has a few. */
+  var mouse = { x: 0, y: 0, has: false };
+  function onSwarmMouse(e) {
+    if (e.pointerType && e.pointerType !== 'mouse') return;
+    mouse.x = e.clientX; mouse.y = e.clientY; mouse.has = true;
+  }
+  function clamp(v, lo, hi) { return Math.max(lo, Math.min(hi, v)); }
+
+  function startSwarm() {
+    if (!wingsRoot || reduceMotion || swarm.length) return;
+    var w = window.innerWidth, vh = window.innerHeight;
+    var docH = Math.max(document.documentElement.scrollHeight, vh);
+    var sy = window.scrollY;
+    var n = w < 700 ? clamp(Math.round(docH / 700), 5, 12) : clamp(Math.round(docH / 450), 8, 20);
+    var entering = Math.min(n, w < 700 ? 3 : 5);
+
+    for (var i = 0; i < n; i++) {
+      var c = SWARM_COLORS[i % SWARM_COLORS.length];
+      var b = makeButterfly(30 + Math.random() * 16, c[0], c[1], 'bf--swarm');
+      if (i < entering) {
+        // Fly in from the sides of the screen the person is looking at.
+        var fromLeft = i % 2 === 0;
+        b.x = fromLeft ? -50 : w + 50;
+        b.y = sy + vh * (0.12 + Math.random() * 0.76);
+        b.heading = fromLeft ? 0 : Math.PI;
+      } else {
+        // The rest are already out over the rest of the page.
+        b.x = 60 + Math.random() * (w - 120);
+        b.y = 120 + Math.random() * Math.max(1, docH - 240);
+        b.heading = Math.random() * Math.PI * 2;
+      }
+      b.home = b.y;
+      b.band = 380 + Math.random() * 260;
+      b.rot = b.heading + Math.PI / 2;
+      b.base = 60 + Math.random() * 40;
+      b.v = b.base;
+      b.t = Math.random() * 10;
+      b.p1 = Math.random() * 6.28; b.p2 = Math.random() * 6.28;
+      b.w1 = 0.7 + Math.random() * 0.6; b.w2 = 1.7 + Math.random() * 0.9;
+      b.phase = Math.random() * 6.28;
+      b.mode = 'cruise';
+      b.modeLeft = 1 + Math.random() * 3;
+      b.wait = i < entering ? i * 0.45 : 0;
+      b.hidden = true;
+      b.el.style.visibility = 'hidden';
+      swarm.push(b);
+    }
+    if (secretEligible(STORE.read(REWARD_KEY, {}))) addSecret();
+    document.addEventListener('pointermove', onSwarmMouse, { passive: true });
+    ensureLoop();
+  }
+
+  /* The blue butterfly is a reward for finishing BOTH the habitat and the quiz.
+     Older saves have no quiz flag, but a cursor unlock that is not the blue one
+     can only have come from the quiz, so it counts. */
+  function secretEligible(r) {
+    return !!(r.habitat && !r.blue && (r.quiz === true || r.cursor === true));
+  }
+
+  function addSecret() {
+    if (!wingsRoot || reduceMotion) return;
+    var w = window.innerWidth;
+    var docH = Math.max(document.documentElement.scrollHeight, window.innerHeight);
+    // The secret: slower, never shy of the pointer, somewhere along the page.
+    var sb = makeButterfly(58, '', '', 'bf--swarm bf--secret', 'blue');
+    sb.secret = true;
+    sb.x = 80 + Math.random() * (w - 160);
+    sb.y = 300 + Math.random() * Math.max(1, docH - 600);
+    sb.heading = Math.random() * Math.PI * 2;
+    sb.home = sb.y; sb.band = 800;
+    sb.rot = sb.heading + Math.PI / 2;
+    sb.base = 44; sb.v = 44;
+    sb.t = Math.random() * 10;
+    sb.p1 = Math.random() * 6.28; sb.p2 = Math.random() * 6.28;
+    sb.w1 = 0.6; sb.w2 = 1.5;
+    sb.phase = 0; sb.mode = 'cruise'; sb.modeLeft = 2; sb.wait = 0;
+    sb.hidden = true; sb.el.style.visibility = 'hidden';
+    sb.el.addEventListener('click', function () { catchSecret(sb); });
+    swarm.push(sb);
+    ensureLoop();
+  }
+
+  // Adds or removes the blue butterfly in a swarm that is already flying, so it
+  // appears the moment both requirements are met, with no reload.
+  function ensureSecret() {
+    if (!swarm.length) return;
+    var has = swarm.some(function (b) { return b.secret; });
+    var ok = secretEligible(STORE.read(REWARD_KEY, {}));
+    if (ok && !has) { addSecret(); return; }
+    if (!ok && has) {
+      swarm = swarm.filter(function (b) {
+        if (!b.secret) return true;
+        b.el.classList.add('is-leaving');
+        window.setTimeout(function () { if (b.el.parentNode) b.el.parentNode.removeChild(b.el); }, 650);
+        return false;
+      });
+    }
+  }
+
+  function catchSecret(b) {
+    var i = swarm.indexOf(b);
+    if (i < 0) return;
+    if (!secretEligible(STORE.read(REWARD_KEY, {}))) return;
+    swarm.splice(i, 1);
+    b.el.classList.add('is-leaving');
+    window.setTimeout(function () { if (b.el.parentNode) b.el.parentNode.removeChild(b.el); }, 650);
+
+    var rewards = STORE.read(REWARD_KEY, {});
+    rewards.blue = true; rewards.cursor = true; rewards.cursorOn = true; rewards.cursorStyle = 'blue';
+    STORE.write(REWARD_KEY, rewards);
+    paintRewards();
+    flyAcross('bloom');
+    var fine = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+    var note = document.getElementById('blueCursorNote');
+    if (note) {
+      note.innerHTML = fine
+        ? '<b>Hadiah terbuka:</b> kursor kupu-kupu biru. Pilih Mati, Klasik, atau Biru di daftar Hadiah, bagian Aksi Nyata.'
+        : '<b>Hadiah terbuka:</b> kursor kupu-kupu biru. Kursor ini bisa dipakai di perangkat dengan mouse.';
+    }
+    var dlg = document.getElementById('blueDialog');
+    if (dlg && !dlg.open) {
+      if (typeof dlg.showModal === 'function') dlg.showModal(); else dlg.setAttribute('open', '');
+      raiseWings();
+      if (wingsRoot) wingsRoot.classList.add('is-quiet');
+    }
+  }
+
+  function stopSwarm() {
+    document.removeEventListener('pointermove', onSwarmMouse);
+    var gone = swarm;
+    swarm = [];
+    gone.forEach(function (b) {
+      b.el.classList.add('is-leaving');
+      window.setTimeout(function () { if (b.el.parentNode) b.el.parentNode.removeChild(b.el); }, 650);
+    });
+  }
+
+  function stepSwarm(dt) {
+    var all = swarm.concat(lilyBf);
+    if (!all.length) return;
+    var w = window.innerWidth, vh = window.innerHeight;
+    var docH = Math.max(document.documentElement.scrollHeight, vh);
+    var sy = window.scrollY;
+    var m = 50;
+
+    all.forEach(function (b) {
+      if (b.wait > 0) { b.wait -= dt; return; }
+      b.t += dt;
+
+      // Behaviour: mostly cruising, with quick darts and slow glides.
+      b.modeLeft -= dt;
+      if (b.modeLeft <= 0) {
+        var roll = Math.random();
+        if (!b.secret && roll < 0.3) { b.mode = 'dart'; b.modeLeft = 0.5 + Math.random() * 0.5; b.heading += (Math.random() - 0.5) * 2.4; }
+        else if (roll < 0.55) { b.mode = 'glide'; b.modeLeft = 1 + Math.random() * 1.2; }
+        else { b.mode = 'cruise'; b.modeLeft = 2 + Math.random() * 3; }
+      }
+
+      var ymin = Math.max(m, b.home - b.band), ymax = Math.min(docH - m, b.home + b.band);
+      var outside = b.x < m || b.x > w - m || b.y < ymin || b.y > ymax;
+      var wander = Math.sin(b.t * b.w1 + b.p1) * 1.7 + Math.sin(b.t * b.w2 + b.p2) * 1.1;
+      b.heading += wander * dt * (outside ? 0.25 : (b.mode === 'dart' ? 0.5 : 1));
+      if (outside) {
+        var want = Math.atan2(b.home - b.y, w / 2 - b.x);
+        b.heading += angleDiff(want, b.heading) * Math.min(1, 2.4 * dt);
+      }
+
+      // Shy of the pointer: veer away and speed up when it comes close.
+      var boost = 1;
+      if (mouse.has && !b.secret) {
+        var mx = b.x - mouse.x, my = (b.y - sy) - mouse.y;
+        var dist = Math.sqrt(mx * mx + my * my);
+        if (dist < 150) {
+          b.heading += angleDiff(Math.atan2(my, mx), b.heading) * Math.min(1, 5 * dt);
+          boost = 1.8;
+        }
+      }
+
+      var target = b.base * (b.mode === 'dart' ? 2.6 : (b.mode === 'glide' ? 0.45 : 0.85 + 0.25 * Math.sin(b.t * 1.7 + b.p1))) * boost;
+      b.v += (target - b.v) * Math.min(1, 4 * dt);
+      b.x += Math.cos(b.heading) * b.v * dt;
+      b.y += Math.sin(b.heading) * b.v * dt;
+
+      b.rot += angleDiff(b.heading + Math.PI / 2, b.rot) * Math.min(1, 6 * dt);
+
+      var rate = b.mode === 'dart' ? 7 : (b.mode === 'glide' ? 1.6 : 3.4 + 1.1 * Math.sin(b.t * 1.3 + b.p2));
+      var depth = b.mode === 'glide' ? 0.35 : (b.mode === 'dart' ? 1 : 0.75 + 0.25 * Math.sin(b.t * 0.9 + b.p1));
+      b.phase += Math.PI * 2 * rate * dt;
+
+      // Only butterflies currently on screen cost any DOM work.
+      var screenY = b.y - sy;
+      var visible = b.x > -80 && b.x < w + 80 && screenY > -80 && screenY < vh + 80;
+      if (!visible) {
+        if (!b.hidden) { b.el.style.visibility = 'hidden'; b.hidden = true; }
+        return;
+      }
+      if (b.hidden) { b.el.style.visibility = ''; b.hidden = false; }
+      flapWings(b, b.phase, depth);
+      var bob = Math.sin(b.t * 5.5 + b.p2) * 5;
+      b.el.style.transform = 'translate(' + (b.x - b.size / 2).toFixed(1) + 'px,' +
+        (screenY - b.size / 2 + bob).toFixed(1) + 'px) rotate(' + b.rot.toFixed(3) + 'rad)';
+    });
+  }
+
+  /* ---- butterfly cursor ---- */
+  function onPointerMove(e) {
+    if (e.pointerType && e.pointerType !== 'mouse') return;
+    pointer.x = e.clientX; pointer.y = e.clientY;
+    pointer.hover = !!(e.target && e.target.closest && e.target.closest(HOVERABLE));
+    if (!pointer.seen) {
+      pointer.seen = true;
+      pointer.px = pointer.x; pointer.py = pointer.y;
+      if (cursorBf) cursorBf.el.classList.add('is-visible');
+    }
+  }
+  function onPointerDown() { pointer.down = true; }
+  function onPointerUp() { pointer.down = false; }
+  function onPointerLeave() {
+    pointer.seen = false;
+    if (cursorBf) cursorBf.el.classList.remove('is-visible');
+  }
+
+  function startCursor(style) {
+    if (!wingsRoot || cursorBf) return;
+    var blue = style === 'blue';
+    cursorBf = makeButterfly(blue ? 44 : 34, '#183D2B', '#E9A94D', 'bf--cursor', blue ? 'blue' : 'classic');
+    cursorBf.el.style.transform = 'translate(-200px,-200px)';
+    flapWings(cursorBf, 0, 0);
+    // Switching style mid-session: keep showing at the current pointer position.
+    if (pointer.x > 0 || pointer.y > 0) {
+      pointer.seen = true; pointer.px = pointer.x; pointer.py = pointer.y;
+      cursorBf.el.classList.add('is-visible');
+    }
+    document.addEventListener('pointermove', onPointerMove, { passive: true });
+    document.addEventListener('pointerdown', onPointerDown, { passive: true });
+    document.addEventListener('pointerup', onPointerUp, { passive: true });
+    document.documentElement.addEventListener('mouseleave', onPointerLeave);
+    ensureLoop();
+  }
+
+  function stopCursor() {
+    if (!cursorBf) return;
+    document.removeEventListener('pointermove', onPointerMove);
+    document.removeEventListener('pointerdown', onPointerDown);
+    document.removeEventListener('pointerup', onPointerUp);
+    document.documentElement.removeEventListener('mouseleave', onPointerLeave);
+    if (cursorBf.el.parentNode) cursorBf.el.parentNode.removeChild(cursorBf.el);
+    cursorBf = null;
+    pointer.seen = false;
+  }
+
+  function stepCursor(dt) {
+    if (!cursorBf) return;
+    var dx = pointer.x - pointer.px;
+    var speed = Math.sqrt(dx * dx + Math.pow(pointer.y - pointer.py, 2)) / Math.max(dt, 0.001);
+    var vx = dx / Math.max(dt, 0.001);
+    pointer.px = pointer.x; pointer.py = pointer.y;
+
+    // Idle: slow, gentle beat. Moving: quick. Over something clickable: quickest.
+    var rate = pointer.hover ? 6 : (speed > 60 ? 3.8 : 1.4);
+    var depth = pointer.hover || speed > 60 ? 1 : 0.55;
+    if (pointer.down) { rate = 0.4; depth = 1; }
+    pointer.rate += (rate - pointer.rate) * Math.min(1, 8 * dt);
+    pointer.depth += (depth - pointer.depth) * Math.min(1, 8 * dt);
+    pointer.phase += Math.PI * 2 * pointer.rate * dt;
+
+    // Without motion the wings stay open and still; the cursor still follows.
+    if (reduceMotion) flapWings(cursorBf, 0, 0);
+    else flapWings(cursorBf, pointer.down ? Math.PI : pointer.phase, pointer.down ? 1 : pointer.depth);
+
+    var lean = Math.max(-26, Math.min(26, vx * 0.025));
+    pointer.tilt += (lean - pointer.tilt) * Math.min(1, 10 * dt);
+    var scale = pointer.hover ? 1.18 : 1;
+    cursorBf.el.style.transform = 'translate(' + (pointer.x - cursorBf.size / 2).toFixed(1) + 'px,' +
+      (pointer.y - cursorBf.size / 2).toFixed(1) + 'px) rotate(' + pointer.tilt.toFixed(1) + 'deg) scale(' + scale + ')';
+  }
+
+  /* ---- shared frame loop ---- */
+  function frame(now) {
+    var dt = Math.min(0.05, (now - lastFrame) / 1000 || 0.016);
+    lastFrame = now;
+    stepSwarm(dt);
+    stepCursor(dt);
+    rafId = (swarm.length || lilyBf.length || cursorBf) ? window.requestAnimationFrame(frame) : 0;
+  }
+  function ensureLoop() {
+    if (rafId) return;
+    lastFrame = window.performance.now();
+    rafId = window.requestAnimationFrame(frame);
+  }
+
+  function applySwarm() {
+    if (!wingsReady) return;
+    var rewards = STORE.read(REWARD_KEY, {});
+    // On by default once "Rumah lengkap" is unlocked; the switch turns it off.
+    if (rewards.habitat && rewards.swarmOn !== false && !reduceMotion) { startSwarm(); ensureSecret(); }
+    else stopSwarm();
+  }
+
+
+  /* ---- Spider lily reward ---- */
+  /* The switch grows a flower in the Hadiah block. Pressing it releases two
+     red butterflies from the flower; they use the same page-anchored flight
+     as the swarm but live in their own list, so the swarm switch never
+     removes them. Released butterflies last for the visit only. */
+  function lilyEls() {
+    return { spot: document.getElementById('lilySpot'), btn: document.getElementById('lilyBtn'),
+      hint: document.getElementById('lilyHint') };
+  }
+
+  var LILY_LABEL = 'Bunga spider lily merah. Tekan untuk melepas dua kupu-kupu';
+
+  function showLily() {
+    var l = lilyEls();
+    if (!l.spot || !l.btn || lilyShown) return;
+    lilyShown = true;
+    lilyReleased = false;
+    l.btn.classList.remove('is-open');
+    l.btn.removeAttribute('aria-disabled');
+    l.btn.setAttribute('aria-label', LILY_LABEL);
+    if (l.hint) l.hint.textContent = 'Bunga spider lily tumbuh. Tekan bunganya.';
+    l.spot.hidden = false;
+    l.spot.classList.remove('is-grown');
+    void l.spot.offsetWidth;
+    l.spot.classList.add('is-grown');
+  }
+
+  function removeLilyButterflies() {
+    var gone = lilyBf;
+    lilyBf = [];
+    gone.forEach(function (b) {
+      b.el.classList.add('is-leaving');
+      window.setTimeout(function () { if (b.el.parentNode) b.el.parentNode.removeChild(b.el); }, 650);
+    });
+  }
+
+  function hideLily() {
+    var l = lilyEls();
+    removeLilyButterflies();
+    lilyReleased = false;
+    // Drop the pressed look even when the flower is already hidden, so the next
+    // switch-on always starts from a closed bud.
+    if (l.btn) {
+      l.btn.classList.remove('is-open');
+      l.btn.removeAttribute('aria-disabled');
+      l.btn.setAttribute('aria-label', LILY_LABEL);
+    }
+    if (!lilyShown) return;
+    lilyShown = false;
+    if (l.spot) { l.spot.hidden = true; l.spot.classList.remove('is-grown'); }
+    if (l.hint) l.hint.textContent = '';
+  }
+
+  function releaseLily() {
+    var l = lilyEls();
+    if (!lilyShown || lilyReleased || reduceMotion || !wingsRoot || !l.btn) return;
+    lilyReleased = true;
+    var r = l.btn.getBoundingClientRect();
+    var cx = r.left + r.width / 2, cy = r.top + window.scrollY + r.height * 0.3;
+    for (var i = 0; i < 2; i++) {
+      var b = makeButterfly(40 + Math.random() * 8, '', '', 'bf--swarm bf--lily', 'lily');
+      b.lily = true;
+      b.x = cx + (i ? 16 : -16); b.y = cy;
+      b.heading = -Math.PI / 2 + (i ? 0.7 : -0.7);
+      b.home = cy; b.band = 900;
+      b.rot = b.heading + Math.PI / 2;
+      b.base = 70 + Math.random() * 20; b.v = b.base;
+      b.t = Math.random() * 10;
+      b.p1 = Math.random() * 6.28; b.p2 = Math.random() * 6.28;
+      b.w1 = 0.7 + Math.random() * 0.6; b.w2 = 1.7 + Math.random() * 0.9;
+      b.phase = Math.random() * 6.28;
+      b.mode = 'cruise'; b.modeLeft = 2 + Math.random() * 2;
+      b.wait = i * 0.25;
+      b.hidden = true; b.el.style.visibility = 'hidden';
+      lilyBf.push(b);
+    }
+    l.btn.classList.add('is-open');
+    l.btn.setAttribute('aria-disabled', 'true');
+    l.btn.setAttribute('aria-label', 'Bunga spider lily sudah mekar dan dua kupu-kupu sedang terbang. Matikan lalu nyalakan sakelar untuk bunga baru.');
+    if (l.hint) l.hint.textContent = 'Dua kupu-kupu spider lily sedang terbang. Matikan sakelar untuk menghilangkannya, lalu nyalakan kembali untuk menumbuhkan bunga baru.';
+    ensureLoop();
+  }
+
+  function applyLily(on) {
+    if (!wingsReady) return;
+    if (on) showLily(); else hideLily();
+  }
+
   /* ------------------------------------------------------------- rewards UI */
   function paintRewards() {
     var rewards = STORE.read(REWARD_KEY, {});
@@ -385,7 +967,44 @@
     }
     if (touchBtn) touchBtn.hidden = !(rewards.cursor && !finePointer);
 
+    var seg = document.getElementById('cursorSeg');
+    if (seg) {
+      var showSeg = !!rewards.blue && finePointer;
+      seg.hidden = !showSeg;
+      if (toggle && showSeg) toggle.hidden = true;
+      var chosen = !rewards.cursorOn ? 'off' : (rewards.cursorStyle === 'blue' ? 'blue' : 'classic');
+      Array.prototype.forEach.call(seg.querySelectorAll('[data-cursor]'), function (btn) {
+        var isOn = btn.getAttribute('data-cursor') === chosen;
+        btn.setAttribute('aria-checked', String(isOn));
+        btn.tabIndex = isOn ? 0 : -1;
+      });
+    }
+
+    var swarmBtn = document.getElementById('swarmToggle');
+    if (swarmBtn) {
+      var canFly = !!rewards.habitat && !reduceMotion;
+      var flyOn = canFly && rewards.swarmOn !== false;
+      swarmBtn.hidden = !canFly;
+      swarmBtn.setAttribute('aria-checked', String(flyOn));
+      var flyWord = swarmBtn.querySelector('.switch__state');
+      if (flyWord) flyWord.textContent = flyOn ? 'Nyala' : 'Mati';
+    }
+
+    var lilyTgl = document.getElementById('lilyToggle');
+    var lilyNote = document.getElementById('lilyReduced');
+    var lilyCan = !!rewards.perfect && !reduceMotion;
+    var lilyOn = lilyCan && rewards.lilyOn === true;
+    if (lilyTgl) {
+      lilyTgl.hidden = !lilyCan;
+      lilyTgl.setAttribute('aria-checked', String(lilyOn));
+      var lilyWord = lilyTgl.querySelector('.switch__state');
+      if (lilyWord) lilyWord.textContent = lilyOn ? 'Nyala' : 'Mati';
+    }
+    if (lilyNote) lilyNote.hidden = !(rewards.perfect && reduceMotion);
+    applyLily(lilyOn);
+
     applyCursor();
+    applySwarm();
   }
 
   function applyCursor() {
@@ -393,6 +1012,10 @@
     var finePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
     var on = !!(rewards.cursor && rewards.cursorOn && finePointer);
     document.documentElement.classList.toggle('cursor-wing', on);
+    if (!wingsReady) return;
+    var style = rewards.blue && rewards.cursorStyle === 'blue' ? 'blue' : 'classic';
+    if (on && cursorBf && cursorBf.kind !== style) stopCursor();
+    if (on) startCursor(style); else stopCursor();
   }
 
   var cursorToggle = document.getElementById('cursorToggle');
@@ -405,11 +1028,68 @@
     });
   }
 
+  var blueDialog = document.getElementById('blueDialog');
+  if (blueDialog) {
+    var blueClose = document.getElementById('blueClose');
+    var blueAction = document.getElementById('blueAction');
+    if (blueClose) blueClose.addEventListener('click', function () { blueDialog.close(); });
+    if (blueAction) blueAction.addEventListener('click', function () { blueDialog.close(); });
+    blueDialog.addEventListener('click', function (e) { if (e.target === blueDialog) blueDialog.close(); });
+    blueDialog.addEventListener('close', function () { if (wingsRoot) wingsRoot.classList.remove('is-quiet'); });
+  }
+
+  var cursorSeg = document.getElementById('cursorSeg');
+  if (cursorSeg) {
+    var segBtns = Array.prototype.slice.call(cursorSeg.querySelectorAll('[data-cursor]'));
+    function pickCursor(btn) {
+      var value = btn.getAttribute('data-cursor');
+      var rewards = STORE.read(REWARD_KEY, {});
+      rewards.cursorOn = value !== 'off';
+      if (value !== 'off') rewards.cursorStyle = value;
+      STORE.write(REWARD_KEY, rewards);
+      paintRewards();
+    }
+    segBtns.forEach(function (btn, i) {
+      btn.addEventListener('click', function () { pickCursor(btn); });
+      btn.addEventListener('keydown', function (e) {
+        var step = e.key === 'ArrowRight' || e.key === 'ArrowDown' ? 1 : (e.key === 'ArrowLeft' || e.key === 'ArrowUp' ? -1 : 0);
+        if (!step) return;
+        e.preventDefault();
+        var next = segBtns[(i + step + segBtns.length) % segBtns.length];
+        pickCursor(next);
+        next.focus();
+      });
+    });
+  }
+
+  var swarmToggle = document.getElementById('swarmToggle');
+  if (swarmToggle) {
+    swarmToggle.addEventListener('click', function () {
+      var rewards = STORE.read(REWARD_KEY, {});
+      rewards.swarmOn = swarmToggle.getAttribute('aria-checked') !== 'true';
+      STORE.write(REWARD_KEY, rewards);
+      paintRewards();
+    });
+  }
+
+  var lilyToggle = document.getElementById('lilyToggle');
+  if (lilyToggle) {
+    lilyToggle.addEventListener('click', function () {
+      var rewards = STORE.read(REWARD_KEY, {});
+      rewards.lilyOn = lilyToggle.getAttribute('aria-checked') !== 'true';
+      STORE.write(REWARD_KEY, rewards);
+      paintRewards();
+    });
+  }
+  var lilyBtnEl = document.getElementById('lilyBtn');
+  if (lilyBtnEl) lilyBtnEl.addEventListener('click', releaseLily);
+
   var touchWings = document.getElementById('touchWings');
   if (touchWings) {
     touchWings.addEventListener('click', function () { flyAcross('bloom'); });
   }
 
+  wingsReady = true;
   paintRewards();
 
   /* ----------------------------------------------------------------- quiz */
@@ -430,24 +1110,24 @@
 
     var COPY = {
       '1': {
-        correct: 'Tepat. Tanaman inang adalah makanan larva sekaligus tempat bertelur, dua fungsi yang tidak digantikan bunga.',
-        wrong: 'Belum. Tanaman inang berfungsi sebagai makanan ulat dan tempat betina meletakkan telur; nektar adalah urusan imago.'
+        correct: 'Tanaman inang menyediakan daun makanan bagi ulat sekaligus tempat induk betina meletakkan telurnya.',
+        wrong: 'Tanaman inang berfungsi sebagai makanan ulat dan tempat betina bertelur, sedangkan nektar adalah sumber energi kupu-kupu dewasa.'
       },
       '2': {
-        correct: 'Tepat. Larva adalah tahap paling rakus; telur belum makan dan pupa berhenti makan sama sekali.',
-        wrong: 'Belum. Yang paling banyak makan adalah larva (ulat). Telur belum makan, dan pupa justru tidak makan.'
+        correct: 'Larva (ulat) adalah tahap paling aktif makan, sementara telur belum membutuhkan makan dan pupa (kepompong) berpuasa selama metamorfosis.',
+        wrong: 'Tahap yang paling banyak makan adalah larva (ulat). Telur belum makan, sementara pupa (kepompong) berhenti makan selama berubah wujud.'
       },
       '3': {
-        correct: 'Tepat. Tanpa daun inang, betina tidak punya tempat bertelur, sehingga tidak ada generasi berikutnya.',
-        wrong: 'Belum. Masalahnya bukan pada nektar, melainkan pada tidak adanya daun inang untuk larva.'
+        correct: 'Tanpa daun tanaman inang, kupu-kupu betina tidak memiliki tempat bertelur sehingga siklus generasi berikutnya terputus.',
+        wrong: 'Kupu-kupu betina membutuhkan daun tanaman inang tertentu agar telur dan ulatnya bisa tumbuh menjadi generasi baru.'
       },
       '4': {
-        correct: 'Tepat. Fragmentasi memisahkan populasi, sehingga pertukaran individu dan gen menjadi sulit.',
-        wrong: 'Belum. Fragmentasi memisahkan populasi menjadi kantong-kantong kecil yang sulit bertukar gen.'
+        correct: 'Fragmentasi memecah habitat menjadi petak-petak terpisah sehingga populasi sulit bertemu dan bertukar gen.',
+        wrong: 'Fragmentasi memisahkan habitat menjadi kantong-kantong kecil yang terisolasi sehingga populasi sulit berpindah maupun bertukar gen.'
       },
       '5': {
-        correct: 'Tepat. Kelangkaan yang terlihat bisa disebabkan musim, cuaca, tanaman berbunga, atau jam pengamatan. Itu hipotesis, bukan kesimpulan.',
-        wrong: 'Belum. Menghilangnya kupu-kupu dari satu pengamatan tidak membuktikan pencemaran atau kepunahan; perlu pengamatan yang lebih teliti.'
+        correct: 'Jarang terlihatnya kupu-kupu bisa dipengaruhi musim, cuaca, siklus mekarnya bunga, atau waktu pengamatan sehingga perlu diamati lebih lanjut.',
+        wrong: 'Jarang terlihatnya kupu-kupu dalam satu waktu belum tentu membuktikan pencemaran berat atau kepunahan karena perlu pengamatan lintas waktu dan musim.'
       }
     };
 
@@ -537,16 +1217,17 @@
       resultTitle.textContent = correct + ' dari ' + total + ' benar';
 
       if (correct === total) {
-        resultText.textContent = 'Semua benar. Yang paling penting bukan skornya, melainkan bahwa urutan kebutuhannya sudah jelas: inang untuk larva, nektar untuk imago, naungan, dan jalur di antaranya.';
+        resultText.textContent = 'Semua jawaban tepat! Kamu sudah memahami rangkaian utuhnya, mulai dari tanaman inang untuk ulat, bunga nektar untuk kupu-kupu dewasa, naungan untuk berlindung, hingga koridor yang menyambungkan semuanya.';
       } else if (correct >= total - 2) {
-        resultText.textContent = 'Hampir semua tepat. Baca ulang penjelasan di bawah jawaban yang masih tertukar, biasanya antara kebutuhan larva dan kebutuhan kupu-kupu dewasa.';
+        resultText.textContent = 'Hampir semuanya tepat! Coba simak kembali penjelasan pada nomor yang masih tertukar, terutama perbedaan antara kebutuhan ulat dan kebutuhan kupu-kupu dewasa.';
       } else {
-        resultText.textContent = 'Cukup. Kembali ke Vitrin 03 dan 04 sebentar; dua bagian itu memuat hampir semua jawaban.';
+        resultText.textContent = 'Permulaan yang baik. Kamu bisa menengok kembali Vitrin 03 dan 04 sejenak karena kedua bagian itu memuat petunjuk untuk semua pertanyaan di atas.';
       }
 
       var rewards = STORE.read(REWARD_KEY, {});
       var firstUnlock = !rewards.cursor;
       rewards.cursor = true;
+      rewards.quiz = true;
       if (correct === total) rewards.perfect = true;
       STORE.write(REWARD_KEY, rewards);
       paintRewards();
@@ -554,7 +1235,7 @@
       if (resultReward) {
         resultReward.hidden = false;
         resultReward.innerHTML = '<b>Hadiah terbuka:</b> Kursor kupu-kupu' +
-          (correct === total ? ' dan Sayap sempurna (skor penuh).' : '.') +
+          (correct === total ? ' dan Spider lily (skor penuh).' : '.') +
           (firstUnlock ? ' Aktifkan di daftar hadiah, bagian Aksi Nyata.' : '');
       }
 
@@ -644,8 +1325,8 @@
 
         commitDone.hidden = false;
         commitTitle.textContent = 'Komitmen tercatat di peramban ini.';
-        commitText.textContent = picked.length + ' dari ' + boxes.length + ' langkah dipilih: ' +
-          titles.join('; ') + '.';
+        commitText.textContent = picked.length + ' dari ' + boxes.length + ' langkah dipilih, yaitu ' +
+          titles.join(', ') + '.';
         commitBtn.textContent = 'Perbarui komitmen';
 
         STORE.write('rotw.commit.v1', { at: new Date().toISOString(), tasks: titles });

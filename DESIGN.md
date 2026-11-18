@@ -250,6 +250,14 @@ appears on perhaps five percent of any screen.
   word "Belum tepat" and an icon always accompany it, so the tint is reinforcement, not signal.
 - **Print** (#ffffff ground, #000000 ink): the print stylesheet only. It never appears on screen.
 
+### Exception
+- **Spider Lily Red** (#c8102e, shaded #8e0b21 for petal strokes, #5b0e16 and #e0343f for the two
+  butterflies): the only hue outside the binding palette. It exists because the red spider lily is
+  the reward's subject, and the subject governs its own colour the way a specimen photograph does.
+  It appears in exactly one place — the flower in the rewards drawer and the two butterflies
+  released from it — never as a UI accent, never as a state, never as a fill behind words.
+  Everything around it stays cream, forest, sage, and amber.
+
 ### Named Rules
 
 **The Amber Scarcity Rule.** Amber is a state, never a surface. It may colour an underline, a
@@ -412,6 +420,29 @@ which is 2px of Amber because it must read as a state at a glance.
 - The cursor reward's compact switch and the touch-device button sit inside their own cell and
   appear only when unlocked and the input type matches.
 
+### Spider lily reward
+- **Placement:** the flower sits inside the rewards drawer, directly under the three cells, where
+  the switch that grows it is. It is page content, not a floating ornament: it scrolls with the
+  page and never covers other content.
+- **Drawing:** one inline SVG, 80 × 100 user units — a single 2.6px Leaf Green stem from the
+  bloom to the base, six recurved #c8102e petals fanned over 200° around a centre point, five
+  long swept stamens, and a 2.4px amber eye at the centre. Petals are one path reused through
+  `<use>` at six rotations, so the flower is four elements, not thirty. `overflow: visible`
+  lets petal tips pass the viewBox edge instead of clipping.
+- **Button:** the flower is the button — 5.5rem wide, ≥44px on both axes, focus outline
+  (2px Deep Forest at 2px offset) on the whole bloom. Pressing it is the only interaction.
+- **States:** grows from `scale(0.15)` with `transform-origin` at the stem base over 0.9s
+  (one beat, not a loop); pressed, the bloom alone overshoots to `scale(1.18)` and settles at
+  `1.06` with a −4° tilt, so "already pressed" is legible as a posture, not only as a word.
+  The state word and the hint under the flower carry the meaning; the animation only confirms it.
+- **Released butterflies:** two, at 40–48px, in #5b0e16/#c8102e and #7a1420/#e0343f, with a 4px
+  red-tinted drop shadow so they read against cream. They join the same page-anchored flight as
+  the habitat swarm but live in their own list, so the swarm switch never takes them away.
+- **Cleanup:** switching off hides the flower at once and fades the two butterflies out over the
+  same 650ms as every other butterfly, then removes them; nothing is left in the DOM. Under
+  `prefers-reduced-motion` the switch and flower are hidden and a sentence replaces them, and the
+  print stylesheet drops the flower entirely.
+
 ### Completion dialog
 - A native `<dialog>` opened with `showModal()`: cream panel, 1px Deep Forest border, square
   corners, backdrop `rgb(24 61 43 / 0.58)`. It is the only overlay in the system.
@@ -448,6 +479,8 @@ list carries the meaning, so the plate is fully readable with no pointer.
 - **Do** give every switch a state word as well as a knob position, and let the note under it
   explain the consequence of that state.
 - **Do** keep reward animations in a pointer-events-none layer that cleans up after itself.
+- **Do** confine spider-lily red to the flower and its two butterflies, and let the flower's
+  state word and hint carry what its posture only confirms.
 
 ### Don't:
 - **Don't** introduce a second dark section; Vitrin 05 is the page's only inversion.
@@ -458,4 +491,6 @@ list carries the meaning, so the plate is fully readable with no pointer.
 - **Don't** swap a photograph for a drawn vector butterfly; the cabinet shows specimens, not mascots.
 - **Don't** add a card inside a card, or a panel inside a case.
 - **Don't** let a reward animation block the page or run when `prefers-reduced-motion` is set.
+- **Don't** let spider-lily red escape the flower and its two butterflies — not into icons, not
+  into state colours, not into the cursor reward.
 - **Don't** disable a control without also saying why it is unavailable.
