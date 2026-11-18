@@ -34,6 +34,14 @@ Most biodiversity campaigns argue with statistics or scold with imagery of destr
 ## Capabilities and Constraints
 
 - Frontend only. No backend, no accounts, no uploads, no live maps, no leaderboards, no verified impact statistics (PRD §13).
+- PRD v0.4 adds three gamified experiences, all required in the MVP: a four-element habitat
+  simulation with a completion dialog (FR-08), a gated quiz that unlocks a cursor reward (FR-09),
+  and a commitment checklist that triggers a celebratory bloom (FR-10).
+- Rewards are cosmetic and optional. The custom cursor must never be required for use, must be
+  switchable off, and must have a touch-device equivalent. All progress is per-browser
+  LocalStorage; nothing is synced and nothing is verified.
+- The habitat simulation must not imply that all four elements are universally mandatory, and
+  it is a teaching model, not a depiction of real restoration.
 - Must be responsive (desktop/tablet/mobile), keyboard navigable, reduced-motion aware, and contrast-compliant.
 - Plant and species recommendations must stay appropriate to Indonesia; the PRD warns habitat requirements vary by species.
 - The observation that butterflies are less noticeable in some neighborhoods is a campaign hypothesis, not a scientific finding; it must not be presented as a measured decline.

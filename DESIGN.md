@@ -166,6 +166,16 @@ components:
     textColor: "{colors.ink-soft}"
     rounded: "{rounded.control}"
     padding: "0.5rem 0.85rem"
+  switch-off:
+    backgroundColor: "transparent"
+    textColor: "{colors.deep-forest}"
+    rounded: "{rounded.hairline}"
+    padding: "0.25rem 0"
+  switch-on:
+    backgroundColor: "{colors.deep-forest}"
+    textColor: "{colors.natural-cream}"
+    rounded: "{rounded.hairline}"
+    padding: "0.25rem 0"
   case-frame:
     backgroundColor: "{colors.natural-cream}"
     textColor: "{colors.deep-forest}"
@@ -383,12 +393,43 @@ which is 2px of Amber because it must read as a state at a glance.
 - **Rail:** the desktop cabinet index — numbers only, right-aligned against the rail's edge,
   with a 1px tick that widens and turns Deep Forest for the active case.
 
+### Switches (habitat simulation)
+- **Shape:** square track 2.25rem × 1.15rem, 1px hairline, 1px radius; a round 0.6rem knob.
+  Off is an empty outline with the knob left; on fills the track Deep Forest and moves the knob
+  right in Amber.
+- **State word:** every switch carries its own word beside it — "Aktif" / "Nonaktif" — in the
+  Tag style. The knob position, the fill, and the word all say the same thing; none of the
+  three is the only signal.
+- **Target:** the whole row is the button, 2.75rem tall, `role="switch"` with `aria-checked`.
+  Space and Enter both toggle it.
+- **Note:** each switch owns a sentence beneath it that rewrites on toggle — the consequence
+  when off, the provision when on. The note, not the switch, carries the teaching.
+
+### Rewards list
+- Three cells in the same 1px-gap drawer grid as the species cards. Locked: hairline mark ring
+  in Ink Faint, state reads "Terkunci". Unlocked: Deep Forest ring on a Soft Sage fill, state
+  reads "✓ Terbuka".
+- The cursor reward's compact switch and the touch-device button sit inside their own cell and
+  appear only when unlocked and the input type matches.
+
+### Completion dialog
+- A native `<dialog>` opened with `showModal()`: cream panel, 1px Deep Forest border, square
+  corners, backdrop `rgb(24 61 43 / 0.58)`. It is the only overlay in the system.
+- Focus is trapped by the browser; closing returns focus to the Koridor switch. Escape closes.
+
 ### Signature Components
 
 **The illuminated case.** Each case observes itself; on entry it gains `is-lit`, which
 simultaneously draws the corner ticks, settles the specimen from `scale(1.045)` to `1`, fades
 the reveal children in at 70ms stagger, and darkens the frame border from `0.12` to `0.2`
 alpha. Under `prefers-reduced-motion` every case is lit immediately and no transition runs.
+
+**The reward flight.** Butterflies are inline SVG built from six paths, appended to a
+`position: fixed; pointer-events: none` layer above the page and animated with the Web Animations
+API — three crossing the viewport on habitat completion, eighteen rising and fading on
+commitment (the bloom). Each element removes itself on `animation.finish`. Under
+`prefers-reduced-motion` the layer is `display: none` and nothing is created; the confirmation
+text and dialog still appear, so no information depends on the motion.
 
 **The annotated plate.** A real photograph with absolutely positioned amber pins at percentage
 coordinates, and a numbered definition list beside it. Pins are `pointer-events: none` and the
@@ -404,6 +445,10 @@ list carries the meaning, so the plate is fully readable with no pointer.
 - **Do** give every interactive control a 2px Deep Forest focus outline at 3px offset.
 - **Do** pair every state colour with a word or an icon.
 
+- **Do** give every switch a state word as well as a knob position, and let the note under it
+  explain the consequence of that state.
+- **Do** keep reward animations in a pointer-events-none layer that cleans up after itself.
+
 ### Don't:
 - **Don't** introduce a second dark section; Vitrin 05 is the page's only inversion.
 - **Don't** use Leaf Green for text — that is what Leaf Ink exists for.
@@ -412,3 +457,5 @@ list carries the meaning, so the plate is fully readable with no pointer.
 - **Don't** let amber fill any area larger than an icon.
 - **Don't** swap a photograph for a drawn vector butterfly; the cabinet shows specimens, not mascots.
 - **Don't** add a card inside a card, or a panel inside a case.
+- **Don't** let a reward animation block the page or run when `prefers-reduced-motion` is set.
+- **Don't** disable a control without also saying why it is unavailable.

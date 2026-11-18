@@ -409,7 +409,7 @@
                 </g>
 
                 <!-- corridor -->
-                <g class="layer is-on" data-layer="koridor">
+                <g class="layer is-off" data-layer="koridor">
                   <path d="M96 232c56-6 92 22 148 22 52 0 92-30 146-42" fill="none" stroke="#477A50" stroke-opacity=".15" stroke-width="14" stroke-linecap="round"/>
                   <path d="M96 232c56-6 92 22 148 22 52 0 92-30 146-42" fill="none" stroke="#477A50" stroke-width="1.2" stroke-dasharray="4 8"/>
                   <circle cx="96" cy="232" r="4" fill="#477A50"/>
@@ -418,7 +418,7 @@
                 </g>
 
                 <!-- host bed -->
-                <g class="layer is-on" data-layer="inang">
+                <g class="layer is-off" data-layer="inang">
                   <rect x="30" y="96" width="150" height="112" fill="#B8D99A" fill-opacity=".42" stroke="#477A50" stroke-opacity=".5"/>
                   <g fill="#477A50">
                     <circle cx="64" cy="128" r="13"/><circle cx="102" cy="120" r="10"/>
@@ -431,7 +431,7 @@
                 </g>
 
                 <!-- nectar bed -->
-                <g class="layer is-on" data-layer="nektar">
+                <g class="layer is-off" data-layer="nektar">
                   <rect x="228" y="316" width="176" height="98" fill="#E9A94D" fill-opacity=".2" stroke="#E9A94D" stroke-opacity=".65"/>
                   <g fill="#E9A94D">
                     <circle cx="256" cy="346" r="7"/><circle cx="284" cy="360" r="6"/><circle cx="312" cy="342" r="7"/>
@@ -442,7 +442,7 @@
                 </g>
 
                 <!-- shelter -->
-                <g class="layer is-on" data-layer="istirahat">
+                <g class="layer is-off" data-layer="perlindungan">
                   <circle cx="466" cy="172" r="56" fill="#477A50" fill-opacity=".12"/>
                   <circle cx="466" cy="172" r="34" fill="#477A50" fill-opacity=".5"/>
                   <path d="M466 206v58" stroke="#183D2B" stroke-opacity=".45" stroke-width="4"/>
@@ -453,42 +453,62 @@
                 </g>
 
                 <!-- untidy corner -->
-                <g class="layer is-on" data-layer="istirahat">
+                <g class="layer is-off" data-layer="perlindungan">
                   <path d="M34 358c22-12 44-4 54 8 9 11 4 26-14 29-22 4-46-8-52-22" fill="#477A50" fill-opacity=".15" stroke="#477A50" stroke-opacity=".3" stroke-dasharray="3 4"/>
                 </g>
               </svg>
+              <p class="plan__hint" id="planHint">Halaman ini masih kosong. Aktifkan elemen di
+                samping untuk mengisinya.</p>
             </figure>
 
             <div class="plan__side">
-              <div class="plan__controls" role="group" aria-label="Sorot lapisan rencana">
-                <button class="chip" type="button" data-target="inang" aria-pressed="true">
-                  <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M3 13c0-6 4-10 10-10 0 6-4 10-10 10Z"/></svg>
-                  Inang larva
-                </button>
-                <button class="chip" type="button" data-target="nektar" aria-pressed="true">
-                  <svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="5"/></svg>
-                  Bunga nektar
-                </button>
-                <button class="chip" type="button" data-target="istirahat" aria-pressed="true">
-                  <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 2v12M3 6l5-4 5 4"/></svg>
-                  Naungan
-                </button>
-                <button class="chip" type="button" data-target="koridor" aria-pressed="true">
-                  <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M2 8h5M9 8h5M7 5l3 3-3 3"/></svg>
-                  Koridor
-                </button>
-              </div>
-              <p class="plan__note" id="planNote"><strong>Semua lapisan aktif.</strong>
-                Matikan satu lapisan untuk melihat apa yang hilang dari halaman ini.</p>
-              <dl class="plan__legend">
-                <div><dt><span class="sw sw--inang"></span>Inang</dt><dd>Daun untuk ulat. Satu pohon jeruk di pot sudah cukup.</dd></div>
-                <div><dt><span class="sw sw--nektar"></span>Nektar</dt><dd>Gula untuk terbang. Bunga yang berbunga bergiliran sepanjang tahun.</dd></div>
-                <div><dt><span class="sw sw--naungan"></span>Naungan</dt><dd>Pohon, semak, piring air, dan sepetak yang dibiarkan liar di dekat rumah.</dd></div>
-                <div><dt><span class="sw sw--koridor"></span>Koridor</dt><dd>Jalur tanpa penghalang di antara ketiganya.</dd></div>
-              </dl>
-              <p class="small">Halaman ini fiktif tetapi berukuran wajar: sekitar 6 × 5 meter.
-                Tidak ada bagian yang rumit. Yang perlu hanya tata letak yang mempertemukan
-                kebutuhan larva dan kebutuhan imago dalam satu ruang.</p>
+              <p class="micro" id="habTitle">Simulasi habitat · empat elemen, semua mulai nonaktif</p>
+              <ul class="hab" aria-labelledby="habTitle">
+                <li class="hab__item">
+                  <button class="switch" type="button" role="switch" aria-checked="false"
+                          data-target="inang" aria-describedby="hab-note-inang">
+                    <span class="switch__track" aria-hidden="true"><span class="switch__knob"></span></span>
+                    <span class="switch__name"><span class="sw sw--inang" aria-hidden="true"></span>Tanaman inang</span>
+                    <span class="switch__state">Nonaktif</span>
+                  </button>
+                  <p class="hab__note" id="hab-note-inang" data-note="inang">Tanpa tanaman inang,
+                    tidak ada daun untuk telur dan ulat. Generasi berikutnya berhenti di sini.</p>
+                </li>
+                <li class="hab__item">
+                  <button class="switch" type="button" role="switch" aria-checked="false"
+                          data-target="nektar" aria-describedby="hab-note-nektar">
+                    <span class="switch__track" aria-hidden="true"><span class="switch__knob"></span></span>
+                    <span class="switch__name"><span class="sw sw--nektar" aria-hidden="true"></span>Bunga nektar</span>
+                    <span class="switch__state">Nonaktif</span>
+                  </button>
+                  <p class="hab__note" id="hab-note-nektar" data-note="nektar">Tanpa bunga penghasil
+                    nektar, kupu-kupu dewasa kehabisan bahan bakar untuk terbang dan kawin.</p>
+                </li>
+                <li class="hab__item">
+                  <button class="switch" type="button" role="switch" aria-checked="false"
+                          data-target="perlindungan" aria-describedby="hab-note-perlindungan">
+                    <span class="switch__track" aria-hidden="true"><span class="switch__knob"></span></span>
+                    <span class="switch__name"><span class="sw sw--naungan" aria-hidden="true"></span>Perlindungan</span>
+                    <span class="switch__state">Nonaktif</span>
+                  </button>
+                  <p class="hab__note" id="hab-note-perlindungan" data-note="perlindungan">Tanpa
+                    vegetasi pelindung, kupu-kupu terbuka pada angin, hujan, dan pemangsa.</p>
+                </li>
+                <li class="hab__item">
+                  <button class="switch" type="button" role="switch" aria-checked="false"
+                          data-target="koridor" aria-describedby="hab-note-koridor">
+                    <span class="switch__track" aria-hidden="true"><span class="switch__knob"></span></span>
+                    <span class="switch__name"><span class="sw sw--koridor" aria-hidden="true"></span>Koridor</span>
+                    <span class="switch__state">Nonaktif</span>
+                  </button>
+                  <p class="hab__note" id="hab-note-koridor" data-note="koridor">Ruang hijau yang
+                    terpisah membuat kupu-kupu sulit berpindah di antara petak-petak habitat.</p>
+                </li>
+              </ul>
+              <p class="hab__progress" id="habProgress" role="status">0 dari 4 elemen aktif</p>
+              <p class="small">Empat elemen ini saling menopang, tetapi tidak semuanya wajib bagi
+                setiap spesies. Model ini alat belajar, bukan gambaran restorasi lingkungan
+                yang sebenarnya.</p>
             </div>
           </div>
         </div>
@@ -617,8 +637,8 @@
             <p class="lede">Kuis ini menguji hal-hal yang sering tertukar: inang dan nektar,
               telur dan kepompong, sebab dan akibat.</p>
           </div>
-          <p class="small" style="align-self:end;max-width:34ch">Setiap jawaban langsung
-            diberi penjelasan, benar atau salah. Skor muncul di akhir.</p>
+          <p class="small" style="align-self:end;max-width:34ch">Tombol kirim aktif setelah
+            kelima pertanyaan terjawab. Skor dan penjelasan muncul setelah itu.</p>
         </div>
 
         <form class="quiz" id="quiz" novalidate>
@@ -688,7 +708,7 @@
           </fieldset>
 
           <div class="quiz__foot">
-            <button class="btn btn--sm btn--ghost" type="submit" id="quizSubmit">Periksa jawaban</button>
+            <button class="btn btn--sm" type="submit" id="quizSubmit" disabled>Periksa Jawaban</button>
             <button class="btn btn--sm btn--ghost" type="button" id="quizReset" hidden>Ulangi</button>
             <p class="score" id="quizScore" aria-live="polite">0 dari 5 terjawab</p>
           </div>
@@ -696,6 +716,7 @@
           <div class="result" id="quizResult" hidden aria-live="polite">
             <h3 id="resultTitle"></h3>
             <p id="resultText"></p>
+            <p class="result__reward" id="quizReward" hidden></p>
           </div>
         </form>
       </div>
@@ -795,7 +816,60 @@
             <div class="meter__track"><div class="meter__fill" id="meterFill"></div></div>
             <p class="meter__label" id="meterLabel"><b>0 dari 6</b> langkah dipilih · tersimpan di peramban ini saja</p>
           </div>
-          <button class="btn btn--sm btn--ghost" type="button" id="clearTasks">Bersihkan pilihan</button>
+          <button class="btn btn--sm" type="button" id="commitSubmit" disabled>Kirim komitmen</button>
+          <button class="btn btn--sm btn--ghost" type="button" id="clearTasks" hidden>Bersihkan pilihan</button>
+        </div>
+
+        <div class="commit" id="commitDone" role="status" hidden>
+          <h3 id="commitTitle">Komitmen tercatat di peramban ini.</h3>
+          <p id="commitText"></p>
+          <p class="small">Komitmen ini adalah pernyataan Anda sendiri. Tidak ada pihak yang
+            memverifikasinya, tidak ada angka dampak lingkungan yang dihitung, dan catatannya
+            tidak tersinkron ke perangkat lain.</p>
+        </div>
+
+        <div class="rewards" id="rewards">
+          <div class="rewards__head">
+            <h3>Hadiah</h3>
+            <p class="small">Tersimpan di peramban ini saja; tidak tersinkron antarperangkat.</p>
+          </div>
+          <ul class="rewards__list">
+            <li class="reward" data-reward="habitat">
+              <span class="reward__mark" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><path d="M12 12C7 4 2 5 2 9c0 4 5 6 10 5Z" fill="currentColor"/><path d="M12 12c5-8 10-7 10-3 0 4-5 6-10 5Z" fill="currentColor" fill-opacity=".6"/><path d="M12 4v16" stroke="currentColor" stroke-width="1.2"/></svg>
+              </span>
+              <span class="reward__body">
+                <span class="reward__name">Rumah lengkap</span>
+                <span class="reward__state" data-state>Terkunci</span>
+              </span>
+            </li>
+            <li class="reward" data-reward="cursor">
+              <span class="reward__mark" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><path d="M12 3v18M12 8l-7-4M12 8l7-4M12 14l-7 5M12 14l7 5" stroke="currentColor" stroke-width="1.2" fill="none"/><circle cx="12" cy="12" r="2.4" fill="currentColor"/></svg>
+              </span>
+              <span class="reward__body">
+                <span class="reward__name">Kursor kupu-kupu</span>
+                <span class="reward__state" data-state>Terkunci</span>
+              </span>
+              <button class="switch switch--sm" type="button" role="switch" aria-checked="false"
+                      id="cursorToggle" aria-label="Kursor kupu-kupu" hidden>
+                <span class="switch__track" aria-hidden="true"><span class="switch__knob"></span></span>
+                <span class="switch__state">Mati</span>
+              </button>
+              <button class="btn btn--sm btn--ghost" type="button" id="touchWings" hidden>
+                Terbangkan kupu-kupu
+              </button>
+            </li>
+            <li class="reward" data-reward="perfect">
+              <span class="reward__mark" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><path d="M12 2l2.6 6.3L21 9l-4.7 4.3L17.5 20 12 16.6 6.5 20l1.2-6.7L3 9l6.4-.7Z" fill="currentColor"/></svg>
+              </span>
+              <span class="reward__body">
+                <span class="reward__name">Sayap sempurna</span>
+                <span class="reward__state" data-state>Terkunci</span>
+              </span>
+            </li>
+          </ul>
         </div>
       </div>
     </div>
@@ -843,11 +917,25 @@
       </div>
     </div>
     <div class="sitefoot__end">
-      <span>The Return of the Wings · versi 0.3 · purwarupa edukasi</span>
+      <span>The Return of the Wings · versi 0.4 · purwarupa edukasi</span>
       <span>Dibangun dengan HTML, CSS, dan JavaScript tanpa dependensi.</span>
     </div>
   </div>
 </footer>
+
+<dialog class="modal" id="habitatDialog" aria-labelledby="habitatDone">
+  <h2 id="habitatDone">Simulasi habitat berhasil dilengkapi!</h2>
+  <p class="modal__lead">Kamu telah merancang ruang yang lebih ramah bagi kupu-kupu.</p>
+  <p class="modal__reward" id="habitatReward" hidden></p>
+  <p class="small">Empat elemen ini saling menopang, tetapi kebutuhan tiap spesies berbeda.
+    Model ini alat belajar, bukan gambaran restorasi lingkungan yang sebenarnya.</p>
+  <div class="modal__foot">
+    <button class="btn btn--sm" type="button" id="habitatClose">Tutup</button>
+    <a class="tlink" href="#kuis">Lanjut ke kuis</a>
+  </div>
+</dialog>
+
+<div class="wings" id="wings" aria-hidden="true"></div>
 
 <script src="assets/js/main.js" defer></script>
 </body>
