@@ -40,6 +40,14 @@ Most biodiversity campaigns argue with statistics or scold with imagery of destr
 - Rewards are cosmetic and optional. The custom cursor must never be required for use, must be
   switchable off, and must have a touch-device equivalent. All progress is per-browser
   LocalStorage; nothing is synced and nothing is verified.
+- The quiz's full-score reward is the spider lily: a switch grows a red flower under the rewards
+  list, and pressing that flower releases two red butterflies. The flower is a real button, fires
+  once per activation, and is skipped entirely under `prefers-reduced-motion` with a sentence
+  explaining why. Its red is the only hue outside the binding palette; it is confined to the
+  flower and its two butterflies and recorded as an exception in DESIGN.md.
+- The spider lily is decoration for a family-friendly campaign, not a planting recommendation: it
+  is not a native Indonesian plant and red spider lilies carry farewell/mourning associations in
+  Japan and China, so the page never presents it as advice or as a symbol of the campaign.
 - The habitat simulation must not imply that all four elements are universally mandatory, and
   it is a teaching model, not a depiction of real restoration.
 - Must be responsive (desktop/tablet/mobile), keyboard navigable, reduced-motion aware, and contrast-compliant.
