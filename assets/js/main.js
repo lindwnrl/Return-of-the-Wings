@@ -408,34 +408,43 @@
      blue hindwings edged with white spots, and two tails (after the reference
      photo). Drawn as the left half and mirrored; viewBox is 64 wide, body at x=32. */
   var blueUid = 0;
-  function blueMarkup() {
+  function swallowtailMarkup(p) {
     var id = 'bb' + (++blueUid);
-    var edge = ' stroke="#dff1ff" stroke-opacity="0.5" stroke-width="0.5" stroke-linejoin="round"';
+    var edge = ' stroke="' + p.edge + '" stroke-opacity="0.5" stroke-width="0.5" stroke-linejoin="round"';
     function both(inner) { return inner + '<g transform="translate(64 0) scale(-1 1)">' + inner + '</g>'; }
     var fore = '<path d="M31 28C27 19 16 11 6 10C3 13 3 22 8 29C14 34 24 33 31 32Z" fill="url(#' + id + 'f)"' + edge + '/>' +
-      '<path d="M31 29C24 24 15 19 7 14M31 30C23 28 14 26 8 25" stroke="#8fa4ff" stroke-opacity="0.28" stroke-width="0.5" fill="none"/>' +
-      '<circle cx="6.6" cy="15.5" r="0.8" fill="#cfe9ff" opacity="0.8"/><circle cx="5.7" cy="20" r="0.8" fill="#cfe9ff" opacity="0.8"/><circle cx="7.2" cy="25.4" r="0.8" fill="#cfe9ff" opacity="0.8"/>';
-    var hind = '<path d="M17 51C15 56 14 60 14 62C19 60 23 56 25 51Z" fill="#0d0f33"' + edge + '/>' +
+      '<path d="M31 29C24 24 15 19 7 14M31 30C23 28 14 26 8 25" stroke="' + p.fline + '" stroke-opacity="0.28" stroke-width="0.5" fill="none"/>' +
+      '<circle cx="6.6" cy="15.5" r="0.8" fill="' + p.fdot + '" opacity="0.8"/><circle cx="5.7" cy="20" r="0.8" fill="' + p.fdot + '" opacity="0.8"/><circle cx="7.2" cy="25.4" r="0.8" fill="' + p.fdot + '" opacity="0.8"/>';
+    var hind = '<path d="M17 51C15 56 14 60 14 62C19 60 23 56 25 51Z" fill="' + p.tail + '"' + edge + '/>' +
       '<path d="M31 31C24 32 14 33 9 38C7 44 11 50 18 53C23 55 28 50 31 43Z" fill="url(#' + id + 'h)"' + edge + '/>' +
-      '<path d="M31 33C23 37 15 41 10 43M31 36C25 42 20 47 16 51M31 40C28 45 25 49 22 53" stroke="#06265a" stroke-opacity="0.45" stroke-width="0.5" fill="none"/>' +
-      '<g fill="#fff" opacity="0.95"><circle cx="11" cy="41" r="1.15"/><circle cx="11.4" cy="46" r="1.15"/><circle cx="14.6" cy="50" r="1.15"/><circle cx="19.6" cy="52" r="1.1"/></g>';
+      '<path d="M31 33C23 37 15 41 10 43M31 36C25 42 20 47 16 51M31 40C28 45 25 49 22 53" stroke="' + p.vein + '" stroke-opacity="0.45" stroke-width="0.5" fill="none"/>' +
+      '<g fill="' + p.spot + '" opacity="0.95"><circle cx="11" cy="41" r="1.15"/><circle cx="11.4" cy="46" r="1.15"/><circle cx="14.6" cy="50" r="1.15"/><circle cx="19.6" cy="52" r="1.1"/></g>';
     return '<svg viewBox="0 0 64 64" aria-hidden="true" focusable="false">' +
-      '<defs><linearGradient id="' + id + 'f" gradientUnits="userSpaceOnUse" x1="31" y1="30" x2="6" y2="12"><stop offset="0" stop-color="#3b4296"/><stop offset="0.5" stop-color="#1d1b5c"/><stop offset="1" stop-color="#0f0e2f"/></linearGradient>' +
-      '<linearGradient id="' + id + 'h" gradientUnits="userSpaceOnUse" x1="31" y1="34" x2="9" y2="50"><stop offset="0" stop-color="#52d0f5"/><stop offset="0.55" stop-color="#1f7ccc"/><stop offset="1" stop-color="#14307c"/></linearGradient></defs>' +
+      '<defs><linearGradient id="' + id + 'f" gradientUnits="userSpaceOnUse" x1="31" y1="30" x2="6" y2="12"><stop offset="0" stop-color="' + p.f0 + '"/><stop offset="0.5" stop-color="' + p.f1 + '"/><stop offset="1" stop-color="' + p.f2 + '"/></linearGradient>' +
+      '<linearGradient id="' + id + 'h" gradientUnits="userSpaceOnUse" x1="31" y1="34" x2="9" y2="50"><stop offset="0" stop-color="' + p.h0 + '"/><stop offset="0.55" stop-color="' + p.h1 + '"/><stop offset="1" stop-color="' + p.h2 + '"/></linearGradient></defs>' +
       '<g class="bf__hind">' + both(hind) + '</g><g class="bf__fore">' + both(fore) + '</g>' +
-      '<path d="M31.2 22C29 17 26 13 22.5 10.5M32.8 22C35 17 38 13 41.5 10.5" stroke="#0a0a18" stroke-width="0.6" fill="none" stroke-linecap="round"/>' +
-      '<ellipse cx="32" cy="34" rx="1.7" ry="10" fill="#0a0a18"/><circle cx="32" cy="23.5" r="2.1" fill="#0a0a18"/>' +
+      '<path d="M31.2 22C29 17 26 13 22.5 10.5M32.8 22C35 17 38 13 41.5 10.5" stroke="' + p.body + '" stroke-width="0.6" fill="none" stroke-linecap="round"/>' +
+      '<ellipse cx="32" cy="34" rx="1.7" ry="10" fill="' + p.body + '"/><circle cx="32" cy="23.5" r="2.1" fill="' + p.body + '"/>' +
       '</svg>';
   }
+  var SWALLOW = {
+    blue: { edge: '#dff1ff', f0: '#3b4296', f1: '#1d1b5c', f2: '#0f0e2f', fline: '#8fa4ff', fdot: '#cfe9ff',
+      tail: '#0d0f33', h0: '#52d0f5', h1: '#1f7ccc', h2: '#14307c', vein: '#06265a', spot: '#fff', body: '#0a0a18' },
+    /* Spider lily butterflies: same swallowtail drawing, near-black red forewings,
+       crimson hindwings, cream spots (swallowtails are common visitors of red spider lilies). */
+    red: { edge: '#f6e3c8', f0: '#5b0e16', f1: '#3a0c12', f2: '#2a0a0f', fline: '#c8505a', fdot: '#f6e3c8',
+      tail: '#1a0709', h0: '#e0343f', h1: '#b3202a', h2: '#8e0b21', vein: '#4a0710', spot: '#f6e3c8', body: '#1a0709' }
+  };
+  function blueMarkup() { return swallowtailMarkup(SWALLOW.blue); }
 
   function makeButterfly(size, ink, accent, cls, kind) {
     var el = document.createElement('div');
     el.className = 'bf ' + cls;
     el.style.width = size + 'px';
     el.style.height = size + 'px';
-    el.innerHTML = kind === 'blue' ? blueMarkup() : butterflyMarkup(ink, accent);
+    el.innerHTML = kind === 'blue' ? blueMarkup() : (kind === 'lily' ? swallowtailMarkup(SWALLOW.red) : butterflyMarkup(ink, accent));
     wingsRoot.appendChild(el);
-    return { el: el, size: size, cx: kind === 'blue' ? 32 : 16, kind: kind || 'classic',
+    return { el: el, size: size, cx: (kind === 'blue' || kind === 'lily') ? 32 : 16, kind: kind || 'classic',
       fore: el.querySelector('.bf__fore'), hind: el.querySelector('.bf__hind') };
   }
 
@@ -735,8 +744,6 @@
      red butterflies from the flower; they use the same page-anchored flight
      as the swarm but live in their own list, so the swarm switch never
      removes them. Released butterflies last for the visit only. */
-  var LILY_COLORS = [['#5B0E16', '#C8102E'], ['#7A1420', '#E0343F']];
-
   function lilyEls() {
     return { spot: document.getElementById('lilySpot'), btn: document.getElementById('lilyBtn'),
       hint: document.getElementById('lilyHint') };
@@ -782,8 +789,7 @@
     var r = l.btn.getBoundingClientRect();
     var cx = r.left + r.width / 2, cy = r.top + window.scrollY + r.height * 0.3;
     for (var i = 0; i < 2; i++) {
-      var c = LILY_COLORS[i];
-      var b = makeButterfly(40 + Math.random() * 8, c[0], c[1], 'bf--swarm bf--lily');
+      var b = makeButterfly(40 + Math.random() * 8, '', '', 'bf--swarm bf--lily', 'lily');
       b.lily = true;
       b.x = cx + (i ? 16 : -16); b.y = cy;
       b.heading = -Math.PI / 2 + (i ? 0.7 : -0.7);
