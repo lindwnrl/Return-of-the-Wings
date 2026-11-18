@@ -517,31 +517,62 @@
       b.el.style.visibility = 'hidden';
       swarm.push(b);
     }
-    if (!STORE.read(REWARD_KEY, {}).blue) {
-      // The secret: slower, never shy of the pointer, somewhere along the page.
-      var sb = makeButterfly(58, '', '', 'bf--swarm bf--secret', 'blue');
-      sb.secret = true;
-      sb.x = 80 + Math.random() * (w - 160);
-      sb.y = 300 + Math.random() * Math.max(1, docH - 600);
-      sb.heading = Math.random() * Math.PI * 2;
-      sb.home = sb.y; sb.band = 800;
-      sb.rot = sb.heading + Math.PI / 2;
-      sb.base = 44; sb.v = 44;
-      sb.t = Math.random() * 10;
-      sb.p1 = Math.random() * 6.28; sb.p2 = Math.random() * 6.28;
-      sb.w1 = 0.6; sb.w2 = 1.5;
-      sb.phase = 0; sb.mode = 'cruise'; sb.modeLeft = 2; sb.wait = 0;
-      sb.hidden = true; sb.el.style.visibility = 'hidden';
-      sb.el.addEventListener('click', function () { catchSecret(sb); });
-      swarm.push(sb);
-    }
+    if (secretEligible(STORE.read(REWARD_KEY, {}))) addSecret();
     document.addEventListener('pointermove', onSwarmMouse, { passive: true });
     ensureLoop();
+  }
+
+  /* The blue butterfly is a reward for finishing BOTH the habitat and the quiz.
+     Older saves have no quiz flag, but a cursor unlock that is not the blue one
+     can only have come from the quiz, so it counts. */
+  function secretEligible(r) {
+    return !!(r.habitat && !r.blue && (r.quiz === true || r.cursor === true));
+  }
+
+  function addSecret() {
+    if (!wingsRoot || reduceMotion) return;
+    var w = window.innerWidth;
+    var docH = Math.max(document.documentElement.scrollHeight, window.innerHeight);
+    // The secret: slower, never shy of the pointer, somewhere along the page.
+    var sb = makeButterfly(58, '', '', 'bf--swarm bf--secret', 'blue');
+    sb.secret = true;
+    sb.x = 80 + Math.random() * (w - 160);
+    sb.y = 300 + Math.random() * Math.max(1, docH - 600);
+    sb.heading = Math.random() * Math.PI * 2;
+    sb.home = sb.y; sb.band = 800;
+    sb.rot = sb.heading + Math.PI / 2;
+    sb.base = 44; sb.v = 44;
+    sb.t = Math.random() * 10;
+    sb.p1 = Math.random() * 6.28; sb.p2 = Math.random() * 6.28;
+    sb.w1 = 0.6; sb.w2 = 1.5;
+    sb.phase = 0; sb.mode = 'cruise'; sb.modeLeft = 2; sb.wait = 0;
+    sb.hidden = true; sb.el.style.visibility = 'hidden';
+    sb.el.addEventListener('click', function () { catchSecret(sb); });
+    swarm.push(sb);
+    ensureLoop();
+  }
+
+  // Adds or removes the blue butterfly in a swarm that is already flying, so it
+  // appears the moment both requirements are met, with no reload.
+  function ensureSecret() {
+    if (!swarm.length) return;
+    var has = swarm.some(function (b) { return b.secret; });
+    var ok = secretEligible(STORE.read(REWARD_KEY, {}));
+    if (ok && !has) { addSecret(); return; }
+    if (!ok && has) {
+      swarm = swarm.filter(function (b) {
+        if (!b.secret) return true;
+        b.el.classList.add('is-leaving');
+        window.setTimeout(function () { if (b.el.parentNode) b.el.parentNode.removeChild(b.el); }, 650);
+        return false;
+      });
+    }
   }
 
   function catchSecret(b) {
     var i = swarm.indexOf(b);
     if (i < 0) return;
+    if (!secretEligible(STORE.read(REWARD_KEY, {}))) return;
     swarm.splice(i, 1);
     b.el.classList.add('is-leaving');
     window.setTimeout(function () { if (b.el.parentNode) b.el.parentNode.removeChild(b.el); }, 650);
@@ -734,7 +765,7 @@
     if (!wingsReady) return;
     var rewards = STORE.read(REWARD_KEY, {});
     // On by default once "Rumah lengkap" is unlocked; the switch turns it off.
-    if (rewards.habitat && rewards.swarmOn !== false && !reduceMotion) startSwarm();
+    if (rewards.habitat && rewards.swarmOn !== false && !reduceMotion) { startSwarm(); ensureSecret(); }
     else stopSwarm();
   }
 
@@ -1101,6 +1132,7 @@
       var rewards = STORE.read(REWARD_KEY, {});
       var firstUnlock = !rewards.cursor;
       rewards.cursor = true;
+      rewards.quiz = true;
       if (correct === total) rewards.perfect = true;
       STORE.write(REWARD_KEY, rewards);
       paintRewards();
